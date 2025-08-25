@@ -1,1 +1,22 @@
+# Still Kampf Simulator
 
+Ein einfaches Python-Projekt, das mit [Pygame](https://www.pygame.org/) ein leeres Spielfenster öffnet. Dieses dient als Ausgangspunkt für den geplanten 2D-Kampf-Simulator.
+
+## Voraussetzungen
+
+- Python 3.10 oder höher
+- `pygame` (siehe `requirements.txt`)
+
+## Installation
+
+```bash
+pip install -r requirements.txt
+```
+
+## Starten
+
+```bash
+python main.py
+```
+
+Es erscheint ein leeres Fenster, das als Basis für zukünftige Erweiterungen dient.
