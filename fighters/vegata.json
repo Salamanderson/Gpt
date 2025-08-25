@@ -1,0 +1,7 @@
+{
+  "name": "Vegata",
+  "stats": {"hp": 100, "speed": 110},
+  "abilities": ["dash", "superbeam"],
+  "color": [0, 150, 255],
+  "position": [500, 300]
+}

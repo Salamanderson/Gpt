@@ -1,0 +1,7 @@
+{
+  "name": "Son Pixelku",
+  "stats": {"hp": 100, "speed": 120},
+  "abilities": ["dash", "superbeam", "heal"],
+  "color": [255, 200, 0],
+  "position": [100, 100]
+}
