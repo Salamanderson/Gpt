@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>AI Combat Arena</title>
+<!-- Save this file as index.html and open in a browser -->
+<style>
+:root{font-family:Arial, sans-serif;}
+body{margin:0;padding:0;background:#f5f5f5;color:#222;}
+header{background:#333;color:#fff;padding:0.5rem;text-align:center;}
+nav{display:flex;gap:0.5rem;justify-content:center;margin:0.5rem 0;flex-wrap:wrap;}
+nav button{padding:0.5rem 1rem;}
+main{max-width:1000px;margin:0 auto;padding:0.5rem;}
+section{display:none;}
+section.active{display:block;}
+label{display:block;margin-top:0.5rem;font-size:0.9rem;}
+input[type=text],input[type=number],select{width:100%;padding:0.25rem;}
+#arenaCanvas{background:#fff;border:1px solid #333;display:block;margin:0 auto;}
+#controls{display:flex;gap:0.5rem;justify-content:center;margin:0.5rem 0;}
+#log{height:220px;overflow:auto;background:#000;color:#fff;padding:0.25rem;font-size:0.8rem;}
+#log .attack{color:#f88;}#log .skill{color:#8af;}#log .heal{color:#8f8;}#log .barrier{color:#8ff;}#log .status{color:#ff8;}
+#logFilters{display:flex;gap:0.5rem;margin:0.5rem 0;}
+/* token designer */
+#tokenCanvas{background: repeating-conic-gradient(#ccc 0deg 90deg, #eee 90deg 180deg);image-rendering:pixelated;width:128px;height:128px;border:1px solid #333;}
+form small{color:#c00;}
+</style>
+</head>
+<body>
+<header><h1>AI Combat Arena</h1></header>
+<nav>
+<button data-tab="arena">Arena</button>
+<button data-tab="chars">Character Creator</button>
+<button data-tab="skills">Skill Creator</button>
+<button data-tab="ai">AI Creator</button>
+</nav>
+<main>
+<section id="tab-arena" class="active">
+<div id="arenaSelect">
+<label>A: <select id="charA"></select></label>
+<label>B: <select id="charB"></select></label>
+</div>
+<div id="controls">
+<button id="startBtn">Start</button>
+<button id="pauseBtn">Pause</button>
+<button id="resetBtn">Reset</button>
+<label>Speed <select id="speedSel"><option value="1">1x</option><option value="2">2x</option></select></label>
+</div>
+<canvas id="arenaCanvas" width="600" height="260"></canvas>
+<div id="logFilters">
+<label><input type="checkbox" data-filter="attack" checked>Attacks</label>
+<label><input type="checkbox" data-filter="skill" checked>Skills</label>
+<label><input type="checkbox" data-filter="heal" checked>Heals</label>
+<label><input type="checkbox" data-filter="barrier" checked>Barrier</label>
+<label><input type="checkbox" data-filter="status" checked>System</label>
+</div>
+<div id="log" aria-live="polite"></div>
+<button id="exportLog">Export Log JSON</button>
+</section>
+<section id="tab-chars">
+<h2>Character Creator</h2>
+<div>
+<label>Name <input id="charName" type="text"></label>
+<label>Color <input id="charColor" type="color" value="#00ffff"></label>
+<label>HP <input id="charHP" type="number" min="1" max="500" value="100"></label>
+<label>ATK <input id="charATK" type="number" min="1" max="50" value="10"></label>
+<label>DEF <input id="charDEF" type="number" min="0" max="50" value="5"></label>
+<label>SPD <input id="charSPD" type="number" min="1" max="10" value="2"></label>
+<label>Skill Slot 0 <select id="charSkill0"></select></label>
+<label>Skill Slot 1 <select id="charSkill1"></select></label>
+<label>Skill Slot 2 <select id="charSkill2"></select></label>
+<label>AI Profile <select id="charAI"></select></label>
+<button id="saveChar">Save Character</button>
+</div>
+<h3>Token Designer</h3>
+<canvas id="tokenCanvas" width="32" height="32"></canvas>
+<div>
+<label>Palette Base <input id="palBase" type="color" value="#00ffff"></label>
+<label>Palette Accent <input id="palAccent" type="color" value="#ffffff"></label>
+</div>
+<div>
+<h4>Main</h4>
+<label>Shape <select id="mainShape"><option>circle</option><option>square</option><option>diamond</option><option>triangleUp</option><option>triangleDown</option><option>hex</option></select></label>
+<label>Scale <input id="mainScale" type="number" min="0.60" max="1" step="0.01" value="0.88"></label>
+<label>Rotation <input id="mainRot" type="number" min="0" max="345" step="15" value="0"></label>
+<label>Fill <select id="mainFill"><option value="base">base</option><option value="accent">accent</option></select></label>
+<label><input type="checkbox" id="mainOutline" checked>Outline</label>
+</div>
+<div>
+<h4>Top</h4>
+<label><input type="checkbox" id="topEnabled"> Enabled</label>
+<label>Shape <select id="topShape"><option>circle</option><option>square</option><option>diamond</option><option>triangleUp</option><option>triangleDown</option><option>hex</option></select></label>
+<label>Scale <input id="topScale" type="number" min="0.30" max="0.95" step="0.01" value="0.45"></label>
+<label>Rotation <input id="topRot" type="number" min="0" max="345" step="15" value="0"></label>
+<label>OffsetX <input id="topX" type="number" min="-12" max="12" step="1" value="0"></label>
+<label>OffsetY <input id="topY" type="number" min="-12" max="12" step="1" value="0"></label>
+<label>Fill <select id="topFill"><option value="base">base</option><option value="accent">accent</option></select></label>
+<label><input type="checkbox" id="topOutline" checked>Outline</label>
+<button id="topCenter">Center</button>
+</div>
+<button id="exportPNG">Export PNG</button>
+</section>
+<section id="tab-skills">
+<h2>Skill Creator</h2>
+<div>
+<label>Name <input id="skillName" type="text"></label>
+<label>Type <select id="skillType"></select></label>
+<label>Cooldown(ms) <input id="skillCd" type="number" min="100" max="20000" step="100" value="1000"></label>
+<label>Params(JSON) <textarea id="skillParams" rows="4"></textarea></label>
+<button id="saveSkill">Save Skill</button>
+</div>
+</section>
+<section id="tab-ai">
+<h2>AI Creator</h2>
+<div>
+<label>Name <input id="aiName" type="text"></label>
+<button id="addRule">Add Rule</button>
+<div id="ruleList"></div>
+<button id="saveAI">Save AI</button>
+</div>
+</section>
+</main>
+<script>
+// === state ===
+const state={chars:[],skills:[],ais:[],tokens:{},logs:[],ruleCooldowns:{},running:false,speed:1};
+let currentA=0,currentB=1; // indices of fighters
+
+// === storage ===
+function saveAll(){localStorage.setItem('aiarena',JSON.stringify({chars:state.chars,skills:state.skills,ais:state.ais,tokens:state.tokens}));}
+function loadAll(){const d=localStorage.getItem('aiarena');if(d){try{const obj=JSON.parse(d);state.chars=obj.chars||[];state.skills=obj.skills||[];state.ais=obj.ais||[];state.tokens=obj.tokens||{};}catch(e){console.error(e);}}
+}
+
+// === seeds ===
+function seed(){if(state.skills.length) return;const skillSeeds=[
+{id:'dash',name:'Dash',type:'dash',cooldownMs:1500,params:{distance:40}},
+{id:'projectile',name:'Projectile',type:'projectile',cooldownMs:800,params:{damage:10,speed:3,size:4,lifetimeMs:3000}},
+{id:'barrier',name:'Barrier',type:'barrier',cooldownMs:4000,params:{durationMs:2000,reductionPct:0.5}},
+{id:'heal',name:'Heal',type:'heal',cooldownMs:5000,params:{amount:20}},
+{id:'heavySlam',name:'Heavy Slam',type:'heavySlam',cooldownMs:2500,params:{damage:25,hitboxW:20,hitboxH:20,knockback:5}},
+{id:'stun',name:'Stun',type:'stun',cooldownMs:3000,params:{durationMs:2000,damage:5}},
+{id:'spreadShot',name:'Spread Shot',type:'spreadShot',cooldownMs:2000,params:{damage:6,projectiles:3,spreadDeg:30,speed:3}},
+{id:'knockbackWave',name:'Knockback Wave',type:'knockbackWave',cooldownMs:3000,params:{force:10,damage:8,radius:30}},
+{id:'regen',name:'Regen',type:'regen',cooldownMs:6000,params:{perTick:2,ticks:5,gapMs:1000}},
+{id:'berserk',name:'Berserk',type:'berserk',cooldownMs:8000,params:{atkBonus:5,defPenalty:2,durationMs:4000}}
+];state.skills=skillSeeds;
+const aiSeeds=[
+{id:'agg',name:'Aggressive',rules:[
+{ id:'agg-close', name:'Close Attack',priority:2, conditions:[{kind:'distance_lt',value:60},{kind:'cooldown_ready',slot:'basic'}], action:{kind:'attack_basic'} },
+{ id:'agg-skill', name:'Use Skill0',priority:3, conditions:[{kind:'distance_lt',value:80},{kind:'cooldown_ready',slot:0}], action:{kind:'cast_skill',slot:0}},
+{ id:'agg-heal', name:'HealSelf',priority:4, conditions:[{kind:'self_hp_lt',value:30},{kind:'cooldown_ready',slot:2}], action:{kind:'cast_skill',slot:2}},
+{ id:'agg-fallback', name:'Advance',priority:1, conditions:[{kind:'always'}], action:{kind:'move_towards',intensity:0.6} }
+]},
+{id:'def',name:'Defensive',rules:[
+{ id:'def-barrier', name:'Barrier',priority:4, conditions:[{kind:'cooldown_ready',slot:1},{kind:'self_hp_lt',value:70}], action:{kind:'cast_skill',slot:1}},
+{ id:'def-retreat', name:'Retreat',priority:3, conditions:[{kind:'distance_lt',value:50}], action:{kind:'move_away',intensity:1}},
+{ id:'def-shot', name:'Ranged',priority:2, conditions:[{kind:'cooldown_ready',slot:0}], action:{kind:'cast_skill',slot:0}},
+{ id:'def-fallback', name:'KeepAway',priority:1, conditions:[{kind:'always'}], action:{kind:'move_away',intensity:0.3}}
+]},
+{id:'heal',name:'Healer',rules:[
+{ id:'heal-heal', name:'Heal',priority:4, conditions:[{kind:'self_hp_lt',value:60},{kind:'cooldown_ready',slot:0}], action:{kind:'cast_skill',slot:0}},
+{ id:'heal-regen', name:'Regen',priority:3, conditions:[{kind:'self_hp_lt',value:80},{kind:'cooldown_ready',slot:1}], action:{kind:'cast_skill',slot:1}},
+{ id:'heal-retreat', name:'Avoid',priority:2, conditions:[{kind:'distance_lt',value:50}], action:{kind:'move_away',intensity:0.8}},
+{ id:'heal-fallback', name:'Advance',priority:1, conditions:[{kind:'always'}], action:{kind:'move_towards',intensity:0.4}}
+]}
+];state.ais=aiSeeds;
+const charSeeds=[
+{id:'scout',name:'Scout',color:'#00ced1',stats:{hp:80,atk:8,def:3,spd:2.5},skills:['dash','projectile','stun'],ai:'agg',token:'striker'},
+{id:'tank',name:'Tank',color:'#1e90ff',stats:{hp:150,atk:12,def:8,spd:1.5},skills:['heavySlam','barrier','knockbackWave'],ai:'def',token:'tank'}
+];state.chars=charSeeds;
+// tokens
+state.tokens={striker:{size:32,palette:{outline:'#000',base:'#00ffff',accent:'#ffffff'},main:{shape:'circle',scale:0.88,fill:'base',outline:true},top:{shape:'triangleUp',scale:0.38,offsetY:-3,fill:'accent',outline:true,enabled:true}},
+scout:{size:32,palette:{outline:'#000',base:'#008080',accent:'#ffffff'},main:{shape:'circle',scale:0.85,fill:'base',outline:true},top:{shape:'triangleUp',scale:0.45,offsetY:-4,fill:'accent',outline:true,enabled:true}},
+ tank:{size:32,palette:{outline:'#000',base:'#0000ff',accent:'#ffffff'},main:{shape:'hex',scale:0.9,fill:'base',outline:true},top:{shape:'circle',scale:0.2,fill:'accent',outline:true,enabled:true}}};
+saveAll();}
+
+// === ui helpers ===
+function populateSelect(sel,arr,getVal){sel.innerHTML='';arr.forEach(o=>{const opt=document.createElement('option');opt.value=getVal?getVal(o):o.id;opt.textContent=o.name;sel.appendChild(opt);});}
+function refreshSelectors(){populateSelect(document.getElementById('charA'),state.chars);populateSelect(document.getElementById('charB'),state.chars);
+populateSelect(document.getElementById('charSkill0'),state.skills);populateSelect(document.getElementById('charSkill1'),state.skills);populateSelect(document.getElementById('charSkill2'),state.skills);populateSelect(document.getElementById('charAI'),state.ais);
+populateSelect(document.getElementById('skillType'),[...new Set(state.skills.map(s=>s.type))].map(t=>({id:t,name:t})));populateSelect(document.getElementById('skillType'),[{id:'dash',name:'dash'},{id:'projectile',name:'projectile'},{id:'barrier',name:'barrier'},{id:'heal',name:'heal'},{id:'heavySlam',name:'heavySlam'},{id:'stun',name:'stun'},{id:'spreadShot',name:'spreadShot'},{id:'knockbackWave',name:'knockbackWave'},{id:'regen',name:'regen'},{id:'berserk',name:'berserk'}]);populateSelect(document.getElementById('charAI'),state.ais);
+}
+
+// tab switching
+Array.from(document.querySelectorAll('nav button')).forEach(btn=>btn.addEventListener('click',()=>{
+Array.from(document.querySelectorAll('main section')).forEach(sec=>sec.classList.remove('active'));
+document.getElementById('tab-'+btn.dataset.tab).classList.add('active');
+}));
+
+// === token rendering ===
+const tokenCanvas=document.getElementById('tokenCanvas');const tctx=tokenCanvas.getContext('2d');
+function drawToken(des){const cvs=document.createElement('canvas');cvs.width=cvs.height=32;const ctx=cvs.getContext('2d');ctx.clearRect(0,0,32,32);function drawFig(fig){if(!fig||fig.enabled===false) return;ctx.save();ctx.translate(16+(fig.offsetX||0),16+(fig.offsetY||0));if(fig.rotation)ctx.rotate(fig.rotation*Math.PI/180);const size=28*fig.scale;const fillColor=des.palette[fig.fill];ctx.fillStyle=fillColor;ctx.strokeStyle=des.palette.outline;const h=size/2;switch(fig.shape){case 'circle':ctx.beginPath();ctx.arc(0,0,h,0,Math.PI*2);ctx.closePath();ctx.fill();if(fig.outline)ctx.stroke();break;case 'square':ctx.beginPath();ctx.rect(-h,-h,size,size);ctx.closePath();ctx.fill();if(fig.outline)ctx.stroke();break;case 'diamond':ctx.beginPath();ctx.moveTo(0,-h);ctx.lineTo(h,0);ctx.lineTo(0,h);ctx.lineTo(-h,0);ctx.closePath();ctx.fill();if(fig.outline)ctx.stroke();break;case 'triangleUp':ctx.beginPath();ctx.moveTo(0,-h);ctx.lineTo(h,h);ctx.lineTo(-h,h);ctx.closePath();ctx.fill();if(fig.outline)ctx.stroke();break;case 'triangleDown':ctx.beginPath();ctx.moveTo(0,h);ctx.lineTo(h,-h);ctx.lineTo(-h,-h);ctx.closePath();ctx.fill();if(fig.outline)ctx.stroke();break;case 'hex':ctx.beginPath();for(let i=0;i<6;i++){const ang=Math.PI/3*i;ctx.lineTo(Math.cos(ang)*h,Math.sin(ang)*h);}ctx.closePath();ctx.fill();if(fig.outline)ctx.stroke();break;}
+ctx.restore();}
+drawFig(des.main);drawFig(des.top);tctx.imageSmoothingEnabled=false;tctx.clearRect(0,0,128,128);tctx.drawImage(cvs,0,0,32,32,0,0,128,128);}
+
+function currentDesign(){return{size:32,palette:{outline:'#000',base:document.getElementById('palBase').value,accent:document.getElementById('palAccent').value},main:{shape:document.getElementById('mainShape').value,scale:parseFloat(document.getElementById('mainScale').value),rotation:parseFloat(document.getElementById('mainRot').value),fill:document.getElementById('mainFill').value,outline:document.getElementById('mainOutline').checked},top:{enabled:document.getElementById('topEnabled').checked,shape:document.getElementById('topShape').value,scale:parseFloat(document.getElementById('topScale').value),rotation:parseFloat(document.getElementById('topRot').value),offsetX:parseInt(document.getElementById('topX').value),offsetY:parseInt(document.getElementById('topY').value),fill:document.getElementById('topFill').value,outline:document.getElementById('topOutline').checked}};}
+['palBase','palAccent','mainShape','mainScale','mainRot','mainFill','mainOutline','topEnabled','topShape','topScale','topRot','topX','topY','topFill','topOutline'].forEach(id=>{document.getElementById(id).addEventListener('input',()=>{drawToken(currentDesign());});});
+
+document.getElementById('topCenter').addEventListener('click',()=>{document.getElementById('topX').value=0;document.getElementById('topY').value=0;drawToken(currentDesign());});
+
+document.getElementById('exportPNG').addEventListener('click',()=>{const link=document.createElement('a');link.download='token.png';link.href=tokenCanvas.toDataURL();link.click();});
+
+// === Character save ===
+function saveCharacter(){const c={id:document.getElementById('charName').value.toLowerCase().replace(/\s+/g,''),name:document.getElementById('charName').value,color:document.getElementById('charColor').value,stats:{hp:+document.getElementById('charHP').value,atk:+document.getElementById('charATK').value,def:+document.getElementById('charDEF').value,spd:+document.getElementById('charSPD').value},skills:[document.getElementById('charSkill0').value||null,document.getElementById('charSkill1').value||null,document.getElementById('charSkill2').value||null],ai:document.getElementById('charAI').value,token:c.id};state.chars.push(c);state.tokens[c.id]=currentDesign();saveAll();refreshSelectors();}
+document.getElementById('saveChar').addEventListener('click',saveCharacter);
+
+// === Skill save ===
+function saveSkill(){const s={id:document.getElementById('skillName').value.toLowerCase().replace(/\s+/g,''),name:document.getElementById('skillName').value,type:document.getElementById('skillType').value,cooldownMs:+document.getElementById('skillCd').value,params:{}};try{s.params=JSON.parse(document.getElementById('skillParams').value||'{}');}catch(e){alert('Bad params JSON');return;}state.skills.push(s);saveAll();refreshSelectors();}
+document.getElementById('saveSkill').addEventListener('click',saveSkill);
+
+// === AI save ===
+function saveAI(){const id=document.getElementById('aiName').value.toLowerCase().replace(/\s+/g,''), rules=Array.from(document.querySelectorAll('.rule')).map(div=>{return{id:crypto.randomUUID(),name:div.querySelector('.rName').value,priority:+div.querySelector('.rPrio').value,conditions:JSON.parse(div.querySelector('.rCond').value||'[]'),action:JSON.parse(div.querySelector('.rAct').value||'{}')};});state.ais.push({id,name:document.getElementById('aiName').value,rules});saveAll();refreshSelectors();}
+document.getElementById('saveAI').addEventListener('click',saveAI);
+document.getElementById('addRule').addEventListener('click',()=>{const d=document.createElement('div');d.className='rule';d.innerHTML=`<label>Name <input class="rName" type="text"></label><label>Priority <input class="rPrio" type="number" value="1"></label><label>Conditions JSON <textarea class="rCond" rows="2">[]</textarea></label><label>Action JSON <textarea class="rAct" rows="2">{}</textarea></label>`;document.getElementById('ruleList').appendChild(d);});
+
+// === arena ===
+const canvas=document.getElementById('arenaCanvas');const ctx=canvas.getContext('2d');
+let fighters=[], projectiles=[];
+
+function initFight(){currentA=document.getElementById('charA').selectedIndex;currentB=document.getElementById('charB').selectedIndex;const char1=JSON.parse(JSON.stringify(state.chars[currentA]));const char2=JSON.parse(JSON.stringify(state.chars[currentB]));fighters=[makeFighter(char1,80),makeFighter(char2,520)];projectiles=[];state.logs=[];state.ruleCooldowns={};state.running=false;drawScene();logEvent({t:'status',msg:'Ready'});}
+function makeFighter(ch,x){return{...ch,x, y:200,hp:ch.stats.hp,vel:0,dir:1,cds:{basic:0,0:0,1:0,2:0},buffs:[]};}
+
+function drawScene(){ctx.clearRect(0,0,canvas.width,canvas.height);ctx.fillStyle='#654';ctx.fillRect(0,220,600,40);fighters.forEach((f,i)=>{const tok=state.tokens[f.token];if(tok){const cvs=document.createElement('canvas');cvs.width=cvs.height=32;drawTokenToCanvas(tok,cvs);ctx.drawImage(cvs,f.x-16,f.y-32);}
+ctx.fillStyle='#f00';ctx.fillRect(f.x-25,5,50,5);ctx.fillStyle='#0f0';ctx.fillRect(f.x-25,5,(f.hp/charsById(f.id).stats.hp)*50,5);});
+projectiles.forEach(p=>{ctx.fillStyle=p.color;ctx.fillRect(p.x-2,p.y-2,4,4);});}
+
+function drawTokenToCanvas(des,target){const ctx2=target.getContext('2d');ctx2.clearRect(0,0,32,32);function draw(fig){if(!fig||fig.enabled===false) return;ctx2.save();ctx2.translate(16+(fig.offsetX||0),16+(fig.offsetY||0));if(fig.rotation)ctx2.rotate(fig.rotation*Math.PI/180);const size=28*fig.scale;const fillColor=des.palette[fig.fill];ctx2.fillStyle=fillColor;ctx2.strokeStyle=des.palette.outline;const h=size/2;switch(fig.shape){case 'circle':ctx2.beginPath();ctx2.arc(0,0,h,0,Math.PI*2);ctx2.closePath();ctx2.fill();if(fig.outline)ctx2.stroke();break;case 'square':ctx2.beginPath();ctx2.rect(-h,-h,size,size);ctx2.closePath();ctx2.fill();if(fig.outline)ctx2.stroke();break;case 'diamond':ctx2.beginPath();ctx2.moveTo(0,-h);ctx2.lineTo(h,0);ctx2.lineTo(0,h);ctx2.lineTo(-h,0);ctx2.closePath();ctx2.fill();if(fig.outline)ctx2.stroke();break;case 'triangleUp':ctx2.beginPath();ctx2.moveTo(0,-h);ctx2.lineTo(h,h);ctx2.lineTo(-h,h);ctx2.closePath();ctx2.fill();if(fig.outline)ctx2.stroke();break;case 'triangleDown':ctx2.beginPath();ctx2.moveTo(0,h);ctx2.lineTo(h,-h);ctx2.lineTo(-h,-h);ctx2.closePath();ctx2.fill();if(fig.outline)ctx2.stroke();break;case 'hex':ctx2.beginPath();for(let i=0;i<6;i++){const ang=Math.PI/3*i;ctx2.lineTo(Math.cos(ang)*h,Math.sin(ang)*h);}ctx2.closePath();ctx2.fill();if(fig.outline)ctx2.stroke();break;}ctx2.restore();}
+draw(des.main);draw(des.top);} 
+
+function charsById(id){return state.chars.find(c=>c.id===id);}
+
+function logEvent(ev){ev.ts=Date.now();state.logs.push(ev);if(state.logs.length>200)state.logs.shift();renderLog();}
+function renderLog(){const logDiv=document.getElementById('log');const filters=Array.from(document.querySelectorAll('#logFilters input')).filter(i=>i.checked).map(i=>i.dataset.filter);logDiv.innerHTML='';state.logs.forEach(ev=>{if(!filters.includes(ev.t))return;const line=document.createElement('div');line.className=ev.t;const ts=new Date(ev.ts);line.textContent=`${ts.getMinutes().toString().padStart(2,'0')}:${ts.getSeconds().toString().padStart(2,'0')} ${JSON.stringify(ev)}`;logDiv.appendChild(line);});logDiv.scrollTop=logDiv.scrollHeight;}
+
+Array.from(document.querySelectorAll('#logFilters input')).forEach(i=>i.addEventListener('change',renderLog));
+
+document.getElementById('exportLog').addEventListener('click',()=>{const link=document.createElement('a');link.download='combatlog.json';link.href='data:text/json,'+encodeURIComponent(JSON.stringify(state.logs));link.click();});
+
+function start(){if(state.running)return;state.running=true;loop();logEvent({t:'status',msg:'Start'});}function pause(){state.running=false;logEvent({t:'status',msg:'Pause'});}function reset(){initFight();logEvent({t:'status',msg:'Reset'});} 
+
+document.getElementById('startBtn').addEventListener('click',start);document.getElementById('pauseBtn').addEventListener('click',pause);document.getElementById('resetBtn').addEventListener('click',reset);document.getElementById('speedSel').addEventListener('change',e=>state.speed=+e.target.value);
+
+function distance(a,b){return Math.abs(a.x-b.x);} 
+
+function evaluateAI(f,enemy){const ai=state.ais.find(a=>a.id===f.ai);if(!ai)return{kind:'move_towards',intensity:0.1};ai.rules.sort((a,b)=>b.priority-a.priority);for(const rule of ai.rules){const cooldown=state.ruleCooldowns[rule.id]||0;if(Date.now()<cooldown)continue;let ok=true;for(const c of rule.conditions){switch(c.kind){case 'self_hp_lt': if(f.hp/f.stats.hp*100>=c.value) ok=false; break;case 'enemy_hp_lt': if(enemy.hp/enemy.stats.hp*100>=c.value) ok=false; break;case 'distance_lt': if(distance(f,enemy)>=c.value) ok=false; break;case 'distance_gt': if(distance(f,enemy)<=c.value) ok=false; break;case 'cooldown_ready': if(f.cds[c.slot]>0) ok=false; break;case 'always': break;default: break;}}if(ok){if(rule.cooldownMs)state.ruleCooldowns[rule.id]=Date.now()+rule.cooldownMs;return rule.action;}}
+return{kind:'move_towards',intensity:0.2};}
+
+function performAction(f,enemy,act){switch(act.kind){case 'move_towards':f.vel+=(enemy.x>f.x?1:-1)*(act.intensity||0.5);break;case 'move_away':f.vel+=(enemy.x>f.x?-1:1)*(act.intensity||0.5);break;case 'attack_basic':if(f.cds.basic<=0&&distance(f,enemy)<40){const dmg=Math.max(1,f.stats.atk-enemy.stats.def);enemy.hp-=dmg;f.cds.basic=800/state.speed;logEvent({t:'attack',actor:f.name,target:enemy.name,dmg});}break;case 'cast_skill':useSkill(f,enemy,act.slot);break;case 'idle':break;}}
+
+function useSkill(f,enemy,slot){const sid=f.skills[slot];if(!sid)return;const skill=state.skills.find(s=>s.id===sid);if(!skill)return;if(f.cds[slot]>0)return;f.cds[slot]=skill.cooldownMs/state.speed;logEvent({t:'skill',actor:f.name,name:skill.name});switch(skill.type){case 'dash':f.vel+=(f.x<enemy.x?1:-1)*2;break;case 'projectile':projectiles.push({x:f.x,y:f.y-16,v:(f.x<enemy.x?1:-1)*skill.params.speed,damage:skill.params.damage,color:f.color});break;case 'barrier':f.buffs.push({kind:'barrier',until:Date.now()+skill.params.durationMs,effect:skill.params.reductionPct});break;case 'heal':f.hp=Math.min(f.stats.hp,f.hp+skill.params.amount);logEvent({t:'heal',actor:f.name,amount:skill.params.amount});break;case 'heavySlam':if(distance(f,enemy)<skill.params.hitboxW){enemy.hp-=skill.params.damage;logEvent({t:'attack',actor:f.name,target:enemy.name,dmg:skill.params.damage});}break;case 'stun':if(distance(f,enemy)<40){enemy.stunUntil=Date.now()+skill.params.durationMs;enemy.hp-=skill.params.damage;logEvent({t:'attack',actor:f.name,target:enemy.name,dmg:skill.params.damage});}break;case 'spreadShot':const deg=skill.params.spreadDeg;for(let i=-1;i<=1;i++){projectiles.push({x:f.x,y:f.y-16,v:(f.x<enemy.x?1:-1)*skill.params.speed,damage:skill.params.damage,color:f.color,dy:Math.tan((i*deg*Math.PI/180))});}break;case 'knockbackWave':if(distance(f,enemy)<skill.params.radius){enemy.hp-=skill.params.damage;enemy.vel+=(enemy.x>f.x?1:-1)*skill.params.force;logEvent({t:'attack',actor:f.name,target:enemy.name,dmg:skill.params.damage});}break;case 'regen':f.buffs.push({kind:'regen',ticks:skill.params.ticks,per:skill.params.perTick,gap:skill.params.gapMs,next:Date.now()+skill.params.gapMs});break;case 'berserk':f.buffs.push({kind:'berserk',until:Date.now()+skill.params.durationMs,atk:f.stats.atk+skill.params.atkBonus,def:Math.max(0,f.stats.def-skill.params.defPenalty)});break;}}
+
+function updateBuffs(f){f.buffs=f.buffs.filter(b=>{if(b.kind==='barrier'&&Date.now()>b.until)return false;if(b.kind==='berserk'){if(Date.now()>b.until){f.stats.atk-=b.atk-f.stats.atk;f.stats.def+=b.def-f.stats.def;return false;}}
+if(b.kind==='regen'){if(Date.now()>=b.next){f.hp=Math.min(f.stats.hp,f.hp+b.per);logEvent({t:'heal',actor:f.name,amount:b.per});b.next=Date.now()+b.gap;b.ticks--;if(b.ticks<=0)return false;}}
+return true;});}
+
+function applyVel(f){f.x+=f.vel;f.vel*=0.8;f.x=Math.max(20,Math.min(580,f.x));}
+
+function loop(){if(!state.running)return;for(const f of fighters){const enemy=f===fighters[0]?fighters[1]:fighters[0];if(f.stunUntil&&Date.now()<f.stunUntil){f.vel*=0.9;}else{const act=evaluateAI(f,enemy);performAction(f,enemy,act);}updateBuffs(f);applyVel(f);for(let k in f.cds)if(f.cds[k]>0)f.cds[k]-=16/state.speed;if(f.hp<=0){logEvent({t:'status',msg:f.name+' KO'});state.running=false;}}
+projectiles=projectiles.filter(p=>{p.x+=p.v;p.y+=p.dy||0;if(p.x<0||p.x>600) return false;const target=p.v>0?fighters[1]:fighters[0];if(Math.abs(p.x-target.x)<10&&Math.abs(p.y-target.y)<20){const dmg=Math.max(1,p.damage-target.stats.def);target.hp-=dmg;logEvent({t:'attack',actor:p.v>0?fighters[0].name:fighters[1].name,target:target.name,dmg});return false;}return true;});drawScene();if(state.running)requestAnimationFrame(loop);}
+
+// === init ===
+loadAll();seed();refreshSelectors();initFight();drawToken(currentDesign());
+
+</script>
+</body>
+</html>
