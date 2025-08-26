@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>AI Arena</title>
+<style>
+/* basic reset */
+*{box-sizing:border-box;margin:0;padding:0;font-family:sans-serif}
+body{background:#f4f4f4;color:#111;}
+main{max-width:900px;margin:0 auto;padding:1rem;}
+nav{display:flex;gap:.5rem;margin-bottom:1rem;}
+nav button{flex:1;padding:.5rem;}
+section{display:none;}
+section.active{display:block;}
+canvas{background:#fff;border:1px solid #999;}
+form{display:grid;gap:.5rem;margin:1rem 0;}
+label{display:flex;flex-direction:column;font-size:.9rem;}
+input,select,textarea{padding:.25rem;}
+#log{height:220px;overflow:auto;background:#fff;border:1px solid #999;margin-top:1rem;padding:.25rem;font-size:.8rem;}
+#log .atk{color:#b00;}#log .skill{color:#06c;}#log .heal{color:#070;}#log .barrier{color:#06a;}#log .status{color:#666;}
+#logFilters{display:flex;gap:.5rem;font-size:.8rem;}
+.hpbar{height:8px;background:#0a0;margin:2px 0;}
+.coolbar{height:4px;background:#06c;margin:2px 0;}
+.controls{display:flex;gap:.5rem;margin-top:.5rem;}
+#tokenPreview{image-rendering:pixelated;border:1px solid #999;background: repeating-conic-gradient(#ccc 0deg 90deg, #fff 90deg 180deg) 0 0/8px 8px;}
+.token-controls{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:.5rem;}
+.hidden{display:none;}
+</style>
+</head>
+<body>
+<!-- Run-Hinweis: Datei als index.html speichern und im Browser öffnen -->
+<main>
+<nav>
+<button data-tab="arena" class="active">Arena</button>
+<button data-tab="chars">Character Creator</button>
+<button data-tab="skills">Skill Creator</button>
+<button data-tab="ais">AI Creator</button>
+</nav>
+<section id="arena" class="active">
+<canvas id="arenaCanvas" width="600" height="200"></canvas>
+<div class="controls">
+<button id="startBtn">Start</button>
+<button id="pauseBtn">Pause</button>
+<button id="resetBtn">Reset</button>
+<label>Speed<select id="speedSel"><option value="1">1x</option><option value="2">2x</option></select></label>
+</div>
+<div id="logFilters">
+<label><input type="checkbox" data-type="atk" checked>Attack</label>
+<label><input type="checkbox" data-type="skill" checked>Skill</label>
+<label><input type="checkbox" data-type="heal" checked>Heal</label>
+<label><input type="checkbox" data-type="barrier" checked>Barrier</label>
+<label><input type="checkbox" data-type="status" checked>System</label>
+</div>
+<div id="log" aria-live="polite"></div>
+</section>
+<section id="chars">
+<h2>Character Creator</h2>
+<select id="charList"></select>
+<form id="charForm">
+<label>Name<input id="charName"></label>
+<label>Color<input type="color" id="charColor"></label>
+<label>HP<input type="number" id="charHP" min="10" max="500"></label>
+<label>ATK<input type="number" id="charATK" min="1" max="50"></label>
+<label>DEF<input type="number" id="charDEF" min="0" max="50"></label>
+<label>SPD<input type="number" id="charSPD" min="1" max="10"></label>
+<label>Skill 0<select id="charSkill0"></select></label>
+<label>Skill 1<select id="charSkill1"></select></label>
+<label>Skill 2<select id="charSkill2"></select></label>
+<label>AI Profile<select id="charAI"></select></label>
+<h3>Token Designer</h3>
+<canvas id="tokenPreview" width="128" height="128"></canvas>
+<div class="token-controls">
+<label>Outline<input type="color" id="palOutline"></label>
+<label>Base<input type="color" id="palBase"></label>
+<label>Accent<input type="color" id="palAccent"></label>
+<label>Main Shape<select id="mainShape"><option>circle</option><option>square</option><option>diamond</option><option>triangleUp</option><option>triangleDown</option><option>hex</option></select></label>
+<label>Main Scale<input type="number" id="mainScale" min="0.6" max="1" step="0.01"></label>
+<label>Main Rotation<input type="number" id="mainRot" min="0" max="345" step="15"></label>
+<label>Main Fill<select id="mainFill"><option>base</option><option>accent</option></select></label>
+<label>Main Outline<input type="checkbox" id="mainOut" checked></label>
+<label>Top Enabled<input type="checkbox" id="topEnabled"></label>
+<label>Top Shape<select id="topShape"><option>circle</option><option>square</option><option>diamond</option><option>triangleUp</option><option>triangleDown</option><option>hex</option></select></label>
+<label>Top Scale<input type="number" id="topScale" min="0.3" max="0.95" step="0.01"></label>
+<label>Top Rot<input type="number" id="topRot" min="0" max="345" step="15"></label>
+<label>Top Fill<select id="topFill"><option>base</option><option>accent</option></select></label>
+<label>Top Outline<input type="checkbox" id="topOut"></label>
+<label>Top OffsetX<input type="number" id="topX" min="-12" max="12" step="1"></label>
+<label>Top OffsetY<input type="number" id="topY" min="-12" max="12" step="1"></label>
+</div>
+<button id="charSave">Save</button>
+</form>
+<button id="exportData">Export JSON</button>
+<input type="file" id="importData" class="hidden" accept="application/json">
+<button id="importBtn">Import JSON</button>
+<div id="charMsg" aria-live="polite"></div>
+</section>
+<section id="skills">
+<h2>Skill Creator</h2>
+<select id="skillList"></select>
+<form id="skillForm">
+<label>Name<input id="skillName"></label>
+<label>Type<select id="skillType"></select></label>
+<label>Cooldown(ms)<input type="number" id="skillCd"></label>
+<label>Damage<input type="number" id="skillDmg"></label>
+<label>Range<input type="number" id="skillRange"></label>
+</form>
+<button id="skillSave">Save Skill</button>
+</section>
+<section id="ais">
+<h2>AI Creator</h2>
+<select id="aiList"></select>
+<form id="aiForm">
+<label>Name<input id="aiName"></label>
+<div id="ruleList"></div>
+<button type="button" id="addRule">Add Rule</button>
+</form>
+<button id="aiSave">Save AI</button>
+</section>
+</main>
+<script>
+// state
+const state={chars:[],skills:[],ais:[],last:{a:null,b:null}};
+// storage
+function load(){let s=localStorage.getItem('arenaData');if(s){try{Object.assign(state,JSON.parse(s));}catch(e){console.warn('parse',e);}}
+}
+function save(){localStorage.setItem('arenaData',JSON.stringify(state));}
+// seeds
+const skillSeeds=[{id:'dash',name:'Dash',type:'dash',cooldownMs:2000,params:{distance:60}},{id:'projectile',name:'Projectile',type:'projectile',cooldownMs:1500,params:{damage:10,speed:4,size:4,lifetimeMs:3000}},{id:'barrier',name:'Barrier',type:'barrier',cooldownMs:5000,params:{durationMs:2000,reductionPct:50}},{id:'heal',name:'Heal',type:'heal',cooldownMs:4000,params:{amount:20}},{id:'heavySlam',name:'Heavy Slam',type:'heavySlam',cooldownMs:3000,params:{damage:25,hitboxW:20,hitboxH:20}},{id:'stun',name:'Stun',type:'stun',cooldownMs:4000,params:{durationMs:1500,damage:5}},{id:'spreadShot',name:'Spread Shot',type:'spreadShot',cooldownMs:3000,params:{damage:8,spreadDeg:30,projectiles:3}},{id:'knockbackWave',name:'Knockback Wave',type:'knockbackWave',cooldownMs:6000,params:{force:3,radius:40}},{id:'regen',name:'Regen',type:'regen',cooldownMs:6000,params:{perTick:2,ticks:5,gapMs:1000}},{id:'berserk',name:'Berserk',type:'berserk',cooldownMs:8000,params:{atkBonus:10,durationMs:3000}}];
+const aiSeeds=[{id:'agg',name:'Aggressive',rules:[{id:'r1',name:'Use Stun',priority:2,conditions:[{kind:'distance_lt',value:40},{kind:'cooldown_ready',slot:2}],action:{kind:'cast_skill',slot:2}},{id:'r2',name:'Use Projectile',priority:1,conditions:[{kind:'distance_gt',value:50},{kind:'cooldown_ready',slot:1}],action:{kind:'cast_skill',slot:1}},{id:'r3',name:'Basic',priority:0,conditions:[{kind:'distance_lt',value:30},{kind:'cooldown_ready',slot:'basic'}],action:{kind:'attack_basic'}},{id:'r4',name:'Heal',priority:3,conditions:[{kind:'self_hp_lt',value:30},{kind:'cooldown_ready',slot:0}],action:{kind:'cast_skill',slot:0}}]},{id:'def',name:'Defensive',rules:[{id:'r1',name:'Barrier',priority:3,conditions:[{kind:'cooldown_ready',slot:1}],action:{kind:'cast_skill',slot:1}},{id:'r2',name:'Projectile',priority:2,conditions:[{kind:'distance_gt',value:40},{kind:'cooldown_ready',slot:0}],action:{kind:'cast_skill',slot:0}},{id:'r3',name:'Retreat',priority:1,conditions:[{kind:'enemy_hp_lt',value:80}],action:{kind:'move_away',intensity:.6}}]},{id:'heal',name:'Healer',rules:[{id:'r1',name:'HealSelf',priority:3,conditions:[{kind:'self_hp_lt',value:80},{kind:'cooldown_ready',slot:0}],action:{kind:'cast_skill',slot:0}},{id:'r2',name:'Regen',priority:2,conditions:[{kind:'self_hp_lt',value:90},{kind:'cooldown_ready',slot:2}],action:{kind:'cast_skill',slot:2}},{id:'r3',name:'KeepDistance',priority:1,conditions:[{kind:'distance_lt',value:60}],action:{kind:'move_away',intensity:.4}}]}];
+const charSeeds=[{id:'scout',name:'Scout',color:'#0ff',stats:{hp:100,atk:10,def:2,spd:3},skills:['dash','projectile','stun'],ai:'agg',token:'Striker'},{id:'tank',name:'Tank',color:'#08f',stats:{hp:180,atk:8,def:8,spd:2},skills:['heavySlam','barrier','knockbackWave'],ai:'def',token:'Tank'}];
+function ensureSeeds(){if(!state.skills.length)state.skills=skillSeeds;if(!state.ais.length)state.ais=aiSeeds;if(!state.chars.length)state.chars=charSeeds;}
+load();ensureSeeds();save();
+// ui helpers
+const tabs=document.querySelectorAll('nav button');
+tabs.forEach(b=>b.onclick=()=>{tabs.forEach(t=>t.classList.remove('active'));b.classList.add('active');document.querySelectorAll('main section').forEach(s=>s.classList.remove('active'));document.getElementById(b.dataset.tab).classList.add('active');});
+// populate selects
+function fillSkillSelect(sel){sel.innerHTML='<option value="">none</option>'+state.skills.map(s=>`<option value="${s.id}">${s.name}</option>`).join('');}
+fillSkillSelect(document.getElementById('charSkill0'));fillSkillSelect(document.getElementById('charSkill1'));fillSkillSelect(document.getElementById('charSkill2'));document.getElementById('skillList').innerHTML=state.skills.map(s=>`<option value="${s.id}">${s.name}</option>`).join('');document.getElementById('skillType').innerHTML=[...new Set(skillSeeds.map(s=>s.type))].map(t=>`<option>${t}</option>`).join('');
+function fillAISelect(sel){sel.innerHTML=state.ais.map(a=>`<option value="${a.id}">${a.name}</option>`).join('');}
+fillAISelect(document.getElementById('charAI'));document.getElementById('aiList').innerHTML=state.ais.map(a=>`<option value="${a.id}">${a.name}</option>`).join('');
+function fillCharSelect(){document.getElementById('charList').innerHTML=state.chars.map(c=>`<option value="${c.id}">${c.name}</option>`).join('');}
+fillCharSelect();
+// character form
+const charForm=document.getElementById('charForm');
+function loadChar(id){const c=state.chars.find(c=>c.id==id);if(!c)return;charForm.charName.value=c.name;charForm.charColor.value=c.color;charForm.charHP.value=c.stats.hp;charForm.charATK.value=c.stats.atk;charForm.charDEF.value=c.stats.def;charForm.charSPD.value=c.stats.spd;charForm.charSkill0.value=c.skills[0]||'';charForm.charSkill1.value=c.skills[1]||'';charForm.charSkill2.value=c.skills[2]||'';charForm.charAI.value=c.ai;token.loadPreset(c.token||'Striker');drawToken();}
+loadChar(state.chars[0].id);document.getElementById('charList').onchange=e=>loadChar(e.target.value);
+function saveChar(){const id=document.getElementById('charList').value||Date.now().toString();let c=state.chars.find(x=>x.id==id);if(!c){c={id};state.chars.push(c);}c.name=charForm.charName.value;c.color=charForm.charColor.value;c.stats={hp:+charForm.charHP.value,atk:+charForm.charATK.value,def:+charForm.charDEF.value,spd:+charForm.charSPD.value};c.skills=[charForm.charSkill0.value,charForm.charSkill1.value,charForm.charSkill2.value];c.ai=charForm.charAI.value;c.token=token.saveDesign();save();fillCharSelect();document.getElementById('charMsg').textContent='saved';}
+charForm.addEventListener('submit',e=>{e.preventDefault();saveChar();});document.getElementById('charSave').onclick=()=>saveChar();
+// token designer simplified
+const tp=document.getElementById('tokenPreview');const tctx=tp.getContext('2d');const token={design:{size:32,palette:{outline:'#000',base:'#0ff',accent:'#fff'},main:{shape:'circle',scale:.9,rotation:0,fill:'base',outline:true},top:{shape:'triangleUp',scale:.4,rotation:0,offsetX:0,offsetY:-3,fill:'accent',outline:true,enabled:true}},loadPreset(name){const presets={'Striker':{palette:{outline:'#000',base:'#0ff',accent:'#fff'},main:{shape:'circle',scale:.88,fill:'base',outline:true},top:{shape:'triangleUp',scale:.38,offsetY:-3,fill:'accent',outline:true,enabled:true}},'Tank':{palette:{outline:'#000',base:'#08f',accent:'#fff'},main:{shape:'hex',scale:.9,fill:'base',outline:true},top:{shape:'circle',scale:.2,fill:'accent',outline:true,enabled:true}}};this.design=JSON.parse(JSON.stringify(presets[name]||presets['Striker']));syncTokenControls();},saveDesign(){return JSON.stringify(this.design);}};
+function syncTokenControls(){const d=token.design;palOutline.value=d.palette.outline;palBase.value=d.palette.base;palAccent.value=d.palette.accent||'#ffffff';mainShape.value=d.main.shape;mainScale.value=d.main.scale;mainRot.value=d.main.rotation||0;mainFill.value=d.main.fill;mainOut.checked=d.main.outline;topEnabled.checked=d.top.enabled;topShape.value=d.top.shape;topScale.value=d.top.scale;topRot.value=d.top.rotation||0;topFill.value=d.top.fill;topOut.checked=d.top.outline;topX.value=d.top.offsetX||0;topY.value=d.top.offsetY||0;}
+function drawFig(fig){const size=32;const s=fig.scale*28;const half=s/2;const rad=(fig.rotation||0)*Math.PI/180;const x=16+(fig.offsetX||0);const y=16+(fig.offsetY||0);if(fig.outline){tctx.strokeStyle=token.design.palette.outline;tctx.lineWidth=1;}
+tctx.fillStyle=token.design.palette[fig.fill];tctx.save();tctx.translate(x,y);tctx.rotate(rad);
+const shape=fig.shape;const path=new Path2D();switch(shape){case'circle':path.arc(0,0,half,0,Math.PI*2);break;case'square':path.rect(-half,-half,s,s);break;case'diamond':path.moveTo(0,-half);path.lineTo(half,0);path.lineTo(0,half);path.lineTo(-half,0);path.closePath();break;case'triangleUp':path.moveTo(0,-half);path.lineTo(half,half);path.lineTo(-half,half);path.closePath();break;case'triangleDown':path.moveTo(0,half);path.lineTo(half,-half);path.lineTo(-half,-half);path.closePath();break;case'hex':const a=half;for(let i=0;i<6;i++){const ang=Math.PI/3*i;const px=Math.cos(ang)*a;const py=Math.sin(ang)*a;if(i==0)path.moveTo(px,py);else path.lineTo(px,py);}path.closePath();break;}
+tctx.fill(path);if(fig.outline)tctx.stroke(path);tctx.restore();}
+function drawToken(){tctx.clearRect(0,0,tp.width,tp.height);tctx.imageSmoothingEnabled=false;const d=token.design;drawFig(d.main);if(d.top.enabled)drawFig(d.top);}drawToken();
+[palOutline,palBase,palAccent,mainShape,mainScale,mainRot,mainFill,mainOut,topEnabled,topShape,topScale,topRot,topFill,topOut,topX,topY].forEach(el=>el.oninput=()=>{const d=token.design;d.palette.outline=palOutline.value;d.palette.base=palBase.value;d.palette.accent=palAccent.value;d.main.shape=mainShape.value;d.main.scale=parseFloat(mainScale.value);d.main.rotation=parseFloat(mainRot.value);d.main.fill=mainFill.value;d.main.outline=mainOut.checked;d.top.enabled=topEnabled.checked;d.top.shape=topShape.value;d.top.scale=parseFloat(topScale.value);d.top.rotation=parseFloat(topRot.value);d.top.fill=topFill.value;d.top.outline=topOut.checked;d.top.offsetX=parseInt(topX.value);d.top.offsetY=parseInt(topY.value);drawToken();});
+// skill editor simple
+const skillForm=document.getElementById('skillForm');document.getElementById('skillList').onchange=e=>loadSkill(e.target.value);function loadSkill(id){const s=state.skills.find(s=>s.id==id);if(!s)return;skillForm.skillName.value=s.name;skillForm.skillType.value=s.type;skillForm.skillCd.value=s.cooldownMs;skillForm.skillDmg.value=s.params.damage||0;skillForm.skillRange.value=s.range||0;}
+loadSkill(state.skills[0].id);
+function saveSkill(){const id=document.getElementById('skillList').value||Date.now().toString();let s=state.skills.find(x=>x.id==id);if(!s){s={id,params:{}};state.skills.push(s);}s.name=skillForm.skillName.value;s.type=skillForm.skillType.value;s.cooldownMs=+skillForm.skillCd.value;s.params.damage=+skillForm.skillDmg.value;s.range=+skillForm.skillRange.value;save();document.getElementById('skillList').innerHTML=state.skills.map(sk=>`<option value="${sk.id}">${sk.name}</option>`).join('');fillSkillSelect(document.getElementById('charSkill0'));fillSkillSelect(document.getElementById('charSkill1'));fillSkillSelect(document.getElementById('charSkill2'));}
+document.getElementById('skillSave').onclick=saveSkill;
+// ai editor basic
+const aiForm=document.getElementById('aiForm');document.getElementById('aiList').onchange=e=>loadAI(e.target.value);function ruleHTML(r){return`<div class="rule" data-id="${r.id}"><input class="rname" value="${r.name}"><select class="raction"><option value="attack_basic" ${r.action.kind=='attack_basic'?'selected':''}>basic</option><option value="move_towards" ${r.action.kind=='move_towards'?'selected':''}>towards</option><option value="move_away" ${r.action.kind=='move_away'?'selected':''}>away</option><option value="cast_skill" ${r.action.kind=='cast_skill'?'selected':''}>cast skill</option></select><input class="rslot" value="${r.action.slot||''}" size="3"><input class="rpri" type="number" value="${r.priority}" size="3"><textarea class="rconds" placeholder='conditions JSON'>${JSON.stringify(r.conditions)}</textarea></div>`;}
+function loadAI(id){const a=state.ais.find(a=>a.id==id);if(!a)return;aiForm.aiName.value=a.name;document.getElementById('ruleList').innerHTML=a.rules.map(ruleHTML).join('');}
+loadAI(state.ais[0].id);
+function saveAI(){const id=document.getElementById('aiList').value||Date.now().toString();let a=state.ais.find(x=>x.id==id);if(!a){a={id,rules:[]};state.ais.push(a);}a.name=aiForm.aiName.value;const rules=[];document.querySelectorAll('#ruleList .rule').forEach(div=>{try{rules.push({id:div.dataset.id,name:div.querySelector('.rname').value,priority:+div.querySelector('.rpri').value,action:div.querySelector('.raction').value=='cast_skill'?{kind:'cast_skill',slot:+div.querySelector('.rslot').value}:{kind:div.querySelector('.raction').value},conditions:JSON.parse(div.querySelector('.rconds').value)});}catch(e){console.log('rule parse',e);}});a.rules=rules;save();document.getElementById('aiList').innerHTML=state.ais.map(ai=>`<option value="${ai.id}">${ai.name}</option>`).join('');fillAISelect(document.getElementById('charAI'));}
+addRule.onclick=()=>{const id='r'+Date.now();const r={id,name:'New',priority:0,conditions:[{kind:'always'}],action:{kind:'move_towards'}};document.getElementById('ruleList').insertAdjacentHTML('beforeend',ruleHTML(r));};document.getElementById('aiSave').onclick=saveAI;
+// export/import
+exportData.onclick=()=>{const blob=new Blob([JSON.stringify(state)],{type:'application/json'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='arenaData.json';a.click();};importBtn.onclick=()=>importData.click();importData.onchange=e=>{const f=e.target.files[0];if(!f)return;const r=new FileReader();r.onload=()=>{try{const d=JSON.parse(r.result);if(d.chars&&d.skills&&d.ais){Object.assign(state,d);save();location.reload();}else alert('Invalid file');}catch(err){alert('Invalid JSON');}};r.readAsText(f);};
+// rule engine
+function evaluateAI(ai,ctx){const now=performance.now();ai.rules.sort((a,b)=>b.priority-a.priority);for(const r of ai.rules){if(r._cool&&r._cool>now)continue;let ok=true;for(const c of r.conditions){if(!checkCond(c,ctx)){ok=false;break;}}if(ok){r._cool=now+(r.cooldownMs||0);return r.action;}}return {kind:'move_towards',intensity:.2};}
+function checkCond(c,{self,enemy,dist}){switch(c.kind){case'self_hp_lt':return self.hp/self.maxHp*100<c.value;case'enemy_hp_lt':return enemy.hp/enemy.maxHp*100<c.value;case'distance_lt':return dist<c.value;case'distance_gt':return dist>c.value;case'cooldown_ready':return self.cooldowns[c.slot]<=0;case'always':return true;}return false;}
+// arena
+const canvas=document.getElementById('arenaCanvas');const ctx=canvas.getContext('2d');let fighters=[];function resetArena(){fighters=[createFighter(state.chars[0],50),createFighter(state.chars[1],canvas.width-50)];logMsg('status','Battle start');}
+function createFighter(char,x){return{id:char.id,name:char.name,color:char.color,x:x,y:150,w:20,h:20,hp:char.stats.hp,maxHp:char.stats.hp,atk:char.stats.atk,def:char.stats.def,spd:char.stats.spd,skills:char.skills.map(id=>state.skills.find(s=>s.id==id)),ai:state.ais.find(a=>a.id==char.ai),cooldowns:{basic:0,0:0,1:0,2:0},barrier:0};}
+let lastTime=0,speed=1,animReq,null,running=false;function loop(ts){if(!lastTime)lastTime=ts;const dt=(ts-lastTime)*speed;lastTime=ts;update(dt);draw();if(running)animReq=requestAnimationFrame(loop);}
+function update(dt){fighters.forEach(f=>{for(const k in f.cooldowns)if(f.cooldowns[k]>0)f.cooldowns[k]-=dt;});const [a,b]=fighters;[a,b].forEach((f,i)=>{const enemy=i==0?b:a;const dist=Math.abs(f.x-enemy.x);const act=evaluateAI(f.ai,{self:f,enemy,dist});performAction(f,enemy,act,dt);});}
+function performAction(self,enemy,act,dt){switch(act.kind){case'move_towards':self.x+=Math.sign(enemy.x-self.x)*self.spd*(act.intensity||1);break;case'move_away':self.x-=Math.sign(enemy.x-self.x)*self.spd*(act.intensity||1);break;case'attack_basic':if(self.cooldowns.basic<=0&&Math.abs(self.x-enemy.x)<25){const dmg=Math.max(1,self.atk-enemy.def);enemy.hp-=dmg;self.cooldowns.basic=800;logMsg('attack',`${self.name} hits ${enemy.name} for ${dmg}`);spawnHit(enemy.x,enemy.y);}break;case'cast_skill':const s=self.skills[act.slot];if(s&&self.cooldowns[act.slot]<=0){useSkill(self,enemy,s,act.slot);}break;}}
+function useSkill(self,enemy,s,slot){self.cooldowns[slot]=s.cooldownMs;logMsg('skill',`${self.name} uses ${s.name}`);if(s.type=='heal'){self.hp=Math.min(self.maxHp,self.hp+s.params.amount);spawnHeal(self.x,self.y);}if(s.type=='barrier'){self.barrier=s.params.reductionPct;setTimeout(()=>self.barrier=0,s.params.durationMs);spawnBarrier(self.x,self.y);}if(s.type=='projectile'){projectiles.push({x:self.x,y:self.y,dir:Math.sign(enemy.x-self.x),speed:s.params.speed,damage:s.params.damage,size:s.params.size,owner:self});}if(s.type=='dash'){self.x+=Math.sign(enemy.x-self.x)*s.params.distance;}if(s.type=='stun'){if(Math.abs(self.x-enemy.x)<30){enemy.stun=s.params.durationMs;enemy.hp-=s.params.damage;spawnHit(enemy.x,enemy.y);}}if(s.type=='heavySlam'){if(Math.abs(self.x-enemy.x)<30){enemy.hp-=s.params.damage;spawnHit(enemy.x,enemy.y);}}if(s.type=='knockbackWave'){if(Math.abs(self.x-enemy.x)<s.params.radius){enemy.x+=Math.sign(enemy.x-self.x)*s.params.force*10;}}
+}
+const projectiles=[];function updateProjectiles(dt){for(let i=projectiles.length-1;i>=0;i--){const p=projectiles[i];p.x+=p.dir*p.speed*dt/16;ctx.fillStyle='#000';if(Math.abs(p.x-fighters[1].x)<p.size && p.owner===fighters[0]){fighters[1].hp-=p.damage;logMsg('attack',`${p.owner.name}'s projectile hits ${fighters[1].name} for ${p.damage}`);spawnHit(fighters[1].x,fighters[1].y);projectiles.splice(i,1);}else if(Math.abs(p.x-fighters[0].x)<p.size && p.owner===fighters[1]){fighters[0].hp-=p.damage;logMsg('attack',`${p.owner.name}'s projectile hits ${fighters[0].name} for ${p.damage}`);spawnHit(fighters[0].x,fighters[0].y);projectiles.splice(i,1);}else if(p.x<0||p.x>canvas.width)projectiles.splice(i,1);}}
+function drawProjectiles(){ctx.fillStyle='#333';projectiles.forEach(p=>ctx.fillRect(p.x-2,p.y-2,4,4));}
+function draw(){ctx.clearRect(0,0,canvas.width,canvas.height);ctx.fillStyle='#ddd';ctx.fillRect(0,180,canvas.width,20);fighters.forEach(f=>{ctx.fillStyle=f.color;ctx.fillRect(f.x-10,f.y-20,20,20);const hpw=40;ctx.fillStyle='#f00';ctx.fillRect(f.x-hpw/2,f.y-30,hpw,4);ctx.fillStyle='#0f0';ctx.fillRect(f.x-hpw/2,f.y-30,hpw*(f.hp/f.maxHp),4);});drawProjectiles();updateProjectiles(16);effects.forEach(e=>e.draw());effects=effects.filter(e=>!e.done);fighters.forEach(f=>{if(f.hp<=0){logMsg('status',`${f.name} K.O.`);running=false;}});}
+// effects
+let effects=[];function spawnHeal(x,y){effects.push(particleEffect(x,y,'#0f0'));}function spawnBarrier(x,y){effects.push(ringEffect(x,y,'rgba(0,128,255,0.4)'));}function spawnHit(x,y){effects.push(particleEffect(x,y,'#f00'));}
+function particleEffect(x,y,color){const parts=Array.from({length:10},()=>({x,y,dx:(Math.random()-0.5)*2,dy:(Math.random()-0.5)*2,life:30}));return{draw(){parts.forEach(p=>{p.x+=p.dx;p.y+=p.dy;p.life--;ctx.fillStyle=color;ctx.fillRect(p.x,p.y,2,2);});if(parts.every(p=>p.life<=0))this.done=true;}}}
+function ringEffect(x,y,color){let r=5;return{draw(){ctx.strokeStyle=color;ctx.beginPath();ctx.arc(x,y,r,0,Math.PI*2);ctx.stroke();r+=1;if(r>20)this.done=true;}}}
+// combat log
+const logDiv=document.getElementById('log');const filters={atk:true,skill:true,heal:true,barrier:true,status:true};document.querySelectorAll('#logFilters input').forEach(ch=>ch.onchange=()=>{filters[ch.dataset.type]=ch.checked;renderLog();});const logs=[];function logMsg(type,text){const ts=Math.floor(performance.now()/1000);const m=(''+Math.floor(ts/60)).padStart(2,'0');const s=(''+ts%60).padStart(2,'0');logs.push({t:type,ts:`${m}:${s}`,msg:text});if(logs.length>200)logs.shift();renderLog();}
+function renderLog(){logDiv.innerHTML='';logs.filter(l=>filters[l.t]).forEach(l=>{const div=document.createElement('div');div.className=l.t;div.textContent=`[${l.ts}] ${l.msg}`;logDiv.appendChild(div);});logDiv.scrollTop=logDiv.scrollHeight;}
+// arena controls
+function start(){if(!running){running=true;lastTime=0;animReq=requestAnimationFrame(loop);}}
+function pause(){running=false;cancelAnimationFrame(animReq);}
+function reset(){pause();resetArena();draw();}
+document.getElementById('startBtn').onclick=start;document.getElementById('pauseBtn').onclick=pause;document.getElementById('resetBtn').onclick=reset;document.getElementById('speedSel').onchange=e=>speed=parseFloat(e.target.value);
+resetArena();draw();
+</script>
+</body>
+</html>
