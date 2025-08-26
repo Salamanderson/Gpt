@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <title>Canvas Fight</title>
+  <style>
+    body {
+      margin: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background: #f0f0f0;
+    }
+    canvas {
+      border: 1px solid #000;
+      background: #fff;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="arena" width="600" height="400"></canvas>
+  <script>
+    const canvas = document.getElementById('arena');
+    const ctx = canvas.getContext('2d');
+
+    class Fighter {
+      constructor(x, y, color) {
+        this.x = x;
+        this.y = y;
+        this.radius = 20;
+        this.color = color;
+        this.hp = 100;
+      }
+
+      draw() {
+        ctx.fillStyle = this.color;
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+        ctx.fill();
+
+        const barWidth = 60;
+        const barHeight = 8;
+        const hpPercent = this.hp / 100;
+        ctx.fillStyle = 'gray';
+        ctx.fillRect(this.x - barWidth / 2, this.y - this.radius - 20, barWidth, barHeight);
+        ctx.fillStyle = 'green';
+        ctx.fillRect(this.x - barWidth / 2, this.y - this.radius - 20, barWidth * hpPercent, barHeight);
+      }
+
+      moveTowards(target) {
+        const dx = target.x - this.x;
+        const dy = target.y - this.y;
+        const distance = Math.hypot(dx, dy);
+        if (distance === 0) return;
+        const speed = 20; // pixels per update
+        this.x += (dx / distance) * speed;
+        this.y += (dy / distance) * speed;
+      }
+    }
+
+    const red = new Fighter(100, 200, 'red');
+    const blue = new Fighter(500, 200, 'blue');
+    let ko = false;
+
+    function update() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      if (!ko) {
+        const dx = red.x - blue.x;
+        const dy = red.y - blue.y;
+        const distance = Math.hypot(dx, dy);
+        if (distance <= red.radius + blue.radius) {
+          red.hp = Math.max(0, red.hp - 10);
+          blue.hp = Math.max(0, blue.hp - 10);
+          if (red.hp === 0 || blue.hp === 0) {
+            ko = true;
+          }
+        } else {
+          red.moveTowards(blue);
+          blue.moveTowards(red);
+        }
+      }
+
+      red.draw();
+      blue.draw();
+
+      if (ko) {
+        ctx.fillStyle = 'black';
+        ctx.font = 'bold 48px sans-serif';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.fillText('KO', canvas.width / 2, canvas.height / 2);
+      }
+    }
+
+    update();
+    setInterval(update, 1000);
+  </script>
+</body>
+</html>
