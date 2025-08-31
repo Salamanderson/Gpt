@@ -65,11 +65,27 @@ class TokenFigure:
 
 @dataclass
 class TokenDesign:
-    size: int
-    palette: Dict[str, str]
-    main: TokenFigure
-    top: TokenFigure
+    size: int = 32
+    palette: Dict[str, str] = field(default_factory=dict)
+    main: TokenFigure = field(default_factory=lambda: TokenFigure('circle',1.0))
+    top: TokenFigure = field(default_factory=lambda: TokenFigure('circle',0.5,enabled=False))
     meta: Dict = field(default_factory=dict)
+
+    @staticmethod
+    def from_dict(data):
+        if isinstance(data, TokenDesign):
+            return data
+        main_data=data.get('main',{})
+        top_data=data.get('top',{})
+        main_fig=main_data if isinstance(main_data,TokenFigure) else TokenFigure(**main_data) if main_data else TokenFigure('circle',1.0)
+        top_fig=top_data if isinstance(top_data,TokenFigure) else TokenFigure(**top_data) if top_data else TokenFigure('circle',0.5,enabled=False)
+        return TokenDesign(
+            size=data.get('size',32),
+            palette=data.get('palette',{}),
+            main=main_fig,
+            top=top_fig,
+            meta=data.get('meta',{})
+        )
 
 @dataclass
 class Character:
@@ -80,6 +96,18 @@ class Character:
     skills: List[str]
     ai_profile_id: str
     token: TokenDesign
+
+    @staticmethod
+    def from_dict(data):
+        return Character(
+            id=data['id'],
+            name=data['name'],
+            color=data['color'],
+            stats=data['stats'],
+            skills=data.get('skills', []),
+            ai_profile_id=data.get('ai_profile_id',''),
+            token=TokenDesign.from_dict(data.get('token', {}))
+        )
 
 @dataclass
 class Rule:
@@ -245,16 +273,17 @@ class TabBar:
 # --- Arena ---
 class Fighter:
     def __init__(self,character:Character,x,y):
-        self.char=character
+        self.char=character if isinstance(character,Character) else Character.from_dict(character)
+        self.char.token=TokenDesign.from_dict(self.char.token)
         self.x=x
         self.y=y
         self.vx=0
         self.vy=0
-        self.hp=character.stats['hp']
+        self.hp=self.char.stats['hp']
         self.cooldowns={'basic':0}
-        for i,sk in enumerate(character.skills):
+        for i,sk in enumerate(self.char.skills):
             self.cooldowns[str(i)]=0
-        self.token_img=render_token(character.token)
+        self.token_img=render_token(self.char.token)
         self.radius=16
         self.stunned_until=0
         self.barrier_until=0
@@ -510,13 +539,12 @@ class App:
 
 class Arena:
     def __init__(self):
-        chars=list(storage.data['characters'].values())
-        self.f1=Fighter(Character(**chars[0]),120,270)
-        self.f2=Fighter(Character(**chars[1]),840,270)
+        chars=[Character.from_dict(c) for c in storage.data['characters'].values()]
+        self.f1=Fighter(chars[0],120,270)
+        self.f2=Fighter(chars[1],840,270)
         self.paused=False
         self.start_time=pygame.time.get_ticks()
     def reset(self):
-        chars=list(storage.data['characters'].values())
         self.__init__()
     def update(self,dt):
         if self.paused:
