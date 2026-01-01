@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RPG Map Generator Skill v4.1</title>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body { background-color: #0f172a; color: #e2e8f0; font-family: monospace; }
+        .cell { width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; cursor: pointer; user-select: none; border: 1px solid #1e293b; font-size: 1.25rem; }
+        .cell:hover { background-color: #334155; }
+        .emoji-btn { font-size: 1.5rem; transition: transform 0.1s; }
+        .emoji-btn:hover { transform: scale(1.2); }
+    </style>
+</head>
+<body>
+    <div id="app" class="flex h-screen overflow-hidden">
+
+        <div class="w-1/4 bg-slate-900 border-r border-slate-700 flex flex-col">
+            <div class="p-4 border-b border-slate-700">
+                <h1 class="text-xl font-bold text-green-400 mb-2">🗺️ Map Gen v4.1</h1>
+                <div class="flex gap-2 mb-2">
+                    <div class="flex flex-col">
+                        <label class="text-xs text-slate-400">Breite</label>
+                        <input type="number" v-model.number="width" class="bg-slate-800 border border-slate-600 rounded px-2 py-1 w-16" @change="resizeGrid">
+                    </div>
+                    <div class="flex flex-col">
+                        <label class="text-xs text-slate-400">Höhe</label>
+                        <input type="number" v-model.number="height" class="bg-slate-800 border border-slate-600 rounded px-2 py-1 w-16" @change="resizeGrid">
+                    </div>
+                    <div class="flex flex-col flex-1">
+                        <label class="text-xs text-slate-400">Location Name</label>
+                        <input type="text" v-model="locationName" class="bg-slate-800 border border-slate-600 rounded px-2 py-1 w-full">
+                    </div>
+                </div>
+                <button @click="resetGrid" class="w-full bg-red-900/50 hover:bg-red-800 text-red-200 text-xs py-1 rounded border border-red-800">Map Reset</button>
+            </div>
+
+            <div class="flex-1 overflow-y-auto p-2">
+                <div v-for="cat in categories" :key="cat.name" class="mb-4">
+                    <h3 class="text-xs font-bold text-slate-500 uppercase mb-2 tracking-wider">{{ cat.name }}</h3>
+                    <div class="grid grid-cols-5 gap-1">
+                        <button v-for="sym in cat.symbols"
+                            @click="selectSymbol(sym)"
+                            :class="['emoji-btn p-1 rounded hover:bg-slate-700', currentSymbol.char === sym.char ? 'bg-blue-600 ring-1 ring-blue-400' : '']"
+                            :title="sym.desc">
+                            {{ sym.char }}
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="p-2 bg-slate-800 border-t border-slate-700 text-center text-xs">
+                Aktuell: <span class="text-xl">{{ currentSymbol.char }}</span> {{ currentSymbol.desc }}
+            </div>
+        </div>
+
+        <div class="flex-1 bg-slate-950 flex items-center justify-center overflow-auto relative"
+             @mousedown="isDrawing = true" @mouseup="isDrawing = false" @mouseleave="isDrawing = false">
+
+            <div :style="{ display: 'grid', gridTemplateColumns: `repeat(${width}, 32px)` }" class="border border-slate-700 shadow-2xl">
+                <div v-for="(cell, index) in flatGrid" :key="index"
+                     class="cell"
+                     @mousedown="paint(index)"
+                     @mouseenter="paint(index)">
+                    {{ cell }}
+                </div>
+            </div>
+
+            <div class="absolute bottom-4 left-4 bg-slate-900/80 p-2 rounded text-xs text-slate-400 pointer-events-none">
+                Maus gedrückt halten zum Malen
+            </div>
+        </div>
+
+        <div class="w-1/4 bg-slate-900 border-l border-slate-700 flex flex-col p-4">
+            <h2 class="font-bold text-slate-300 mb-2">Markdown Output</h2>
+            <p class="text-xs text-slate-500 mb-2">Kopiert Map + Legende + Template-Block gemäß v4.1 Regeln.</p>
+
+            <textarea readonly class="flex-1 bg-slate-950 border border-slate-700 text-green-500 font-mono text-xs p-2 rounded resize-none mb-4 focus:outline-none" v-model="markdownOutput"></textarea>
+
+            <button @click="copyToClipboard" class="bg-blue-600 hover:bg-blue-500 text-white font-bold py-3 rounded shadow-lg transition flex items-center justify-center gap-2">
+                <span v-if="copied">✅ Kopiert!</span>
+                <span v-else>📋 Kopieren (für Chat)</span>
+            </button>
+        </div>
+    </div>
+
+    <script>
+        const { createApp } = Vue;
+
+        createApp({
+            data() {
+                return {
+                    width: 12,
+                    height: 9,
+                    locationName: "Neue Location",
+                    grid: [],
+                    isDrawing: false,
+                    currentSymbol: { char: '⬜', desc: 'Außenwand', type: 'structure' },
+                    copied: false,
+                    // DATEN AUS SYMBOL-BIBLIOTHEK (v4.1)
+                    categories: [
+                        {
+                            name: 'Terrain',
+                            symbols: [
+                                { char: '▪️', desc: 'Leer/Void' }, { char: '⬜', desc: 'Außenwand' },
+                                { char: '◽', desc: 'Innenwand' }, { char: '🔸', desc: 'Boden' },
+                                { char: '🟧', desc: 'Weg' }, { char: '🔹', desc: 'Wasser (flach)' },
+                                { char: '🔷', desc: 'Wasser (tief)' }, { char: '⬛', desc: 'Abgrund' }
+                            ]
+                        },
+                        {
+                            name: 'Strukturen',
+                            symbols: [
+                                { char: '🚪', desc: 'Tür' }, { char: '🔓', desc: 'Tür (offen)' },
+                                { char: '📦', desc: 'Container' }, { char: '🔳', desc: 'Tisch' },
+                                { char: '🧱', desc: 'Säule' }, { char: '🪟', desc: 'Fenster' },
+                                { char: '🔥', desc: 'Feuer/Kamin' }, { char: '⤴️', desc: 'Treppe auf' },
+                                { char: '⤵️', desc: 'Treppe ab' }
+                            ]
+                        },
+                        {
+                            name: 'Deko & Natur',
+                            symbols: [
+                                { char: '🌲', desc: 'Baum' }, { char: '🌿', desc: 'Busch' },
+                                { char: '🕸️', desc: 'Spinnweben' }, { char: '🪨', desc: 'Fels' },
+                                { char: '🕯️', desc: 'Licht' }
+                            ]
+                        },
+                        {
+                            name: 'Entities (NICHT im Template)',
+                            symbols: [
+                                { char: '🟢', desc: 'Spieler' }, { char: '🟡', desc: 'Begleiter' },
+                                { char: '♦️', desc: 'Feind A' }, { char: '🛑', desc: 'Feind B' },
+                                { char: '🟥', desc: 'Elite' }, { char: '🔴', desc: 'Boss' },
+                                { char: '⚪', desc: 'NPC' }
+                            ]
+                        }
+                    ]
+                }
+            },
+            computed: {
+                flatGrid() {
+                    return this.grid.flat();
+                },
+                markdownOutput() {
+                    // 1. VISUELLE MAP GENERIEREN
+                    let mapString = "";
+                    for(let r=0; r<this.height; r++) {
+                        mapString += this.grid[r].join('') + "\n";
+                    }
+
+                    // 2. LEGENDE GENERIEREN (Nur benutzte Symbole)
+                    const usedChars = [...new Set(this.flatGrid)];
+                    let legendLines = { Terrain: [], Wesen: [], Objekte: [] };
+
+                    usedChars.forEach(char => {
+                        const sym = this.findSymbol(char);
+                        if(!sym) return;
+
+                        // Kategorisierung für Legende
+                        if(['🟢','🟡','♦️','🛑','🟥','🔴','⚪'].includes(char)) {
+                            legendLines.Wesen.push(`${char} ${sym.desc}`);
+                        } else if(['🚪','📦','🔥','🗝️','💰'].includes(char)) {
+                            legendLines.Objekte.push(`${char} ${sym.desc}`);
+                        } else if(!['▪️','🔸','⬜'].includes(char)) { // Standard Terrain oft weglassen oder gruppieren
+                            legendLines.Terrain.push(`${char} ${sym.desc}`);
+                        }
+                    });
+
+                    let legendText = "**LEGENDE**\n";
+                    if(legendLines.Terrain.length) legendText += `Terrain: ${legendLines.Terrain.join(' | ')}\n`;
+                    if(legendLines.Wesen.length) legendText += `Wesen: ${legendLines.Wesen.join(' | ')}\n`;
+                    if(legendLines.Objekte.length) legendText += `Objekte: ${legendLines.Objekte.join(' | ')}\n`;
+
+                    // 3. TEMPLATE GENERIEREN (Entities entfernen!)
+                    // Regel v4.1: Entities NIE im Template
+                    let templateString = "";
+                    for(let r=0; r<this.height; r++) {
+                        let row = "";
+                        for(let c=0; c<this.width; c++) {
+                            const char = this.grid[r][c];
+                            // Prüfen ob Entity
+                            if(['🟢','🟡','♦️','🛑','🟥','🔴','⚪'].includes(char)) {
+                                row += '🔸'; // Ersetze Entity durch Standard-Boden für das Template
+                            } else {
+                                row += char;
+                            }
+                        }
+                        templateString += row + "\n";
+                    }
+
+                    // ZUSAMMENBAU
+                    return "```\n" + mapString + "```\n\n" +
+                           legendText + "\n" +
+                           "```\n---\n" +
+                           `📍 LOCATION-TEMPLATE: ${this.locationName}\n` +
+                           `📐 Größe: ${this.width}x${this.height}\n` +
+                           "```\n" + templateString + "```\n" +
+                           "🚪 Tür(x,y) = [Zustand]\n" +
+                           "📦 Container(x,y) = [Zustand]\n" +
+                           "---\n```";
+                }
+            },
+            methods: {
+                initGrid() {
+                    this.grid = Array.from({length: this.height}, () => Array(this.width).fill('▪️'));
+                },
+                resizeGrid() {
+                    // Einfacher Reset bei Größe ändern (für Prototyp)
+                    this.initGrid();
+                },
+                resetGrid() {
+                    if(confirm("Map leeren?")) this.initGrid();
+                },
+                selectSymbol(sym) {
+                    this.currentSymbol = sym;
+                },
+                paint(index) {
+                    if(!this.isDrawing && event.type === 'mouseenter') return;
+
+                    const r = Math.floor(index / this.width);
+                    const c = index % this.width;
+
+                    // Reaktivität sicherstellen
+                    this.grid[r][c] = this.currentSymbol.char;
+                },
+                findSymbol(char) {
+                    for(let cat of this.categories) {
+                        const found = cat.symbols.find(s => s.char === char);
+                        if(found) return found;
+                    }
+                    return { char, desc: 'Unbekannt' };
+                },
+                copyToClipboard() {
+                    navigator.clipboard.writeText(this.markdownOutput).then(() => {
+                        this.copied = true;
+                        setTimeout(() => this.copied = false, 2000);
+                    });
+                }
+            },
+            mounted() {
+                this.initGrid();
+            }
+        });
+    </script>
+</body>
+</html>
