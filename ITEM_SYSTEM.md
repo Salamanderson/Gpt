@@ -9,9 +9,9 @@
 
 | Bereich | Slots | Zugriff | Persistenz |
 |---------|-------|---------|------------|
-| ⚡ **Schnellzugriff** | 3 | Jederzeit (auch Kampf) | Bleibt zwischen Abenteuern |
-| 🎒 **Gepäck** | 10 | Nur außerhalb Kampf | Wird bei Abenteuer-Ende liquidiert |
-| 💰 **Party-Gold** | ∞ | Jederzeit | Bleibt zwischen Abenteuern |
+| ⚡ **Schnellzugriff** | 3 | Jederzeit (auch Kampf) | Bleibt zwischen Sessions |
+| 🎒 **Gepäck** | 10 | Nur außerhalb Kampf | Wird bei Session-Ende liquidiert |
+| 💰 **Party-Gold** | ∞ | Jederzeit | Bleibt zwischen Sessions |
 
 **Kampfregel:** Im Kampf können NUR Items aus Schnellzugriff verwendet werden.  
 **Tauschen:** 1 Aktion außerhalb Kampf = Items zwischen Schnellzugriff ↔ Gepäck bewegen.
@@ -104,21 +104,32 @@ Waffen müssen sich im **⚡ Schnellzugriff** befinden, um im Kampf verwendet zu
 | Item | Effekt | Einschränkung | Listenpreis |
 |------|--------|---------------|-------------|
 | Lederrüstung | 1× pro Kampf: 1 Schaden ignorieren | Keine | 15 Gold |
-| Kettenhemd | 1× pro Kampf: 1 Schaden ignorieren | -1 auf Schleichen | 40 Gold |
+| Kettenhemd | 2× pro Kampf: Je 1 Schaden ignorieren | -1 auf Schleichen | 40 Gold |
 | Schild | +1 auf Verteidigung bei aktivem Block | Blockiert eine Hand | 8 Gold |
 | Helm | Einmalig: Kopftreffer-Patzer negieren | Keine | 5 Gold |
 
-**⚠️ WICHTIG – Rüstungs-Regel:**  
+**⚠️ WICHTIG – Rüstungs-Regel:**
 Rüstung muss sich im **⚡ Schnellzugriff** befinden, um zu wirken!
 - Rüstung im Schnellzugriff = ANGELEGT und aktiv
 - Rüstung im Gepäck = NICHT angelegt, keine Wirkung
 - Im Kampf kann Rüstung NICHT aus dem Gepäck angelegt werden
 
-**Konsequenz für Inventar-Planung:**  
-Wer Rüstung tragen will, "opfert" einen Schnellzugriff-Slot dafür. Bei 3 Slots bedeutet das:
-- Slot 1: Rüstung (z.B. Lederrüstung)
+**Stapelungs-Regel:**
+- NICHT zwei Rüstungen derselben Klasse (z.B. nicht Lederrüstung + Kettenhemd)
+- Kombinationen erlaubt: 1 Hauptrüstung + 1 Schild + 1 Helm
+- Jedes Rüstungsteil belegt 1 Schnellzugriff-Slot
+- **Maximum +2 auf dieselbe Statistik** (auch durch mehrere Rüstungsteile kombiniert)
+
+**Konsequenz für Inventar-Planung:**
+Bei 3 Schnellzugriff-Slots:
+- Slot 1: Hauptrüstung (z.B. Lederrüstung)
 - Slot 2: Waffe oder Item
 - Slot 3: Waffe oder Item
+ODER mit voller Rüstung:
+- Slot 1: Hauptrüstung (z.B. Kettenhemd)
+- Slot 2: Schild
+- Slot 3: Helm
+→ Keine Waffe in Schnellzugriff verfügbar!
 
 ---
 
@@ -203,8 +214,11 @@ Item nutzen = Narrativ beschreiben
 
 ```
 Aufheben: Muss freien Slot haben (Schnellzugriff ODER Gepäck)
+  → Item kann in JEDEN freien Slot aufgenommen werden (auch im Kampf in Schnellzugriff)
+  → Wenn Gepäck voll (10/10) aber Schnellzugriff hat freie Slots → Item geht in Schnellzugriff
+  → Wenn alles voll (13/13 Slots belegt) → Item KANN NICHT aufgehoben werden
 Ablegen: Item wird an Ort zurückgelassen
-Tauschen: 1 Aktion außerhalb Kampf
+Tauschen: 1 Aktion außerhalb Kampf (zwischen Schnellzugriff ↔ Gepäck)
 ```
 
 ---
@@ -226,9 +240,9 @@ Tauschen: 1 Aktion außerhalb Kampf
 
 ---
 
-## §I.7 SESSION-ÜBERGANG & LIQUIDIERUNG (NEU in v3.2)
+## §I.7 SESSION-ENDE & LIQUIDIERUNG (v3.2)
 
-### Ende des Abenteuers - 3-Phasen-System
+### Session-Ende - 3-Phasen-System
 
 #### Phase 1: Behalten
 
@@ -267,7 +281,7 @@ Tauschen: 1 Aktion außerhalb Kampf
   - Gepäck wird komplett geleert (alle Slots → ⬜)
 ```
 
-### Vor neuem Abenteuer
+### Vor neuer Session
 
 ```
 Spieler wählt:
