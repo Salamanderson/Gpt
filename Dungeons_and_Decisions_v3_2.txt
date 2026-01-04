@@ -243,6 +243,9 @@ Aktualisierte Karte und Statusanzeige → neue Runde oder Szenenende
 | **Verwirrt** | 🌀 | Nächste Aktion: 1−2 trifft Verbündeten, 3−6 normal | 1 Runde |
 | **Tot/Besiegt** | ⚰️ | Aus dem Kampf entfernt | Permanent |
 
+**Verwirrt-Status Sonderfall:**
+- Wenn KEINE Verbündeten in Reichweite: 1−2 = 1 Selbstschaden (Charakter verletzt sich selbst)
+
 ---
 
 ## §5. STATUSANZEIGE (FORMAT)
