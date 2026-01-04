@@ -1,0 +1,516 @@
+# 🐉 Dungeons & Decisions – Version 3.2
+**Ein ultrasimples Fantasy-Rollenspiel inspiriert von D&D**
+
+---
+
+## §0. KERNPRINZIPIEN
+
+**Spielphilosophie:**
+- Spielerentscheidungen haben Vorrang (kein Railroading)
+- Würfelergebnisse sind bindend und transparent
+
+**Begriffsdefinitionen:**
+- **Szene** = Ein Ort oder eine Situation (Tavernenbesuch, Höhlenraum, Gespräch)
+- **Runde** = Eine abgeschlossene Kampfschleife / Erkundungschleife
+- **Abenteuer** = Ein abgeschlossener Story-Arc (kann mehrere Sessions umfassen)
+- **Rast** = Narrative Pause mit Erholung (Lagerfeuer, Schlaf, sichere Zuflucht)
+
+---
+
+## §1. CHARAKTERERSTELLUNG
+
+### §1.1 Spielercharakter
+
+| Attribut | Wert |
+|----------|------|
+| Lebenspunkte (HP) | 4 |
+| Mutpunkte (MP) | 1 pro Abenteuer |
+| Stärken ✔ | 2 (je +1 Bonus) |
+| Schwäche ✖ | 1 (−1 Malus) |
+| Fähigkeiten | Max. 3 (passiv/aktiv) |
+| ⚡ Schnellzugriff | 3 Slots (im Kampf nutzbar) |
+| 🎒 Gepäck | 10 Slots (nur außerhalb Kampf) |
+| 💰 Gold | **Party-Pool** (gemeinsam verwaltet) |
+
+### §1.2 Begleiter
+
+| Attribut | Wert |
+|----------|------|
+| Lebenspunkte (HP) | 4 |
+| Mutpunkte (MP) | 1 pro Abenteuer |
+| Stärken ✔ | 2 (je +1 Bonus) |
+| Schwäche ✖ | 1 (−1 Malus) |
+| Fähigkeiten | Max. 3 (passiv/aktiv) |
+| ⚡ Schnellzugriff | 3 Slots (im Kampf nutzbar) |
+| 🎒 Gepäck | 10 Slots (nur außerhalb Kampf) |
+| 💰 Gold | **Party-Pool** (gemeinsam verwaltet) |
+
+**Begleiter-Verhalten:**  
+Begleiter agieren selbstständig (vom SL geführt), folgen aber plausiblen Spieler-Kommandos. Sie können Items verwenden, Fähigkeiten nutzen, in Notsituationen MP (Mut Punkte) nutzen um besondere anders nicht machbare Taten abzuschließen.
+
+### §1.3 „Doppelt passt"-Regel
+
+Wenn Stärke ✔ UND passender Gegenstand zutreffen → **Auto-Erfolg** bei einfachen Aktionen (kein Wurf nötig).
+
+### §1.4 Item-System
+
+Für detaillierte Item-Regeln siehe **ITEM_SYSTEM.md**:
+- **⚡ Schnellzugriff:** Im Kampf nutzbar
+- **🎒 Gepäck:** Nur außerhalb Kampf zugänglich
+- **💰 Party-Gold:** Gemeinsamer Pool für alle Charaktere
+
+**Kampfregel:** Im Kampf können NUR Items aus Schnellzugriff verwendet werden.
+
+---
+
+## §2. WÜRFELSYSTEM (AUSSER KAMPF)
+
+### §2.1 Ergebnistabelle (1W6)
+
+| Wurf | Ergebnis | Effekt |
+|------|----------|--------|
+| **6** | Kritischer Erfolg | Epischer Effekt, maximaler Erfolg |
+| **5** | Erfolg mit Vorteil | Erfolg + nächster Wurf +1 ODER Storyvorteil |
+| **4** | Erfolg | Aktion gelingt wie geplant |
+| **3** | Erfolg mit Preis | Aktion gelingt, aber Kosten (Ressource, Komplikation) |
+| **2** | Misserfolg | Aktion scheitert, keine weiteren Folgen |
+| **1** | Patzer | Aktion scheitert + negative Konsequenz (siehe §2.2) |
+
+### §2.2 Patzer-Konsequenzen (SL wählt passend)
+
+- Waffe fällt / verklemmt (1 Aktion zum Aufheben)
+- Stolpern → nächste Feindaktion hat +1
+- Verbündeter im Weg → muss ausweichen statt anzugreifen
+- Lärm/Aufmerksamkeit erregt
+- 1 HP Eigenschaden (nur bei riskanten Aktionen)
+
+### §2.3 Modifikatoren (Reihenfolge)
+
+1. Basiswurf (1W6)
+2. Stärke ✔ passt → +1
+3. Passender Gegenstand → +1
+4. Schwäche ✖ passt → −1
+
+**Maximaler Gesamtbonus:** +2  
+**Minimalwert nach Modifikation:** 1 (kann nicht unter 1 fallen)
+
+### §2.4 Passender Gegenstand
+
+Ein Gegenstand gibt **+1**, wenn er die Handlung **direkt ermöglicht oder klar erleichtert**. SL-Entscheidung, im Zweifel: kurz begründen lassen.
+
+---
+
+## §3. SPIELABLAUF
+
+### §3.1 Erkundung (Erkundungsschleife)
+
+```
+Szene → Spielerentscheidung → [Würfelwurf wenn nötig] → Ergebnis + Gewonnene Informationen (kurzerfasst) + aktualisierte Karte und Statusanzeige → neue Szene
+```
+
+### §3.2 Handel & Wirtschaft
+**Party-Gold-System:**
+- Alle Charaktere teilen einen gemeinsamen Gold-Pool
+- Einkäufe und Verkäufe werden aus/in diesen Pool verrechnet
+
+**Verkaufsregeln:**
+
+| Situation | Verkaufspreis |
+|-----------|---------------|
+| **Bei Händlern** | 50% des Listenpreises |
+| **Session-Ende (Liquidierung)** | 15% des Listenpreises |
+| **Seltene Items / NSC-Interesse** | Bis zu 75% (SL-Entscheidung) |
+
+**Beispiel:**
+- Schwert (Kaufpreis: 10 Gold) → Verkauf bei Händler: 5 Gold
+- Schwert (Kaufpreis: 10 Gold) → Liquidierung am Session-Ende: 1.5 Gold
+
+### §3.3 Kampf (Kampfschleife)
+
+```
+Szenenbeschreibung (Terrain, Sicht, Deckung)
+    ↓
+[INITIATIVE-CHECK]
+    ↓
+Spieler-Aktion → Würfel → Ergebnis
+    ↓
+Begleiter-Aktion → Würfel → Ergebnis
+    ↓
+Feind-Aktionen → Würfel → Ergebnis
+    ↓
+Aktualisierte Karte und Statusanzeige → neue Runde oder Szenenende
+```
+
+**Vor Kampfbeginn:** SL beschreibt Terrain, Sichtlinien und Deckungsmöglichkeiten.
+**Bewegung ist frei und narrativ ('Kino-Logik'). Distanzen verhindern keine Aktionen, es sei denn, sie sind das Haupthindernis der Szene.**
+
+### §3.4 Initiative-System
+
+**Standard-Reihenfolge:** Spieler → Begleiter → Feinde
+
+**Bei Überraschung/Hinterhalt:**
+
+| Situation | Reihenfolge |
+|-----------|-------------|
+| **Spieler überrascht Feinde** | Spieler → Begleiter → Feinde (Vorteil 1. Runde) |
+| **Feinde überraschen Spieler** | Feinde → Spieler → Begleiter (Vorteil 1. Runde) |
+| **Kein Hinterhalt** | Standard (Spieler → Begleiter → Feinde) |
+
+**Überraschungs-Vorteil:** Die überraschende Seite erhält +1 auf alle Würfe in der ersten Runde.
+
+### §3.5 Terrain & Deckung
+
+| Situation | Mechanischer Effekt |
+|-----------|---------------------|
+| **Volle Deckung** | Kann nicht direkt angegriffen werden |
+| **Halbe Deckung** | Angreifer −1 auf Fernkampf |
+| **Erhöhte Position** | +1 auf Fernkampf |
+| **Schwieriges Terrain** | −1 auf alle Würfe |
+| **Dunkelheit** | −1 auf alle Würfe ohne Lichtquelle |
+
+---
+
+## §4. KAMPFSYSTEM
+
+### §4.1 Lebenspunkte
+
+| Einheit | HP |
+|---------|-----|
+| Spieler | 4 |
+| Begleiter | 4 |
+| Normale Gegner | 2, 3 |
+| Bosse | 5+ (SL legt fest) |
+
+### §4.2 Würfelsystem und Schadenstabelle
+
+| Wurf (nach Modifikation) | Ergebnis | Effekt, Schaden |
+|------|----------|--------|
+| **6** | Kritischer Erfolg | Epischer Effekt, maximaler Erfolg, 2 Schaden verursacht |
+| **5** | Erfolg mit Vorteil | Erfolg + nächster Wurf +1 ODER Storyvorteil, 1 Schaden verursacht |
+| **4** | Erfolg | Aktion gelingt wie geplant, 1 Schaden verursacht |
+| **3** | Erfolg mit Preis | Aktion gelingt, aber Kosten (Ressource, Komplikation), 1 Schaden verursacht |
+| **2** | Misserfolg | Aktion scheitert, keine weiteren Folgen, kein Schaden verursacht |
+| **1** | Patzer | Aktion scheitert + negative Konsequenz (siehe §4.3), kein Schaden verursacht |
+
+### §4.3 Kampf-Patzer-Konsequenzen (SL wählt passend)
+
+- Waffe fällt / verklemmt (1 Aktion zum Aufheben)
+- Stolpern → nächste Feindaktion hat +1
+- Verbündeter im Weg → muss ausweichen statt anzugreifen
+- Lärm/Aufmerksamkeit erregt
+- 1 HP Eigenschaden (nur bei riskanten Aktionen)
+
+**Optional bei 1−2:** Der SL kann narrativ einen Gegentreffer beschreiben (kein automatischer Schaden).
+
+### §4.4 Zustände
+
+| Zustand | Icon | Effekt | Dauer |
+|---------|------|--------|-------|
+| **Betäubt** | 💫 | Komplett handlungsunfähig | 1 Runde |
+| **Erschrocken** | 😨 | Nur Basisaktionen (keine Items/Fähigkeiten) | 1 Runde |
+| **Verwirrt** | 🌀 | Nächste Aktion: 1−2 trifft Verbündeten, 3−6 normal | 1 Runde |
+| **Tot/Besiegt** | ⚰️ | Aus dem Kampf entfernt | Permanent |
+
+---
+
+## §5. STATUSANZEIGE (FORMAT)
+
+Nach jeder Kampfrunde zeigt der SL den aktuellen Status:
+
+### §5.1 Helden-Format
+
+```
+🟢 [Spieler] | ❤️ 🟩🟩🟩⬜ | 💎 1 MP | ⚡ Item, Item, Item | [Zustand]
+[Fähigkeit-1], [Fähigkeit-2], [Fähigkeit-3]
+🟡 [Begleiter] | ❤️ 🟩🟩🟩🟩 | ⚡ Item, Item, Item | [Zustand]
+[Fähigkeit-1], [Fähigkeit-2], [Fähigkeit-3]
+
+💰 Party-Gold: X
+```
+
+### §5.2 Feinde-Format
+
+```
+🔺 [Feind A] | ❤️ 🟥🟥⬜ | [Zustand/Taktik-Hinweis]
+🔻 [Feind B] | ❤️ 🟥🟥🟥 | [Zustand/Taktik-Hinweis]
+```
+
+### §5.3 Symbol-Legende
+
+| Symbol | Bedeutung |
+|--------|-----------|
+| 🟩 | 1 HP vorhanden |
+| ⬜ | 1 HP verloren |
+| 🟥 | 1 Feind-HP vorhanden |
+| 🟢 | Spielercharakter |
+| 🟡 | Begleiter |
+| 🔺🔻 | Feinde (unterscheidbar) |
+| 💎 | Mutpunkte |
+| ⚡ | Schnellzugriff-Items |
+| 🔄 | Abklingzeit aktiv |
+| 💰 | Party-Gold |
+
+---
+
+## §6. FÄHIGKEITEN & ABKLINGZEITEN
+
+### §6.1 Abklingzeiten-Tracking
+
+In der Statusanzeige. Nach jeder Kampfrunde zeigt: 🔄 + wann Fähigkeit wieder verfügbar.
+
+**Beispiel:**  
+`• Dämonenklaue 🔄(2)` = Verfügbar in 2 Runden  
+`• Provisorische Falle ✓` = Sofort verfügbar
+
+**Rast setzt alle Abklingzeiten zurück.**
+
+### §6.2 Fähigkeiten-Schadensregeln (FALLBACK)
+
+Diese Regel gilt NUR wenn die Charakterkarte KEINE spezifische Angabe macht:
+
+| Fähigkeitsbeschreibung | Ablauf |
+|------------------------|--------|
+| MIT Schadensangabe (z.B. "verursacht 2 Schaden") | Kein Wurf, Schaden wie angegeben |
+| OHNE Schadensangabe (nur "trifft automatisch" o.ä.) | Würfelwurf: 6 = 2 Schaden, 3-5 = 1 Schaden, 1-2 = 1 Schaden (Minimum) |
+
+### §6.3 Fähigkeiten-Hierarchie (WICHTIG!)
+
+**⚠️ PRIORITÄTS-REGEL:**
+
+```
+1. CHARAKTERKARTE hat IMMER höchste Priorität!
+   → Wenn die Fähigkeit auf der Charakterkarte Schaden/Effekt spezifiziert, 
+     gilt EXAKT diese Beschreibung.
+
+2. REGELWERK §6.2 ist nur FALLBACK
+   → Wird nur angewendet wenn Charakterkarte KEINE klare Angabe macht.
+```
+
+**Beispiele:**
+
+| Charakterkarte sagt... | Was passiert |
+|------------------------|--------------|
+| "1 Schaden + 💫 Betäubt" | Exakt 1 Schaden, kein Wurf für Schaden |
+| "Garantiert 1 Schaden, Würfeln (5,6) für +1" | 1 Schaden garantiert, dann Bonuswurf |
+| "Gegner verliert Aktion" | Kein Schaden, nur Effekt |
+| "Trifft automatisch" (ohne Schadensangabe) | → Fallback §6.2: Würfeln für Schaden |
+
+### §6.4 Fähigkeiten Allgemeine-Regeln
+
+- Bei Fähigkeiten hat die Charakterkarte immer die höchste Priorität und ist immer zu konsultieren!
+- Fähigkeiten funktionieren von MP (Mutpunkten) unabhängig!
+- Im Zweifel: Charakterkarte wörtlich nehmen
+
+---
+
+## §7. MUTPUNKTE
+
+**Anzahl:** 1 MP pro Abenteuer (regeneriert nicht durch Rast)
+
+### §7.1 Einsatzmöglichkeiten
+
+| Einsatz | Effekt | Bedingung |
+|---------|--------|-----------|
+| **Auto-Erfolg** | Wurf zählt automatisch als 6 | Vor dem Wurf ansagen |
+| **Schadensabwehr** | 100% des eingehenden Schadens negiert | Auch nachträglich möglich wenn plausibel begründet |
+| **Heldentaten** | Besondere Taten mit Erfolg abschließen | wenn episch und plausibel begründet |
+
+---
+
+## §8. SOZIALE INTERAKTION
+
+Soziale Herausforderungen werden durch **Argumente** gelöst, nicht durch Würfel.
+
+### §8.1 Aktionstypen
+
+- **Überreden** – Logik und Vernunft
+- **Täuschen** – Lügen, Bluff, falsche Identität
+- **Einschüchtern** – Drohung oder Machtdemonstration
+- **Verführen** – Charme und Anziehung
+- **Verhandeln** – Tauschgeschäfte und Kompromisse
+- **Provozieren** – Zu unüberlegter Handlung reizen
+- **Beschwichtigen** – Wut oder Panik beruhigen
+- **Inspirieren** – Mut machen, motivieren
+- **Appellieren** – An Moral, Ehre oder Mitleid
+
+### §8.2 Schwierigkeitsgrade
+
+| Schwierigkeit | Argumente nötig | Beispiel |
+|---------------|-----------------|----------|
+| Einfach | 1 | Alltägliche Bitte, wohlwollender NSC |
+| Normal | 2 | Komplexere Überzeugung, neutraler NSC |
+| Schwer | 3 | Feindlicher NSC, großer Gefallen |
+
+### §8.3 Fortschrittsanzeige
+
+```
+Überzeugung: ⬜⬜⬜ (0/3)  → Start
+Überzeugung: 🟩⬜⬜ (1/3)  → Gutes Argument
+Überzeugung: 🟩🟩⬜ (2/3)  → Weiteres gutes Argument
+Überzeugung: 🟩🟩🟩 (3/3)  → Erfolg!
+```
+
+### §8.4 Bewertung der Argumente
+
+| Bewertung | Effekt |
+|-----------|--------|
+| ✔ Gut | +1 Fortschritt |
+| ✗ Schwach | +0 (SL erklärt kurz warum) |
+| ⚡ Brilliant | +2 oder sofortiger Erfolg |
+
+### §8.5 Was macht ein gutes Argument?
+
+- Passt zur NSC-Motivation (Gier, Angst, Ehre, etc.)
+- Nutzt bekannte Informationen aus der Szene
+- Ist kreativ und/oder im Charakter
+- Bietet konkreten Nutzen oder glaubhafte Drohung
+- Passt zur gewählten Aktion
+
+### §8.6 Stärken & Schwächen in sozialen Situationen
+
+- **Passende Stärke ✔:** Spieler darf einen zusätzlichen unterstützenden Aspekt nennen
+- **Passende Schwäche ✖:** NSC bringt Gegenargument, das erst neutralisiert werden muss
+
+### §8.7 Fallback-Option (wenn Spieler nicht argumentieren will/kann)
+
+Spieler kann stattdessen **würfeln** (1W6 mit passenden Modifikatoren):
+- **4+** = 1 Fortschritt
+- **6** = 2 Fortschritt
+- **1−3** = Kein Fortschritt, NSC wird skeptischer
+
+Diese Option ist **schwächer** als gutes Rollenspiel – Anreiz zum Argumentieren bleibt.
+
+### §8.8 Bei Scheitern
+
+- NSC lehnt ab ODER verlangt Gegenleistung
+- Spieler kann zu Kampf oder normalem Gespräch wechseln
+- **Warnung:** Gescheiterte aggressive Aktionen (Einschüchtern, Provozieren) können Kampf auslösen
+
+---
+
+## §9. CHARAKTERENTWICKLUNG
+
+Nach Abschluss eines Abenteuers kann der SL folgende Belohnungen vergeben:
+
+### §9.1 Mögliche Belohnungen (SL wählt 1−2)
+
+| Belohnung | Effekt |
+|-----------|--------|
+| **Neues Item** | Füllt einen Inventarslot |
+| **Fähigkeiten-Upgrade** | Bestehende Fähigkeit wird stärker oder vielseitiger |
+| **Neue Fähigkeit** | Falls unter Maximum (3), neue Fähigkeit erlernen. Bei erreichtem Maximum, Austausch anbieten. |
+| **+1 HP (permanent)** | Nur bei besonders gefährlichen Abenteuern |
+| **Titel/Ruf** | Narrative Vorteile in passenden sozialen Situationen |
+| **Begleiter** | Neuer Begleiter schließt sich an |
+
+### §9.2 Keine automatische Progression
+
+Charaktere werden nicht automatisch stärker – Entwicklung ist narrativ begründet und vom SL moderiert.
+
+### §9.3 Session-Übergang & Liquidierungsphase (NEU in v3.2)
+
+**Am Ende eines Abenteuers:**
+
+#### Phase 1: Behalten
+
+| Behalten | Beschreibung |
+|----------|--------------|
+| ⚡ 3 Schnellzugriff-Items | Spieler wählt welche |
+| 💰 Party-Gold | Kompletter Pool bleibt |
+
+#### Phase 2: Liquidierung (NEU!)
+
+Alle verbleibenden Items im 🎒 Gepäck werden automatisch verkauft:
+
+| Item-Kategorie | Liquidierungswert |
+|----------------|-------------------|
+| **Standard-Items** | 15% des Listenpreises |
+| **Einzigartige Items** | SL-Entscheidung (0-50%) |
+| **Verbrauchte Items** | 0 Gold |
+
+**Beispiel Liquidierung:**
+```
+🎒 Gepäck vor Liquidierung:
+[1] Schwert (Wert: 10) → 1.5 Gold
+[2] Heiltrank (Wert: 5) → 0.75 Gold
+[3] Seil (Wert: 1) → 0.15 Gold
+[4-10] ⬜ LEER
+
+Liquidierungs-Erlös: 2.4 Gold (aufgerundet: 3 Gold)
+→ Party-Gold +3
+```
+
+#### Phase 3: Reset & Abschluss
+
+```
+☐ Gepäck wird komplett geleert (alle Slots → ⬜)
+☐ Spieler entscheidet: Charakterkarte aktualisieren?
+☐ Spieler entscheidet: Campaign Chronicle updaten?
+```
+
+**Charakterkarten- und Campaign Chronicle-Update:** NUR auf Spieler-Verlangen!
+
+---
+
+## §10. SCHNELLREFERENZ
+
+### §10.1 Würfeltabelle
+
+| Wurf | Ergebnis |
+|------|----------|
+| 6 | Kritischer Erfolg |
+| 5 | Erfolg + Vorteil |
+| 4 | Erfolg |
+| 3 | Erfolg mit Preis |
+| 2 | Misserfolg |
+| 1 | Patzer |
+
+### §10.2 Schadens-Tabelle (Kampf)
+
+| Wurf | Schaden |
+|------|---------|
+| 6 | 2 |
+| 3−5 | 1 |
+| 1−2 | 0 |
+
+### §10.3 Modifikatoren-Tabelle
+
+| Situation | Mod |
+|-----------|-----|
+| Passende Stärke | +1 |
+| Passender Gegenstand | +1 |
+| Passende Schwäche | −1 |
+| Halbe Deckung (Ziel) | −1 |
+| Erhöhte Position | +1 |
+| Dunkelheit | −1 |
+| Überraschungs-Vorteil (1. Runde) | +1 |
+| Unsicherer Stand / Laufangriff |-1|
+
+### §10.4 Inventar-Übersicht
+
+| Bereich | Slots | Zugriff |
+|---------|-------|---------|
+| ⚡ Schnellzugriff | 3 | Jederzeit |
+| 🎒 Gepäck | 10 | Außerhalb Kampf |
+| 💰 Party-Gold | ∞ | Jederzeit (gemeinsamer Pool) |
+
+### §10.5 Handel-Übersicht 
+
+| Transaktion | Kurs |
+|-------------|------|
+| Kauf bei Händler | 100% Listenpreis |
+| Verkauf bei Händler | 50% Listenpreis |
+| Liquidierung (Session-Ende) | 15% Listenpreis |
+| Seltene Items (SL-Entscheidung) | Bis zu 75% |
+
+### §10.6 Initiative-Übersicht
+
+| Situation | Reihenfolge |
+|-----------|-------------|
+| Standard | Spieler → Begleiter → Feinde |
+| Spieler überrascht | Spieler → Begleiter → Feinde (+1 R1) |
+| Feinde überraschen | Feinde → Spieler → Begleiter (+1 R1) |
+
+---
+
+## ⚔️ Bereit? Möge das Abenteuer beginnen! ⚔️
