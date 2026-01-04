@@ -10,9 +10,10 @@
 - Würfelergebnisse sind bindend und transparent
 
 **Begriffsdefinitionen:**
-- **Szene** = Ein Ort oder eine Situation (Tavernenbesuch, Höhlenraum, Gespräch)
+- **Szene** = Ein Ort oder eine Situation (Tavernenbesuch, Höhlenraum, Gespräch). Szenenwechsel = Ortswechsel oder deutlicher Situationswechsel.
 - **Runde** = Eine abgeschlossene Kampfschleife / Erkundungschleife
-- **Abenteuer** = Ein abgeschlossener Story-Arc (kann mehrere Sessions umfassen)
+- **Session** = Eine einzelne Spielsitzung mit vorbereiteter Session-Skizze
+- **Abenteuer** = Synonym für Session. Ein abgeschlossener Story-Arc innerhalb einer Spielsitzung.
 - **Rast** = Narrative Pause mit Erholung (Lagerfeuer, Schlaf, sichere Zuflucht)
 
 ---
@@ -24,7 +25,7 @@
 | Attribut | Wert |
 |----------|------|
 | Lebenspunkte (HP) | 4 |
-| Mutpunkte (MP) | 1 pro Abenteuer |
+| Mutpunkte (MP) | 1 pro Session |
 | Stärken ✔ | 2 (je +1 Bonus) |
 | Schwäche ✖ | 1 (−1 Malus) |
 | Fähigkeiten | Max. 3 (passiv/aktiv) |
@@ -37,7 +38,7 @@
 | Attribut | Wert |
 |----------|------|
 | Lebenspunkte (HP) | 4 |
-| Mutpunkte (MP) | 1 pro Abenteuer |
+| Mutpunkte (MP) | 1 pro Session |
 | Stärken ✔ | 2 (je +1 Bonus) |
 | Schwäche ✖ | 1 (−1 Malus) |
 | Fähigkeiten | Max. 3 (passiv/aktiv) |
@@ -60,6 +61,12 @@ Für detaillierte Item-Regeln siehe **ITEM_SYSTEM.md**:
 - **💰 Party-Gold:** Gemeinsamer Pool für alle Charaktere
 
 **Kampfregel:** Im Kampf können NUR Items aus Schnellzugriff verwendet werden.
+
+**Rüstungsregel:**
+- Nicht zwei Rüstungen derselben Klasse gleichzeitig (z.B. nicht Lederrüstung + Kettenhemd)
+- Kombinationen erlaubt: 1 Hauptrüstung + 1 Schild + 1 Helm
+- Rüstung muss in ⚡ Schnellzugriff sein um zu wirken
+- Modifikatoren-Maximum: +2 auf dieselbe Statistik (auch durch mehrere Rüstungsteile)
 
 ---
 
@@ -98,6 +105,21 @@ Für detaillierte Item-Regeln siehe **ITEM_SYSTEM.md**:
 
 Ein Gegenstand gibt **+1**, wenn er die Handlung **direkt ermöglicht oder klar erleichtert**. SL-Entscheidung, im Zweifel: kurz begründen lassen.
 
+**Beispiele für passende Gegenstände:**
+
+| Aktion | Passender Gegenstand | Ergebnis |
+|--------|---------------------|----------|
+| Schloss knacken | Dietriche | +1 (ermöglicht die Aktion) |
+| Klettern über Mauer | Seil | +1 (erleichtert deutlich) |
+| Nahkampfangriff | Schwert/Dolch | +1 (Waffe für Kampf) |
+| Dunklen Raum durchsuchen | Fackel/Laterne | +1 (ermöglicht Sicht) |
+| Mechanismus reparieren | Werkzeugset | +1 (richtiges Werkzeug) |
+
+**Nicht passend:**
+- Schwert beim Schloss knacken (falsches Werkzeug)
+- Seil beim Nahkampf (kein direkter Nutzen)
+- Proviant beim Klettern (irrelevant)
+
 ---
 
 ## §3. SPIELABLAUF
@@ -112,6 +134,7 @@ Szene → Spielerentscheidung → [Würfelwurf wenn nötig] → Ergebnis + Gewon
 **Party-Gold-System:**
 - Alle Charaktere teilen einen gemeinsamen Gold-Pool
 - Einkäufe und Verkäufe werden aus/in diesen Pool verrechnet
+- **Bei Charaktertod:** Party-Gold bleibt bei den überlebenden Charakteren
 
 **Verkaufsregeln:**
 
@@ -142,7 +165,13 @@ Aktualisierte Karte und Statusanzeige → neue Runde oder Szenenende
 ```
 
 **Vor Kampfbeginn:** SL beschreibt Terrain, Sichtlinien und Deckungsmöglichkeiten.
-**Bewegung ist frei und narrativ ('Kino-Logik'). Distanzen verhindern keine Aktionen, es sei denn, sie sind das Haupthindernis der Szene.**
+
+**Bewegung: Cinema Logic**
+- Bewegung ist frei und narrativ (keine Gitterzählung, keine Distanzmessung in Metern)
+- Spieler muss Bewegung narrativ begründen ("Ich sprinte zum Gegner", "Ich ducke mich hinter die Säule")
+- **SL entscheidet** ob Bewegung/Aktion plausibel ist basierend auf Szenenbeschreibung
+- Wenn SL vorher eine Distanz als "weit" oder "unerreichbar" beschreibt, gilt das
+- **Terrain-Modifikatoren bleiben aktiv** (Wasser = -1 wegen erschwerter Bewegung, Dunkelheit = -1 wegen Sicht, etc.)
 
 ### §3.4 Initiative-System
 
@@ -156,7 +185,10 @@ Aktualisierte Karte und Statusanzeige → neue Runde oder Szenenende
 | **Feinde überraschen Spieler** | Feinde → Spieler → Begleiter (Vorteil 1. Runde) |
 | **Kein Hinterhalt** | Standard (Spieler → Begleiter → Feinde) |
 
-**Überraschungs-Vorteil:** Die überraschende Seite erhält +1 auf alle Würfe in der ersten Runde.
+**Überraschungs-Vorteil:**
+- ALLE Charaktere der überraschenden Seite erhalten +1 auf alle Würfe in der ersten Runde
+- Beispiel: Spieler überrascht → Spieler UND Begleiter erhalten +1 in Runde 1
+- Beispiel: Feinde überraschen → ALLE Feinde erhalten +1 in Runde 1
 
 ### §3.5 Terrain & Deckung
 
@@ -211,6 +243,9 @@ Aktualisierte Karte und Statusanzeige → neue Runde oder Szenenende
 | **Verwirrt** | 🌀 | Nächste Aktion: 1−2 trifft Verbündeten, 3−6 normal | 1 Runde |
 | **Tot/Besiegt** | ⚰️ | Aus dem Kampf entfernt | Permanent |
 
+**Verwirrt-Status Sonderfall:**
+- Wenn KEINE Verbündeten in Reichweite: 1−2 = 1 Selbstschaden (Charakter verletzt sich selbst)
+
 ---
 
 ## §5. STATUSANZEIGE (FORMAT)
@@ -258,9 +293,13 @@ Nach jeder Kampfrunde zeigt der SL den aktuellen Status:
 
 In der Statusanzeige. Nach jeder Kampfrunde zeigt: 🔄 + wann Fähigkeit wieder verfügbar.
 
-**Beispiel:**  
-`• Dämonenklaue 🔄(2)` = Verfügbar in 2 Runden  
+**Beispiel:**
+`• Dämonenklaue 🔄(2)` = Verfügbar in 2 Runden
 `• Provisorische Falle ✓` = Sofort verfügbar
+
+**Cooldown-Typen:**
+- **Runden-Cooldown** (z.B. "2"): Reduziert sich jede Kampfrunde um 1
+- **Scene-Cooldown** (z.B. "scene"): Wird zurückgesetzt bei Szenenwechsel (Ortswechsel oder deutlicher Situationswechsel) UND bei Rast
 
 **Rast setzt alle Abklingzeiten zurück.**
 
@@ -288,12 +327,20 @@ Diese Regel gilt NUR wenn die Charakterkarte KEINE spezifische Angabe macht:
 
 **Beispiele:**
 
-| Charakterkarte sagt... | Was passiert |
-|------------------------|--------------|
-| "1 Schaden + 💫 Betäubt" | Exakt 1 Schaden, kein Wurf für Schaden |
-| "Garantiert 1 Schaden, Würfeln (5,6) für +1" | 1 Schaden garantiert, dann Bonuswurf |
-| "Gegner verliert Aktion" | Kein Schaden, nur Effekt |
-| "Trifft automatisch" (ohne Schadensangabe) | → Fallback §6.2: Würfeln für Schaden |
+| Charakterkarte sagt... | Was passiert | Würfeln? |
+|------------------------|--------------|----------|
+| "Verursacht 2 Schaden" | Exakt 2 Schaden, garantiert | ❌ Nein |
+| "1 Schaden + 💫 Betäubt (1 Runde)" | Exakt 1 Schaden + Betäubt-Status | ❌ Nein |
+| "Garantiert 1 Schaden, bei 5-6: zusätzlich +1" | Min. 1 Schaden, würfeln für Bonus | ✅ Ja (nur für Bonus) |
+| "Gegner verliert nächste Aktion" | Kein Schaden, nur Status-Effekt | ❌ Nein |
+| "Trifft automatisch" (KEINE Schadensangabe) | → Fallback §6.2: Würfeln 1d6 | ✅ Ja (Minimum 1 Schaden) |
+| "Wurf +2, bei Erfolg 1 Schaden" | Normaler Angriffswurf mit Bonus | ✅ Ja |
+
+**Interpretation bei unklarer Formulierung:**
+- Wenn Charakterkarte Schaden UND Wurf erwähnt → Würfeln
+- Wenn Charakterkarte nur Schaden erwähnt → Kein Wurf (garantiert)
+- Wenn Charakterkarte nur Effekt erwähnt → Kein Wurf, kein Schaden
+- Bei Zweifel: Charakterkarte wörtlich nehmen, im Zweifel SL interpretiert zugunsten des Spielers
 
 ### §6.4 Fähigkeiten Allgemeine-Regeln
 
@@ -305,7 +352,7 @@ Diese Regel gilt NUR wenn die Charakterkarte KEINE spezifische Angabe macht:
 
 ## §7. MUTPUNKTE
 
-**Anzahl:** 1 MP pro Abenteuer (regeneriert nicht durch Rast)
+**Anzahl:** 1 MP pro Session (regeneriert nicht durch Rast)
 
 ### §7.1 Einsatzmöglichkeiten
 
@@ -390,7 +437,7 @@ Diese Option ist **schwächer** als gutes Rollenspiel – Anreiz zum Argumentier
 
 ## §9. CHARAKTERENTWICKLUNG
 
-Nach Abschluss eines Abenteuers kann der SL folgende Belohnungen vergeben:
+Nach Abschluss einer Session kann der SL folgende Belohnungen vergeben:
 
 ### §9.1 Mögliche Belohnungen (SL wählt 1−2)
 
@@ -399,7 +446,7 @@ Nach Abschluss eines Abenteuers kann der SL folgende Belohnungen vergeben:
 | **Neues Item** | Füllt einen Inventarslot |
 | **Fähigkeiten-Upgrade** | Bestehende Fähigkeit wird stärker oder vielseitiger |
 | **Neue Fähigkeit** | Falls unter Maximum (3), neue Fähigkeit erlernen. Bei erreichtem Maximum, Austausch anbieten. |
-| **+1 HP (permanent)** | Nur bei besonders gefährlichen Abenteuern |
+| **+1 HP (permanent)** | Nur bei besonders gefährlichen Sessions |
 | **Titel/Ruf** | Narrative Vorteile in passenden sozialen Situationen |
 | **Begleiter** | Neuer Begleiter schließt sich an |
 
@@ -407,9 +454,9 @@ Nach Abschluss eines Abenteuers kann der SL folgende Belohnungen vergeben:
 
 Charaktere werden nicht automatisch stärker – Entwicklung ist narrativ begründet und vom SL moderiert.
 
-### §9.3 Session-Übergang & Liquidierungsphase (NEU in v3.2)
+### §9.3 Session-Ende & Liquidierungsphase (v3.2)
 
-**Am Ende eines Abenteuers:**
+**Am Session-Ende:**
 
 #### Phase 1: Behalten
 
