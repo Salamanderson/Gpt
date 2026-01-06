@@ -1,9 +1,17 @@
 🗺️ MAP GENERATOR SKILL
 
+**Cross-References:**
+- Bewegung/Kino-Logik: Regelwerk §3.3
+- Zustände: Regelwerk §4.4
+- State-Tracking Schema: STATE_TRACKING_JSON.md
+- DM-Anweisungen: DUNGEON_MASTER_PROMPT_v3_2.md
+
+---
+
 **KRITISCHE REGELN:**
 
 ✅ **MAP IMMER IM CHAT UND IMMER IM CODEBLOCK**
-✅ **LEGENDE IMMER UNTER DER KARTE ABER Außer DEM CODEBLOCK **
+✅ **LEGENDE IMMER UNTER DER KARTE ABER AUßERHALB DEM CODEBLOCK**
 ✅ **Eine Map = Eine Location im Registry**
 ✅ **CURRENT_LOCATION zeigt aktive Map**
 ✅ **Static Layer = UNVERÄNDERT nach Erstellung**
@@ -11,6 +19,25 @@
 ✅ **Alle Locations bleiben parallel gespeichert**
 ✅ **Wechsel = kein Datenverlust**
 ✅ **Nur Symbole aus Symbol-Bank!**
+
+---
+
+## ⚠️ KOORDINATEN = NUR VISUALISIERUNG (Siehe Regelwerk §3.3)
+
+**Koordinaten dienen AUSSCHLIESSLICH der Kartenvisualisierung:**
+- Positionen auf der Karte darstellen
+- Übersicht wer wo steht
+- Sichtlinien verdeutlichen
+
+**Koordinaten werden NICHT verwendet für:**
+- Bewegungsreichweiten berechnen
+- Distanzen in Feldern zählen
+- Mechanische Einschränkungen
+
+**Bewegung folgt KINO-LOGIK (Regelwerk §3.3):**
+- SL entscheidet ob Bewegung narrativ plausibel ist
+- Keine Feldzählung, keine Reichweiten
+- Karte wird entsprechend der Narration aktualisiert
 
 
 ═══════════════════════════════════════════════════════════════════════════════

@@ -31,7 +31,7 @@
 | Fähigkeiten | Max. 3 (passiv/aktiv) |
 | ⚡ Schnellzugriff | 3 Slots (im Kampf nutzbar) |
 | 🎒 Gepäck | 10 Slots (nur außerhalb Kampf) |
-| 💰 Gold | **Party-Pool** (gemeinsam verwaltet) |
+| 💰 Gruppen-Gold | Gemeinsamer Pool (alle Charaktere teilen) |
 
 ### §1.2 Begleiter
 
@@ -44,7 +44,7 @@
 | Fähigkeiten | Max. 3 (passiv/aktiv) |
 | ⚡ Schnellzugriff | 3 Slots (im Kampf nutzbar) |
 | 🎒 Gepäck | 10 Slots (nur außerhalb Kampf) |
-| 💰 Gold | **Party-Pool** (gemeinsam verwaltet) |
+| 💰 Gruppen-Gold | Gemeinsamer Pool (alle Charaktere teilen) |
 
 **Begleiter-Verhalten:**  
 Begleiter agieren selbstständig (vom SL geführt), folgen aber plausiblen Spieler-Kommandos. Sie können Items verwenden, Fähigkeiten nutzen, in Notsituationen MP (Mut Punkte) nutzen um besondere anders nicht machbare Taten abzuschließen.
@@ -58,7 +58,7 @@ Wenn Stärke ✔ UND passender Gegenstand zutreffen → **Auto-Erfolg** bei einf
 Für detaillierte Item-Regeln siehe **ITEM_SYSTEM.md**:
 - **⚡ Schnellzugriff:** Im Kampf nutzbar
 - **🎒 Gepäck:** Nur außerhalb Kampf zugänglich
-- **💰 Party-Gold:** Gemeinsamer Pool für alle Charaktere
+- **💰 Gruppen-Gold:** Gemeinsamer Pool für alle Charaktere
 
 **Kampfregel:** Im Kampf können NUR Items aus Schnellzugriff verwendet werden.
 
@@ -131,10 +131,10 @@ Szene → Spielerentscheidung → [Würfelwurf wenn nötig] → Ergebnis + Gewon
 ```
 
 ### §3.2 Handel & Wirtschaft
-**Party-Gold-System:**
+**Gruppen-Gold-System:**
 - Alle Charaktere teilen einen gemeinsamen Gold-Pool
 - Einkäufe und Verkäufe werden aus/in diesen Pool verrechnet
-- **Bei Charaktertod:** Party-Gold bleibt bei den überlebenden Charakteren
+- **Bei Charaktertod:** Gruppen-Gold bleibt bei den überlebenden Charakteren
 
 **Verkaufsregeln:**
 
@@ -166,12 +166,17 @@ Aktualisierte Karte und Statusanzeige → neue Runde oder Szenenende
 
 **Vor Kampfbeginn:** SL beschreibt Terrain, Sichtlinien und Deckungsmöglichkeiten.
 
-**Bewegung: Cinema Logic**
-- Bewegung ist frei und narrativ (keine Gitterzählung, keine Distanzmessung in Metern)
+**Bewegung: Kino-Logik**
+- Bewegung ist frei und narrativ (keine Reichweiten, keine Distanzmessung)
 - Spieler muss Bewegung narrativ begründen ("Ich sprinte zum Gegner", "Ich ducke mich hinter die Säule")
 - **SL entscheidet** ob Bewegung/Aktion plausibel ist basierend auf Szenenbeschreibung
 - Wenn SL vorher eine Distanz als "weit" oder "unerreichbar" beschreibt, gilt das
-- **Terrain-Modifikatoren bleiben aktiv** (Wasser = -1 wegen erschwerter Bewegung, Dunkelheit = -1 wegen Sicht, etc.)
+- **Terrain-Modifikatoren bleiben aktiv** (siehe §3.5)
+
+**Karten-Visualisierung (siehe MAP_GENERATOR_SKILL.md):**
+- Positionen werden auf der Karte **visualisiert**, nicht für Spielmechanik verwendet
+- Koordinaten dienen der **Übersichtlichkeit**, nicht für Distanzberechnung
+- Bewegung auf der Karte folgt der **narrativen Beschreibung**, nicht Feldzählung
 
 ### §3.4 Initiative-System
 
@@ -241,7 +246,14 @@ Aktualisierte Karte und Statusanzeige → neue Runde oder Szenenende
 | **Betäubt** | 💫 | Komplett handlungsunfähig | 1 Runde |
 | **Erschrocken** | 😨 | Nur Basisaktionen (keine Items/Fähigkeiten) | 1 Runde |
 | **Verwirrt** | 🌀 | Nächste Aktion: 1−2 trifft Verbündeten, 3−6 normal | 1 Runde |
-| **Tot/Besiegt** | ⚰️ | Aus dem Kampf entfernt | Permanent |
+| **Sterbend** | 💀 | 0 HP erreicht, kann durch Heilung gerettet werden | Bis Rettung/Tod |
+| **Tot** | ⚰️ | Aus dem Kampf entfernt, nicht mehr rettbar | Permanent |
+
+**Sterbend-Status (0 HP):**
+- Charakter fällt mit 0 HP in Status 💀 Sterbend
+- Kann durch Heilung/Rettungsaktion eines Teammitglieds wiederbelebt werden
+- Spieler übernimmt Kontrolle über nächstes lebendes Teammitglied
+- **SPIELENDE:** Erst wenn ALLE Team-Charaktere tot (⚰️) sind
 
 **Verwirrt-Status Sonderfall:**
 - Wenn KEINE Verbündeten in Reichweite: 1−2 = 1 Selbstschaden (Charakter verletzt sich selbst)
@@ -260,7 +272,7 @@ Nach jeder Kampfrunde zeigt der SL den aktuellen Status:
 🟡 [Begleiter] | ❤️ 🟩🟩🟩🟩 | ⚡ Item, Item, Item | [Zustand]
 [Fähigkeit-1], [Fähigkeit-2], [Fähigkeit-3]
 
-💰 Party-Gold: X
+💰 Gruppen-Gold: X
 ```
 
 ### §5.2 Feinde-Format
@@ -283,7 +295,7 @@ Nach jeder Kampfrunde zeigt der SL den aktuellen Status:
 | 💎 | Mutpunkte |
 | ⚡ | Schnellzugriff-Items |
 | 🔄 | Abklingzeit aktiv |
-| 💰 | Party-Gold |
+| 💰 | Gruppen-Gold |
 
 ---
 
@@ -298,10 +310,18 @@ In der Statusanzeige. Nach jeder Kampfrunde zeigt: 🔄 + wann Fähigkeit wieder
 `• Provisorische Falle ✓` = Sofort verfügbar
 
 **Cooldown-Typen:**
-- **Runden-Cooldown** (z.B. "2"): Reduziert sich jede Kampfrunde um 1
-- **Scene-Cooldown** (z.B. "scene"): Wird zurückgesetzt bei Szenenwechsel (Ortswechsel oder deutlicher Situationswechsel) UND bei Rast
 
-**Rast setzt alle Abklingzeiten zurück.**
+| Typ | Anzeige | Reduktion | Reset |
+|-----|---------|-----------|-------|
+| **Runden** | 🔄(X) | Jede Kampfrunde -1 | Bei X=0: ✓ |
+| **Szene** | 🔄(Szene) | Nicht automatisch | Bei Szenenwechsel/Rast |
+
+**Beispiele:**
+- `🔄(2)` = Noch 2 Runden Cooldown
+- `🔄(Szene)` = Erst bei Szenenwechsel wieder verfügbar
+- `✓` = Sofort einsatzbereit
+
+**Rast setzt ALLE Abklingzeiten zurück.**
 
 ### §6.2 Fähigkeiten-Schadensregeln (FALLBACK)
 
@@ -463,7 +483,7 @@ Charaktere werden nicht automatisch stärker – Entwicklung ist narrativ begrü
 | Behalten | Beschreibung |
 |----------|--------------|
 | ⚡ 3 Schnellzugriff-Items | Spieler wählt welche |
-| 💰 Party-Gold | Kompletter Pool bleibt |
+| 💰 Gruppen-Gold | Kompletter Pool bleibt |
 
 #### Phase 2: Liquidierung (NEU!)
 
@@ -484,7 +504,7 @@ Alle verbleibenden Items im 🎒 Gepäck werden automatisch verkauft:
 [4-10] ⬜ LEER
 
 Liquidierungs-Erlös: 2.4 Gold (aufgerundet: 3 Gold)
-→ Party-Gold +3
+→ Gruppen-Gold +3
 ```
 
 #### Phase 3: Reset & Abschluss
@@ -539,7 +559,7 @@ Liquidierungs-Erlös: 2.4 Gold (aufgerundet: 3 Gold)
 |---------|-------|---------|
 | ⚡ Schnellzugriff | 3 | Jederzeit |
 | 🎒 Gepäck | 10 | Außerhalb Kampf |
-| 💰 Party-Gold | ∞ | Jederzeit (gemeinsamer Pool) |
+| 💰 Gruppen-Gold | ∞ | Jederzeit (gemeinsamer Pool) |
 
 ### §10.5 Handel-Übersicht 
 
