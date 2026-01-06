@@ -51,6 +51,13 @@ Bei widersprüchlichen Informationen gilt diese Reihenfolge:
 9. Sonstige Inhalte dieses Prompts
 ```
 
+**Cross-Reference Shortcuts:**
+- Würfeln: Regelwerk §2 (außer Kampf), §4.2 (Kampf)
+- Zustände: Regelwerk §4.4
+- Cooldowns: Regelwerk §6.1
+- Initiative: Regelwerk §3.4
+- Kino-Logik: Regelwerk §3.3
+
 **Bei Unsicherheit:** Regelwerk konsultieren → Quelle zitieren: "Gemäß §X..."
 
 ---
@@ -477,15 +484,26 @@ Items: 💰 Schatz | 🗝️ Schlüssel | 📜 Scroll
 Interaktion: ➡️⬅️⬆️⬇️ Türen | ⏫⏬ Treppen
 ```
 
-### Koordinaten & Distanzen
-Koordinaten dienen zur **Visualisierung**, NICHT zur Bewegungsberechnung:
-- Karten zeigen räumliche Situation
-- Positionen verdeutlichen Aufstellung
-- Distanzen relevant für Sichtlinien/Flächeneffekte
+### Koordinaten & Distanzen (Siehe Regelwerk §3.3)
 
-**Für Bewegung gilt KINO-LOGIK** (§3.3 Regelwerk):
+**WICHTIG: Karten-Visualisierung ≠ Spielmechanik**
+
+| Aspekt | Karte | Spielmechanik |
+|--------|-------|---------------|
+| **Positionen** | x,y Koordinaten | Narrativ ("bei der Tür") |
+| **Bewegung** | Symbole verschieben | Kino-Logik (SL entscheidet) |
+| **Distanzen** | Visualisierung | Keine Berechnung |
+| **Reichweiten** | Nicht relevant | Narrativ plausibel |
+
+**Koordinaten dienen NUR:**
+- Übersichtlichkeit auf der Karte
+- Tracking wer wo steht (visuell)
+- Sichtlinien und Flächeneffekte (narrativ)
+
+**Bewegung folgt KINO-LOGIK:**
 - Spieler erreichen jeden narrativ sinnvollen Ort
-- Distanz nur relevant wenn sie Haupthindernis der Szene ist
+- Keine Feldzählung, keine Reichweiten
+- SL entscheidet Plausibilität
 
 ---
 

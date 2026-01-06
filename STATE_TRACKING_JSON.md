@@ -2,9 +2,15 @@
 
 ## Verwendungszweck
 
-Dieses Template definiert das **JSON-Schema** für maschinenlesbares State-Tracking.  
-Der DM generiert und aktualisiert diesen JSON-Block **intern** zwischen den Runden.  
-Für den **Spieler** wird nur die visuelle "Statusbox" gerendert.
+Dieses Template definiert das **JSON-Schema** für maschinenlesbares State-Tracking.
+Der DM generiert und aktualisiert diesen JSON-Block **intern** zwischen den Runden.
+Für den **Spieler** wird nur die visuelle "Statusbox" gerendert (siehe DUNGEON_MASTER_PROMPT §5).
+
+**Cross-References:**
+- Würfelsystem: Regelwerk §2, §4.2
+- Statusanzeige-Format: Regelwerk §5
+- Cooldown-Typen: Regelwerk §6.1
+- Zustände: Regelwerk §4.4
 
 ---
 
@@ -32,7 +38,7 @@ Für den **Spieler** wird nur die visuelle "Statusbox" gerendert.
   },
   
   "party": {
-    "gold": 0,
+    "gruppen_gold": 0,
     "characters": [
       {
         "id": "coru",
@@ -217,11 +223,19 @@ Für den **Spieler** wird nur die visuelle "Statusbox" gerendert.
 
 ## 📋 DATENTYPEN-REFERENZ
 
-### Status-Werte (für `status` Arrays)
+### Status-Werte (für `status` Arrays) – Siehe Regelwerk §4.4
 
 ```json
-["betäubt", "erschrocken", "verwirrt", "tot", "vergiftet", "blutend"]
+["betäubt", "erschrocken", "verwirrt", "sterbend", "tot"]
 ```
+
+| Status | Icon | Beschreibung |
+|--------|------|--------------|
+| betäubt | 💫 | Handlungsunfähig (1 Runde) |
+| erschrocken | 😨 | Nur Basisaktionen (1 Runde) |
+| verwirrt | 🌀 | 1-2: trifft Verbündeten (1 Runde) |
+| sterbend | 💀 | 0 HP, kann gerettet werden |
+| tot | ⚰️ | Permanent aus dem Spiel |
 
 ### Taktik-Werte (für Feinde)
 
@@ -294,10 +308,10 @@ for (ability in character.abilities) {
 
 ```json
 // VORHER
-"gold": 15
+"gruppen_gold": 15
 
 // NACH KAUF (5 Gold ausgegeben)
-"gold": 10
+"gruppen_gold": 10
 
 // Log-Entry
 {"type": "gold_change", "amount": -5, "reason": "Heiltrank gekauft"}
@@ -315,7 +329,7 @@ Der DM konvertiert den JSON-State in die visuelle Darstellung für den Spieler:
 function renderStatusBox(state) {
   let output = "";
   
-  // Party-Charaktere
+  // Party-Charaktere (Rendering siehe Regelwerk §5.1)
   for (char of state.party.characters) {
     const symbol = char.type === "player" ? "🟢" : "🟡";
     const hpBar = renderHP(char.hp.current, char.hp.max);
@@ -331,8 +345,8 @@ function renderStatusBox(state) {
     output += `• ${abilities}\n\n`;
   }
   
-  // Party-Gold
-  output += `💰 Party-Gold: ${state.party.gold}\n\n`;
+  // Gruppen-Gold
+  output += `💰 Gruppen-Gold: ${state.party.gruppen_gold}\n\n`;
   
   // Feinde
   for (enemy of state.enemies) {
@@ -364,7 +378,7 @@ function renderEnemyHP(current, max) {
 🟡 Pip | ❤️ 🟩🟩🟩🟩 | 💎 1 MP | ⚡ Werkzeugset, Rauchbombe, ⬜
 • Provisorische Falle ✓ | Ablenkungsgerät ✓ | Notfall-Reparatur 🔄(1)
 
-💰 Party-Gold: 25
+💰 Gruppen-Gold: 25
 
 🔺 Ork A | ❤️ 🟥🟥⬜ | Aggressiv
 🔻 Ork B | ❤️ 🟥⬜⬜ | 💫 Betäubt
@@ -382,7 +396,7 @@ required_fields = [
   "meta.version",
   "meta.location",
   "meta.combat_active",
-  "party.gold",
+  "party.gruppen_gold",
   "party.characters[].hp.current",
   "party.characters[].hp.max",
   "party.characters[].slots_quick"
@@ -397,7 +411,7 @@ assert(character.hp.current >= 0);
 assert(character.hp.current <= character.hp.max);
 
 // Gold kann nicht negativ sein
-assert(state.party.gold >= 0);
+assert(state.party.gruppen_gold >= 0);
 
 // Cooldowns sind 0 oder positiv
 assert(ability.cooldown_current >= 0);
@@ -420,7 +434,7 @@ assert(character.slots_bag.length === 10);
 ☑ Fähigkeit genutzt?  → cooldown_current setzen, ready = false
 ☑ Item genutzt?       → Slot auf null setzen
 ☑ Item erhalten?      → Freien Slot finden, Item eintragen
-☑ Gold geändert?      → party.gold updaten
+☑ Gold geändert?      → party.gruppen_gold updaten
 ☑ Position geändert?  → position.x/y updaten
 ☑ Status geändert?    → status Array updaten
 ☑ Runde vorbei?       → Alle Cooldowns -1, round_counter +1
@@ -432,7 +446,7 @@ assert(character.slots_bag.length === 10);
 ☑ combat_active = false
 ☑ Alle temporären Status entfernen
 ☑ Besiegte Feinde aus enemies Array entfernen (oder hp.current = 0)
-☑ Beute zu objects oder party.gold hinzufügen
+☑ Beute zu objects oder party.gruppen_gold hinzufügen
 ```
 
 ---
@@ -508,7 +522,7 @@ function loadSession(savedState) {
     "initiative_order": "standard"
   },
   "party": {
-    "gold": 25,
+    "gruppen_gold": 25,
     "characters": [
       {
         "id": "coru",
