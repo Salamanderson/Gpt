@@ -19,6 +19,7 @@
 ✅ **Alle Locations bleiben parallel gespeichert**
 ✅ **Wechsel = kein Datenverlust**
 ✅ **Nur Symbole aus Symbol-Bank!**
+✅ **BAUREGELN: Alle Zugangspunkte (Türen, Treppen, Leitern, Durchgänge, Fenster) müssen beim Erstellen des Static Layers eingeplant werden!**
 
 ---
 
@@ -634,6 +635,16 @@ render_current_map()
 
 ### SCHRITT 2.2: STATIC LAYER ERSTELLEN
 
+**⚠️ BAUREGELN FÜR STATIC LAYER:**
+Beim Erstellen des Static Layers müssen ALLE Zugangspunkte und strukturellen Öffnungen von Anfang an eingeplant werden:
+- 🚪 **Türen**: Alle Eingänge und Verbindungstüren zwischen Räumen
+- ⤴️⤵️ **Treppen**: Auf-/Abgänge zu anderen Ebenen
+- 🪜 **Leitern**: Vertikale Zugangspunkte
+- ➡️⬅️⬆️⬇️ **Durchgänge**: Übergänge zu separaten Zonen/Bereichen
+- 🪟 **Fenster**: Potenzielle Ein-/Ausstiegspunkte
+
+**Grund**: Der Static Layer ist nach Erstellung UNVERÄNDERLICH. Nachträgliches Hinzufügen von Türen/Fenstern ist nicht möglich!
+
 **LAYER STATIC.TERRAIN - Grundfläche**
 
 ```python
@@ -689,13 +700,27 @@ terrain = create_terrain_layer((20, 15), '🔸', terrain_features)
 
 **LAYER STATIC.STRUCTURES - Gebäude**
 
+**💡 BAUREGELN: Zugangspunkte beim Gebäudebau einplanen!**
+Bevor du ein Gebäude erstellst, überlege:
+- Wo sollen die **Haupteingänge** (Türen) sein?
+- Gibt es **Nebeneingänge** oder Hintertüren?
+- Wo sind **Fenster** als alternative Ein-/Ausstiegspunkte?
+- Braucht das Gebäude **Treppen** zu anderen Stockwerken?
+- Gibt es **Durchgänge** zu angrenzenden Gebäudeteilen?
+
+→ Diese Positionen in der Wand-Struktur **freilassen** oder markieren!
+→ Fenster können als `🪟` im Static Layer platziert werden
+→ Türpositionen werden später im Semi-Static Layer mit 🚪 gefüllt
+
 Gebäude-Formen:
 
 ```python
 def create_building(shape, position, size):
     """
     Erstellt Gebäude-Struktur.
-    
+
+    ⚠️ WICHTIG: Beim Erstellen Positionen für Türen/Fenster freilassen!
+
     Args:
         shape: 'rectangle' / 'l_shape' / 't_shape' / 'round' / 'irregular'
         position: (start_x, start_y) - Obere linke Ecke
@@ -1660,6 +1685,9 @@ render_current_map()
 ☐ Sekundäres Terrain hinzugefügt
 ☐ Natürliche Übergänge geschaffen
 ☐ Gebäude in passender Form erstellt
+☐ **⚠️ BAUREGELN: Alle Zugangspunkte eingeplant (Türen, Treppen, Leitern, Durchgänge, Fenster)**
+☐ Positionen für Türen in Wänden freigelassen
+☐ Fenster als 🪟 im Static Layer platziert (falls relevant)
 ☐ Wichtige Strukturen platziert
 ☐ Atmosphärische Dekoration hinzugefügt (10-20%)
 
@@ -1825,6 +1853,42 @@ terrain[(5,5)] = '🟪'  # ❌ Nicht in Symbol-Bibliothek!
 # NUR Symbole aus der Bibliothek!
 terrain[(5,5)] = '🔸'  # ✅
 ```
+
+### ❌ FEHLER 6: Zugangspunkte vergessen beim Static Layer
+
+**FALSCH:**
+```python
+# Gebäude ohne Türöffnungen erstellt
+structures = create_building('rectangle', (2, 1), (11, 8))
+# ❌ Später: "Oh, ich brauche eine Tür bei (6, 8)!"
+# → UNMÖGLICH! Static Layer kann nicht geändert werden!
+```
+
+**RICHTIG:**
+```python
+# 1. Gebäude mit Türöffnung erstellen
+structures = create_building('rectangle', (2, 1), (11, 8))
+
+# 2. Türposition in Wand freilassen beim Erstellen
+# In create_building(): Position (6, 8) NICHT mit ⬜ füllen!
+
+# 3. Fenster im Static Layer platzieren
+structures[(4, 1)] = '🪟'  # Fenster Nord-Wand
+structures[(10, 4)] = '🪟'  # Fenster Ost-Wand
+
+# 4. Türen später im Semi-Static Layer einfügen
+semi_static['doors'][(6, 8)] = {
+    'symbol': '🚪',
+    'state': 'closed',
+    'locked': False
+}
+```
+
+**⚠️ MERKE:**
+- Zugangspunkte (Türen, Treppen, Leitern, Durchgänge, Fenster) VOR dem Erstellen planen!
+- Static Layer = letzte Chance für strukturelle Öffnungen
+- Fenster gehören zum Static Layer (🪟)
+- Türen können Semi-Static sein (🚪), aber Position muss im Static Layer frei sein!
 
 ═══════════════════════════════════════════════════════════════════════════════
 

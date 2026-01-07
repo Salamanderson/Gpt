@@ -17,6 +17,7 @@
 | 3 | Eine Map = Eine Location |
 | 4 | Static Layer = UNVERÄNDERT nach Erstellung |
 | 5 | NUR Symbole aus der Symbol-Bibliothek verwenden! |
+| 6 | **BAUREGELN: Alle Zugangspunkte (Türen, Treppen, Leitern, Durchgänge, Fenster) beim Static Layer einplanen!** |
 
 ---
 
@@ -221,6 +222,12 @@ Maps bestehen aus 3 Schichten, die übereinander gerendert werden:
 | Structures | Gebäude, Brücken | ⬜ 🧱 |
 | Decoration | Atmosphäre | 🌲 🌿 🪨 |
 
+**⚠️ BAUREGELN für Static Layer:**
+- **Alle Zugangspunkte vorher einplanen**: Türen (🚪), Treppen (⤴️⤵️), Leitern (🪜), Durchgänge (➡️⬅️⬆️⬇️), Fenster (🪟)
+- Positionen für Türen in Wänden **freilassen**
+- Fenster als `🪟` im Static Layer platzieren
+- **Nach Erstellung nicht mehr änderbar!**
+
 ### Layer 2: SEMI-STATIC (Mittlere Ebene)
 **Ändert sich nur bei Interaktion!**
 
@@ -288,6 +295,10 @@ Maps bestehen aus 3 Schichten, die übereinander gerendert werden:
 ### Schritt 3: Static Layer erstellen
 1. **Terrain:** Grundfläche füllen (40-60%)
 2. **Structures:** Wände, Gebäude platzieren
+   - **⚠️ BAUREGELN:** Alle Zugangspunkte JETZT einplanen!
+   - Türpositionen in Wänden freilassen
+   - Fenster (🪟) platzieren
+   - Treppen (⤴️⤵️), Leitern (🪜), Durchgänge (➡️⬅️⬆️⬇️) positionieren
 3. **Decoration:** Atmosphäre hinzufügen (10-20%)
 
 ### Schritt 4: Semi-Static platzieren
@@ -368,8 +379,12 @@ Maps bestehen aus 3 Schichten, die übereinander gerendert werden:
 ☐ Größe passend gewählt?
 ☐ Dominantes Terrain platziert (40-60%)?
 ☐ Strukturen/Wände korrekt?
+☐ **⚠️ BAUREGELN: Alle Zugangspunkte eingeplant?**
+☐ Türpositionen in Wänden freigelassen?
+☐ Fenster (🪟) im Static Layer platziert?
+☐ Treppen/Leitern/Durchgänge positioniert?
 ☐ Atmosphärische Dekoration (10-20%)?
-☐ Türen an Eingängen?
+☐ Türen (🚪) im Semi-Static Layer an freigelassenen Positionen?
 ☐ Container mit Inhalt definiert?
 ☐ Alle Charaktere platziert?
 ☐ Positionen narrativ sinnvoll?
@@ -458,6 +473,8 @@ DYNAMIC:     JEDE RUNDE (Bewegung, Effekte)
 | Fehler | Korrektur |
 |--------|-----------|
 | Static Layer nach Erstellung ändern | Dynamic Layer für Änderungen nutzen |
+| Zugangspunkte vergessen beim Static Layer | **ALLE** Türen/Fenster/Treppen/Durchgänge VOR Erstellung einplanen! |
+| Türen nachträglich hinzufügen wollen | Position muss im Static Layer frei sein - NICHT nachträglich änderbar! |
 | 🟧 für normalen Boden | 🔸 für Boden, 🟧 NUR für Straßen |
 | Koordinaten im Chat anzeigen | Nur narrativ beschreiben |
 | Symbole erfinden | NUR Symbole aus Bibliothek! |

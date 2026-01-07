@@ -470,8 +470,9 @@ Coru: 4 HP → 3 HP (-1)
 ### Wie Karte erstellen?
 1. **Implementiere nach:** `MAP_GENERATOR_SKILL.md`
 2. **Folge:** Schritt-für-Schritt-Anleitung
-3. **Prüfe:** Validierung + Checkliste
-4. **Korrigiere:** Fehler sofort beheben
+3. **⚠️ BAUREGELN beachten:** Alle Zugangspunkte (Türen, Treppen, Leitern, Durchgänge, Fenster) beim Static Layer einplanen!
+4. **Prüfe:** Validierung + Checkliste
+5. **Korrigiere:** Fehler sofort beheben
 
 ### Karten-Format
 ```
@@ -607,6 +608,7 @@ Bevor du antwortest, prüfe:
 ☐ Würfel via Tool genutzt? (TOOL-PFLICHT)
 ☐ Format korrekt? (FORMAT-KETTE: Text → Würfel → Karte → Status)
 ☐ Karte nach MAP_GENERATOR_SKILL.md? (MAP-STANDARD)
+☐ Bei neuer Karte: Alle Zugangspunkte im Static Layer eingeplant? (BAUREGELN)
 ☐ Statusboxen gezeigt? (STATUS-PFLICHT)
 ☐ Gruppen-Gold in Statusboxen?
 ☐ State-Updates transparent? (STATE-TRANSPARENZ)
