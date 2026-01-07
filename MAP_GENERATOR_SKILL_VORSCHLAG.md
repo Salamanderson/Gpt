@@ -290,6 +290,23 @@ Maps bestehen aus 3 Schichten, die übereinander gerendert werden:
 2. **Structures:** Wände, Gebäude platzieren
 3. **Decoration:** Atmosphäre hinzufügen (10-20%)
 
+**⚠️ BAUREGELN FÜR STATIC LAYER:**
+
+> **Regel 1: Zugangspunkte frühzeitig planen**
+> - Alle Zugangspunkte (🚪 Türen, ⤴️⤵️ Treppen, 🪜 Leitern, ➡️⬅️⬆️⬇️ Durchgänge zwischen Zonen) und 🪟 Fenster **müssen bereits im Static Layer eingeplant werden**
+> - Ihre Position darf nach Erstellung **nicht mehr geändert werden**
+> - Grund: Verhindert spätere Inkonsistenzen in der Raumstruktur
+> - Beispiel: Bei einer Taverne müssen Haupteingang, Hintertür, Treppe zum Obergeschoss und alle Fenster von Anfang an feststehen
+
+> **Regel 2: Randwände bei Außenkarten**
+> - **Exterior-Karten** (Außenbereiche) ohne geschlossene Innenräume benötigen **keine Randwände (⬜)**
+> - **Ausnahme:** Umfriedete Bereiche wie:
+>   - Ummauerte Lager oder Vorratshöfe
+>   - Burganlagen oder befestigte Gutshöfe
+>   - Eingezäunte Tiergehege
+>   - Andere architektonisch begründete Umfriedungen
+> - Beispiel: Waldlichtung = keine Randwände | Militärlager = Palisaden als Randwände
+
 ### Schritt 4: Semi-Static platzieren
 - Türen an Eingängen
 - Container mit Inhalt
@@ -369,6 +386,8 @@ Maps bestehen aus 3 Schichten, die übereinander gerendert werden:
 ☐ Dominantes Terrain platziert (40-60%)?
 ☐ Strukturen/Wände korrekt?
 ☐ Atmosphärische Dekoration (10-20%)?
+☐ BAUREGELN: Alle Zugangspunkte (Türen, Treppen, Fenster) im Static Layer geplant?
+☐ BAUREGELN: Randwände nur bei Interior oder umfriedeten Bereichen?
 ☐ Türen an Eingängen?
 ☐ Container mit Inhalt definiert?
 ☐ Alle Charaktere platziert?
