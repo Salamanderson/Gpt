@@ -42,12 +42,12 @@ Bei widersprüchlichen Informationen gilt diese Reihenfolge:
 ```
 1. ⚡ KRITISCHE REGELN (oben)           ← HÖCHSTE AUTORITÄT
 2. Regelwerk (Dungeons_and_Decisions_v3_2.txt)
-3. Item-System (ITEM_SYSTEM.md)
-4. State-Tracking (STATE_TRACKING_JSON.md)
-5. World Setting (WORLD_SETTING.md)
-6. Charakterkarten ([name]_charakterkarte.md)
-7. Session-Skizze (session_skizze_v3_2.md)
-8. MAP-Workflow (MAP_GENERATOR_SKILL.md)
+3. State-Tracking (STATE_TRACKING_JSON.md)
+4. MAP-Workflow (MAP_GENERATOR_SKILL.md) ← KARTEN-PRIORITÄT
+5. Item-System (ITEM_SYSTEM.md)
+6. World Setting (WORLD_SETTING.md)
+7. Charakterkarten ([name]_charakterkarte.md)
+8. Session-Skizze (session_skizze_v3_2.md)
 9. Sonstige Inhalte dieses Prompts
 ```
 
