@@ -17,6 +17,7 @@
 | 3 | Eine Map = Eine Location |
 | 4 | Static Layer = UNVERÄNDERT nach Erstellung |
 | 5 | NUR Symbole aus der Symbol-Bibliothek verwenden! |
+| 6 | Jede Zeile = exakt N Symbole (N = Map-Breite) |
 
 ---
 
@@ -285,7 +286,32 @@ Maps bestehen aus 3 Schichten, die übereinander gerendert werden:
 | Mittel | 15x15 | Taverne/Laden, 3-6 Charaktere |
 | Groß | 20x20 | Dorf/Gutshof, 6-10 Charaktere |
 
-### Schritt 3: Static Layer erstellen
+### Schritt 3: Grid-Template erstellen ⚡
+
+**WICHTIG: Erstelle zuerst ein LEERES rechteckiges Grid!**
+
+1. **Leeres Grid generieren** mit gewählter Größe (z.B. 10x10)
+2. **Alle Felder mit ▪️** füllen (neutraler Boden)
+3. **Zeilen zählen:** 10x10 = 10 Zeilen | 15x15 = 15 Zeilen | 20x20 = 20 Zeilen
+4. **Symbole pro Zeile zählen:** Jede Zeile muss exakt N Symbole haben!
+
+**Template-Beispiel (10x10):**
+```
+▪️▪️▪️▪️▪️▪️▪️▪️▪️▪️
+▪️▪️▪️▪️▪️▪️▪️▪️▪️▪️
+▪️▪️▪️▪️▪️▪️▪️▪️▪️▪️
+▪️▪️▪️▪️▪️▪️▪️▪️▪️▪️
+▪️▪️▪️▪️▪️▪️▪️▪️▪️▪️
+▪️▪️▪️▪️▪️▪️▪️▪️▪️▪️
+▪️▪️▪️▪️▪️▪️▪️▪️▪️▪️
+▪️▪️▪️▪️▪️▪️▪️▪️▪️▪️
+▪️▪️▪️▪️▪️▪️▪️▪️▪️▪️
+▪️▪️▪️▪️▪️▪️▪️▪️▪️▪️
+```
+
+**⚠️ Ab jetzt NUR noch Symbole ERSETZEN, NICHT hinzufügen oder löschen!**
+
+### Schritt 4: Static Layer befüllen
 1. **Terrain:** Grundfläche füllen (40-60%)
 2. **Structures:** Wände, Gebäude platzieren
 3. **Decoration:** Atmosphäre hinzufügen (10-20%)
@@ -307,18 +333,18 @@ Maps bestehen aus 3 Schichten, die übereinander gerendert werden:
 >   - Andere architektonisch begründete Umfriedungen
 > - Beispiel: Waldlichtung = keine Randwände | Militärlager = Palisaden als Randwände
 
-### Schritt 4: Semi-Static platzieren
+### Schritt 5: Semi-Static platzieren
 - Türen an Eingängen
 - Container mit Inhalt
 - Interaktive Objekte
 
-### Schritt 5: Dynamic initialisieren
+### Schritt 6: Dynamic initialisieren
 - Spieler-Position (narrativ sinnvoll)
 - Begleiter neben Spieler
 - Feinde laut Beschreibung
 - Initiale Effekte (Feuer, etc.)
 
-### Schritt 6: Rendern & Validieren
+### Schritt 7: Rendern & Validieren
 - Map im Codeblock ausgeben
 - Legende darunter (außerhalb Codeblock)
 - Checkliste durchgehen
@@ -383,6 +409,9 @@ Maps bestehen aus 3 Schichten, die übereinander gerendert werden:
 ```
 ☐ Map-Typ bestimmt? (Interior/Exterior)
 ☐ Größe passend gewählt?
+☐ GRID-TEMPLATE: Leeres rechteckiges Grid erstellt?
+☐ GRID-VALIDIERUNG: Alle Zeilen haben exakt N Symbole? (N = Map-Breite)
+☐ GRID-VALIDIERUNG: Anzahl Zeilen korrekt? (10x10=10 Zeilen, 15x15=15, 20x20=20)
 ☐ Dominantes Terrain platziert (40-60%)?
 ☐ Strukturen/Wände korrekt?
 ☐ Atmosphärische Dekoration (10-20%)?
@@ -482,6 +511,28 @@ DYNAMIC:     JEDE RUNDE (Bewegung, Effekte)
 | Symbole erfinden | NUR Symbole aus Bibliothek! |
 | Legende im Codeblock | Legende AUßERHALB des Codeblocks |
 | Feldzählung für Bewegung | Kino-Logik: SL entscheidet |
+| **Ungleiche Zeilenlängen** | **Jede Zeile einzeln zählen! Grid-Template verwenden** |
+| Symbole hinzufügen statt ersetzen | Template erstellen, dann NUR ersetzen |
+
+### 🔍 Visuelles Beispiel: RICHTIG vs. FALSCH
+
+**❌ FALSCH - Ungleiche Zeilen:**
+```
+⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜
+⬜▪️▪️▪️▪️▪️▪️▪️⬜        ← NUR 9 Symbole!
+⬜▪️🟢▪️▪️▪️▪️▪️▪️⬜
+⬜⬜⬜⬜⬜⬜⬜           ← NUR 7 Symbole!
+```
+**Problem:** Map ist schief, funktioniert nicht!
+
+**✅ RICHTIG - Alle Zeilen gleich lang:**
+```
+⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜
+⬜▪️▪️▪️▪️▪️▪️▪️▪️⬜      ← 10 Symbole ✓
+⬜▪️🟢▪️▪️▪️▪️▪️▪️⬜      ← 10 Symbole ✓
+⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜      ← 10 Symbole ✓
+```
+**Lösung:** Jede Zeile exakt 10 Symbole!
 
 ---
 
