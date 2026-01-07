@@ -43,13 +43,24 @@ Bei widersprüchlichen Informationen gilt diese Reihenfolge:
 1. ⚡ KRITISCHE REGELN (oben)           ← HÖCHSTE AUTORITÄT
 2. Regelwerk (Dungeons_and_Decisions_v3_2.txt)
 3. State-Tracking (STATE_TRACKING_JSON.md)
-4. MAP-Workflow (MAP_GENERATOR_SKILL.md) ← KARTEN-PRIORITÄT
-5. Item-System (ITEM_SYSTEM.md)
-6. World Setting (WORLD_SETTING.md)
-7. Charakterkarten ([name]_charakterkarte.md)
-8. Session-Skizze (session_skizze_v3_2.md)
-9. Sonstige Inhalte dieses Prompts
+4. Item-System (ITEM_SYSTEM.md)
+5. World Setting (WORLD_SETTING.md)
+6. Charakterkarten ([name]_charakterkarte.md)
+7. Session-Skizze (session_skizze_v3_2.md)
+8. Sonstige Inhalte dieses Prompts
 ```
+
+> ⚠️ **SONDERSTATUS: MAP_GENERATOR_SKILL.md**
+>
+> Der MAP-Workflow steht **AUSSERHALB** der Hierarchie und gilt als **GLEICHRANGIG mit kritischen Regeln**.
+>
+> | Situation | Regel |
+> |-----------|-------|
+> | Konflikt bei Karten-Darstellung | MAP_GENERATOR_SKILL.md gewinnt IMMER |
+> | Konflikt bei Spielmechanik | Regelwerk gewinnt |
+> | Konflikt bei State vs. Map | State liefert Daten, Map bestimmt Darstellung |
+>
+> **Begründung:** Karten sind die primäre visuelle Schnittstelle zum Spieler. Inkonsistente oder fehlerhafte Karten zerstören die Immersion sofort.
 
 **Cross-Reference Shortcuts:**
 - Würfeln: Regelwerk §2 (außer Kampf), §4.2 (Kampf)
