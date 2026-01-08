@@ -1,5 +1,7 @@
 # 📊 STATE-TRACKING JSON v3.2
 
+**Dieses Dokument verwendet §S-Nummern für Zitate: "gemäß STATE §S.X"**
+
 ## Verwendungszweck
 
 Dieses Template definiert das **JSON-Schema** für maschinenlesbares State-Tracking.
@@ -14,7 +16,7 @@ Für den **Spieler** wird nur die visuelle "Statusbox" gerendert (siehe DUNGEON_
 
 ---
 
-## 🔧 JSON-SCHEMA (Vollständig)
+## §S.1 JSON-SCHEMA (Vollständig)
 
 ```json
 {
@@ -221,7 +223,7 @@ Für den **Spieler** wird nur die visuelle "Statusbox" gerendert (siehe DUNGEON_
 
 ---
 
-## 📋 DATENTYPEN-REFERENZ
+## §S.2 DATENTYPEN-REFERENZ
 
 ### Status-Werte (für `status` Arrays) – Siehe Regelwerk §4.4
 
@@ -257,7 +259,7 @@ Für den **Spieler** wird nur die visuelle "Statusbox" gerendert (siehe DUNGEON_
 
 ---
 
-## 🔄 UPDATE-OPERATIONEN
+## §S.3 UPDATE-OPERATIONEN
 
 ### HP-Änderung
 
@@ -319,7 +321,7 @@ for (ability in character.abilities) {
 
 ---
 
-## 📊 RENDERING: JSON → Visuelle Statusbox
+## §S.4 RENDERING: JSON → Visuelle Statusbox
 
 Der DM konvertiert den JSON-State in die visuelle Darstellung für den Spieler:
 
@@ -386,7 +388,7 @@ function renderEnemyHP(current, max) {
 
 ---
 
-## ✅ VALIDIERUNGS-REGELN
+## §S.5 VALIDIERUNGS-REGELN
 
 ### Pflichtfelder
 
@@ -425,7 +427,7 @@ assert(character.slots_bag.length === 10);
 
 ---
 
-## 🔄 STATE-UPDATE PROTOKOLL
+## §S.6 STATE-UPDATE PROTOKOLL
 
 ### Nach jeder Spieler-Aktion checken:
 
@@ -451,7 +453,7 @@ assert(character.slots_bag.length === 10);
 
 ---
 
-## 📥 IMPORT/EXPORT
+## §S.7 IMPORT/EXPORT
 
 ### Session speichern (für Campaign Chronicle)
 
@@ -496,7 +498,7 @@ function loadSession(savedState) {
 
 ---
 
-## 💡 TIPPS FÜR KONSISTENZ
+## §S.8 TIPPS FÜR KONSISTENZ
 
 1. **JSON vor Antwort prüfen** - State intern validieren
 2. **Änderungen atomar** - Alle Updates einer Aktion zusammen durchführen
@@ -506,7 +508,7 @@ function loadSession(savedState) {
 
 ---
 
-## 📋 BEISPIEL: Vollständiger State nach Kampfrunde
+## §S.9 BEISPIEL: Vollständiger State nach Kampfrunde
 
 ```json
 {
