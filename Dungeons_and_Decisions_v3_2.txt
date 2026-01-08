@@ -173,10 +173,14 @@ Aktualisierte Karte und Statusanzeige → neue Runde oder Szenenende
 - Wenn SL vorher eine Distanz als "weit" oder "unerreichbar" beschreibt, gilt das
 - **Terrain-Modifikatoren bleiben aktiv** (siehe §3.5)
 
-**Karten-Visualisierung (siehe MAP_GENERATOR_SKILL.md):**
+**Karten-Visualisierung (siehe MAP_GENERATOR_SKILL.md für Details):**
 - Positionen werden auf der Karte **visualisiert**, nicht für Spielmechanik verwendet
 - Koordinaten dienen der **Übersichtlichkeit**, nicht für Distanzberechnung
 - Bewegung auf der Karte folgt der **narrativen Beschreibung**, nicht Feldzählung
+
+**Wichtige MAP-Referenzen:**
+- Symbole: MAP §M.2 | Layer-System: MAP §M.3 | Bauregeln: MAP §M.5.1
+- Bei Karten-Fragen: "gemäß MAP §M.X" zitieren
 
 ### §3.4 Initiative-System
 

@@ -1,6 +1,8 @@
 # 🎒 ITEM-SYSTEM v3.2
 
-**Zweck:** Zentrale Referenz für Item-Mechaniken  
+**Dieses Dokument verwendet §I-Nummern für Zitate: "gemäß ITEM §I.X"**
+
+**Zweck:** Zentrale Referenz für Item-Mechaniken
 **Abruf:** Bei Item-Nutzung oder Inventar-Fragen konsultieren
 
 ---
