@@ -46,21 +46,24 @@
 
 ### Terrain (Grundflächen)
 
-| Symbol | Bedeutung | Begehbar? |
-|--------|-----------|-----------|
-| ▪️ | Boden/Leer/Void | ✅ Ja |
-| ⬜ | Außenwände | ❌ Nein |
-| ◽ | Innenwände (Raumtrenner) | ❌ Nein |
-| ▫️ | Zäune/niedrige Barrieren | ⚠️ Mit Malus |
-| 🔸 | Grasland/Steinboden/Sand | ✅ Ja |
-| 🔶 | Acker | ⚠️ Mit Malus |
-| 📗 | Rasen/Gras | ✅ Ja |
-| 🔹 | Flaches Wasser | ⚠️ Mit Malus |
-| 🔷 | Tiefes Wasser | ❌ Nein |
-| 🟧 | Straße/Weg | ✅ Ja |
-| 🟩 | Sumpf/Gift | ⚠️ Gefährlich |
-| ⬛ | Abgrund/Grube | ❌ Nein |
-| 🕳️ | Loch | ❌ Nein |
+**▪️ = STANDARD-BODEN** (für alle normalen begehbaren Flächen)
+Andere Symbole sind **Sondervarianten** zur Verdeutlichung von Unterschieden.
+
+| Symbol | Bedeutung | Begehbar? | Verwendung |
+|--------|-----------|-----------|------------|
+| ▪️ | **Standard-Boden** | ✅ Ja | DEFAULT für alle Böden (Holz, Stein, Erde, etc.) |
+| ⬜ | Außenwände | ❌ Nein | Gebäudegrenzen, massive Wände |
+| ◽ | Innenwände (Raumtrenner) | ❌ Nein | Trennwände innerhalb von Gebäuden |
+| ▫️ | Zäune/niedrige Barrieren | ⚠️ Mit Malus | Überwindbare Hindernisse |
+| 🔸 | Sandiger/steiniger Untergrund | ✅ Ja | **Sondervariante:** Wüste, Strand, Geröll |
+| 🔶 | Acker/Schlamm | ⚠️ Mit Malus | **Sondervariante:** Felder, schlammiger Boden |
+| 📗 | Dichtes Gras/Wiese | ✅ Ja | **Sondervariante:** Grasflächen betonen |
+| 🔹 | Flaches Wasser | ⚠️ Mit Malus | Pfützen, seichter Bach, Strand |
+| 🔷 | Tiefes Wasser | ❌ Nein | Fluss, See, Meer |
+| 🟧 | Straße/Weg | ✅ Ja | **Sondervariante:** Markierte Wege/Straßen |
+| 🟩 | Sumpf/Gift | ⚠️ Gefährlich | Gefährliches Terrain |
+| ⬛ | Abgrund/Grube | ❌ Nein | Löcher, Klippen |
+| 🕳️ | Loch | ❌ Nein | Kleine Öffnungen |
 
 ### Vegetation
 
@@ -108,8 +111,8 @@
 | ⬅️ | Durchgang/Tür West |
 | ⬆️ | Durchgang/Tür Nord |
 | ⬇️ | Durchgang/Tür Süd |
-| ⤴️ | Treppe aufwärts |
-| ⤵️ | Treppe abwärts |
+| ⏫ | Treppe aufwärts |
+| ⏬ | Treppe abwärts |
 | 🚫 | Blockiert/Versperrt |
 | 🔒 | Verschlossen |
 | 🔓 | Geöffnet |
@@ -251,6 +254,25 @@ Maps bestehen aus 3 Schichten, die übereinander gerendert werden:
 - Alle Locations bleiben parallel gespeichert
 - Wechsel zwischen Locations = kein Datenverlust
 
+### 🏠 INTERIOR vs 🌲 EXTERIOR Definition
+
+| Typ | Definition | Randwände? | Beispiele |
+|-----|------------|------------|-----------|
+| **INTERIOR** | Hat Dach/Decke, umschlossener Raum | ✅ JA (⬜) | Taverne, Haus, Höhle, Keller, Tempel |
+| **EXTERIOR** | Unter freiem Himmel, kein Dach | ❌ NEIN* | Waldlichtung, Marktplatz, Straße, Strand |
+
+*Ausnahme: Umfriedete Exterior-Bereiche (Burghof, Lager mit Palisaden) haben Randwände.
+
+**Grenzfälle:**
+| Location | Typ | Begründung |
+|----------|-----|------------|
+| Höhle | Interior | Umschlossen durch Felsen |
+| Überdachter Markt | Interior | Hat Dach, auch wenn offen |
+| Ruine ohne Dach | Exterior | Kein Dach mehr vorhanden |
+| Schiff Deck | Exterior | Unter freiem Himmel |
+| Schiff Unterdeck | Interior | Umschlossener Raum |
+| Burghof | Exterior + Wände | Umfriedeter Außenbereich |
+
 ### Location erstellen
 1. Name festlegen → ID generieren (z.B. "Verlassene Taverne" → `verlassene_taverne`)
 2. Map-Typ bestimmen (Interior / Exterior)
@@ -293,7 +315,7 @@ Maps bestehen aus 3 Schichten, die übereinander gerendert werden:
 **⚠️ BAUREGELN FÜR STATIC LAYER:**
 
 > **Regel 1: Zugangspunkte frühzeitig planen**
-> - Alle Zugangspunkte (🚪 Türen, ⤴️⤵️ Treppen, 🪜 Leitern, ➡️⬅️⬆️⬇️ Durchgänge zwischen Zonen) und 🪟 Fenster **müssen bereits im Static Layer eingeplant werden**
+> - Alle Zugangspunkte (🚪 Türen, ⏫⏬ Treppen, 🪜 Leitern, ➡️⬅️⬆️⬇️ Durchgänge zwischen Zonen) und 🪟 Fenster **müssen bereits im Static Layer eingeplant werden**
 > - Ihre Position darf nach Erstellung **nicht mehr geändert werden**
 > - Grund: Verhindert spätere Inkonsistenzen in der Raumstruktur
 > - Beispiel: Bei einer Taverne müssen Haupteingang, Hintertür, Treppe zum Obergeschoss und alle Fenster von Anfang an feststehen
@@ -306,6 +328,12 @@ Maps bestehen aus 3 Schichten, die übereinander gerendert werden:
 >   - Eingezäunte Tiergehege
 >   - Andere architektonisch begründete Umfriedungen
 > - Beispiel: Waldlichtung = keine Randwände | Militärlager = Palisaden als Randwände
+
+> **Regel 3: Fehlerkorrektur im Static Layer**
+> - Bei **offensichtlichen Fehlern** (vergessene Tür, falsche Wand) darf der Static Layer **einmalig** korrigiert werden
+> - **Voraussetzung:** Transparenz gegenüber dem Spieler ("Ich korrigiere die Karte: Die Tür im Süden fehlte")
+> - **Keine Korrektur:** Nachträgliches Hinzufügen von Elementen aus taktischen Gründen
+> - Nach Korrektur gilt der Static Layer wieder als **unveränderlich**
 
 ### Schritt 4: Semi-Static platzieren
 - Türen an Eingängen
@@ -381,20 +409,21 @@ Maps bestehen aus 3 Schichten, die übereinander gerendert werden:
 ### Neue Map erstellen
 
 ```
-☐ Map-Typ bestimmt? (Interior/Exterior)
-☐ Größe passend gewählt?
-☐ Dominantes Terrain platziert (40-60%)?
-☐ Strukturen/Wände korrekt?
+☐ Map-Typ bestimmt? (Interior = Dach/Decke, Exterior = freier Himmel)
+☐ Größe passend gewählt? (Klein 10x10, Mittel 15x15, Groß 20x20)
+☐ Standard-Boden (▪️) für Grundfläche verwendet?
+☐ Sondervarianten nur bei Bedarf? (🔸📗🟧 für spezielle Bereiche)
+☐ Strukturen/Wände korrekt? (⬜ Außenwände, ◽ Innenwände)
 ☐ Atmosphärische Dekoration (10-20%)?
-☐ BAUREGELN: Alle Zugangspunkte (Türen, Treppen, Fenster) im Static Layer geplant?
-☐ BAUREGELN: Randwände nur bei Interior oder umfriedeten Bereichen?
+☐ BAUREGELN: Alle Zugangspunkte (🚪 Türen, ⏫⏬ Treppen, 🪟 Fenster) im Static Layer geplant?
+☐ BAUREGELN: Randwände (⬜) nur bei Interior oder umfriedeten Exterior-Bereichen?
 ☐ Türen an Eingängen?
 ☐ Container mit Inhalt definiert?
 ☐ Alle Charaktere platziert?
 ☐ Positionen narrativ sinnvoll?
 ☐ NUR Symbole aus Bibliothek?
 ☐ Map im Codeblock?
-☐ Legende außerhalb Codeblock?
+☐ Legende AUSSERHALB Codeblock?
 ```
 
 ### Map aktualisieren (jede Runde)
@@ -443,12 +472,15 @@ NORD = niedrige Y  | SÜD = hohe Y
 ### Terrain-Schnellübersicht
 
 ```
-🔸 = Gras/Stein/Sand (Standard-Boden)
-🟧 = Straße/Weg (NUR für Wege!)
+▪️ = STANDARD-BODEN (DEFAULT für alle begehbaren Flächen!)
+⬜ = Wände (NICHT begehbar)
+
+SONDERVARIANTEN (nur bei Bedarf):
+🔸 = Sand/Geröll/Stein (Wüste, Strand)
+📗 = Dichtes Gras/Wiese (Grasflächen betonen)
+🟧 = Straße/Weg (markierte Wege)
 🔹 = Flaches Wasser (begehbar mit Malus)
 🔷 = Tiefes Wasser (NICHT begehbar)
-⬜ = Wände (NICHT begehbar)
-▪️ = Void/Leerer Boden (begehbar)
 ```
 
 ### Layer-Priorität
@@ -476,12 +508,15 @@ DYNAMIC:     JEDE RUNDE (Bewegung, Effekte)
 
 | Fehler | Korrektur |
 |--------|-----------|
-| Static Layer nach Erstellung ändern | Dynamic Layer für Änderungen nutzen |
-| 🟧 für normalen Boden | 🔸 für Boden, 🟧 NUR für Straßen |
+| Static Layer nach Erstellung ändern | Dynamic Layer für Änderungen nutzen (oder einmalige Fehlerkorrektur mit Transparenz) |
+| Falsches Boden-Symbol | ▪️ = Standard-Boden! Andere (🔸📗🟧) nur als Sondervarianten |
+| Randwände bei Exterior-Maps | Nur bei Interior oder umfriedeten Bereichen (Burghof, Lager) |
 | Koordinaten im Chat anzeigen | Nur narrativ beschreiben |
 | Symbole erfinden | NUR Symbole aus Bibliothek! |
 | Legende im Codeblock | Legende AUßERHALB des Codeblocks |
 | Feldzählung für Bewegung | Kino-Logik: SL entscheidet |
+| Treppen mit ⤴️⤵️ | Korrekt: ⏫⏬ für Treppen |
+| Interior/Exterior unklar | Faustregel: Hat Dach = Interior, kein Dach = Exterior |
 
 ---
 

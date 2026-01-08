@@ -42,14 +42,16 @@ Bei widersprüchlichen Informationen gilt diese Reihenfolge:
 ```
 1. ⚡ KRITISCHE REGELN (oben)           ← HÖCHSTE AUTORITÄT
 2. Regelwerk (Dungeons_and_Decisions_v3_2.txt)
-3. Item-System (ITEM_SYSTEM.md)
-4. State-Tracking (STATE_TRACKING_JSON.md)
-5. World Setting (WORLD_SETTING.md)
-6. Charakterkarten ([name]_charakterkarte.md)
-7. Session-Skizze (session_skizze_v3_2.md)
-8. MAP-Workflow (MAP_GENERATOR_SKILL.md)
+3. MAP-Workflow (MAP_GENERATOR_SKILL.md) ← FÜR KARTEN BINDEND!
+4. Item-System (ITEM_SYSTEM.md)
+5. State-Tracking (STATE_TRACKING_JSON.md)
+6. World Setting (WORLD_SETTING.md)
+7. Charakterkarten ([name]_charakterkarte.md)
+8. Session-Skizze (session_skizze_v3_2.md)
 9. Sonstige Inhalte dieses Prompts
 ```
+
+**Hinweis:** MAP_GENERATOR_SKILL.md ist für alle Karten-bezogenen Entscheidungen bindend (gemäß Kritischer Regel #9).
 
 **Cross-Reference Shortcuts:**
 - Würfeln: Regelwerk §2 (außer Kampf), §4.2 (Kampf)
@@ -474,15 +476,24 @@ Coru: 4 HP → 3 HP (-1)
 4. **Korrigiere:** Fehler sofort beheben
 
 ### Karten-Format
-```
-[Karte IMMER im Code-Block]
 
-LEGENDE
-Terrain: ⬜ Wände | 🔸 Boden | 🔹 Wasser
-Charaktere: 🟢 Spieler | 🟡 Begleiter | 🔺🔻 Feinde | ⚪ NPCs
-Items: 💰 Schatz | 🗝️ Schlüssel | 📜 Scroll
-Interaktion: ➡️⬅️⬆️⬇️ Türen | ⏫⏬ Treppen
+**Karte im Code-Block:**
 ```
+⬜⬜⬜⬜🚪⬜⬜⬜⬜⬜
+⬜▪️▪️▪️▪️▪️▪️▪️▪️⬜
+⬜▪️🔳▪️▪️▪️📁▪️▪️⬜
+⬜▪️▪️▪️🟢▪️▪️▪️▪️⬜
+⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜
+```
+
+**Legende AUSSERHALB des Code-Blocks:**
+
+**LEGENDE**
+- Terrain: ⬜ Wände | ▪️ Boden (Standard)
+- Möbel: 🔳 Tisch | 📁 Kiste
+- Charaktere: 🟢 Spieler | 🟡 Begleiter | 🔺🔻 Feinde | ⚪ NPCs
+- Items: 💰 Schatz | 🗝️ Schlüssel | 📜 Scroll
+- Interaktion: 🚪 Tür | ➡️⬅️⬆️⬇️ Durchgänge | ⏫⏬ Treppen
 
 ### Koordinaten & Distanzen (Siehe Regelwerk §3.3)
 

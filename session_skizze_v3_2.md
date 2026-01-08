@@ -48,6 +48,31 @@ ________________ vs. ________________
 | **2. Eskalation** | | | | |
 | **3. Klimax** | | | | |
 
+### 🗺️ MAP-PLANUNG (Anleitung)
+
+**Für jede Location in der "Map (Planen)"-Spalte notieren:**
+
+| Element | Frage | Beispiel |
+|---------|-------|----------|
+| **Typ** | Interior oder Exterior? | "Interior" |
+| **Größe** | Klein/Mittel/Groß? | "Mittel 15x15" |
+| **Zugangspunkte** | Türen, Treppen, Fenster? | "Tür N, Treppe O, Fenster W" |
+| **Besonderheiten** | Deckung, Gefahren, Items? | "Tische (Deckung), Kamin (Gefahr)" |
+
+**Kurznotation Beispiel:**
+```
+Map: Interior, 15x15
+Zugänge: 🚪N, ⏫O
+Deckung: 🔳🔳 (Tische)
+Gefahr: 🔥 (Kamin)
+NPCs: ⚪ Wirt, 🔺🔺 Schläger
+```
+
+**Siehe MAP_GENERATOR_SKILL.md für:**
+- Symbol-Bibliothek
+- Layer-System (Static/Semi-Static/Dynamic)
+- Bauregeln für Zugangspunkte
+
 ### Mögliche Enden
 
 - ✅ **Sieg:** _______________
@@ -277,7 +302,10 @@ ________________ vs. ________________
 ☐ Wichtige NSC-Motivationen klar?
 ☐ Kampf-Encounter vorbereitet (HP, Taktik)?
 ☐ Initiative-Situationen überlegt?
-☐ Maps grob skizziert?
+☐ Maps vorgeplant? (siehe MAP_GENERATOR_SKILL.md)
+   ☐ Typ (Interior/Exterior) festgelegt?
+   ☐ Größe bestimmt?
+   ☐ Zugangspunkte definiert?
 ☐ Belohnungen definiert (Items + Gold)?
 ☐ Hook eingängig und klar?
 ☐ Notfall-Optionen überlegt?
