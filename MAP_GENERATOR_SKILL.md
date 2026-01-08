@@ -1,5 +1,7 @@
 # 🗺️ MAP GENERATOR SKILL (Kompakt v3.2)
 
+**Dieses Dokument verwendet §M-Nummern für Zitate: "gemäß MAP §M.X"**
+
 **Cross-References:**
 - Bewegung/Kino-Logik: Regelwerk §3.3
 - Zustände: Regelwerk §4.4
@@ -8,7 +10,7 @@
 
 ---
 
-## ⚡ KRITISCHE REGELN
+## §M.1 KRITISCHE REGELN
 
 | # | Regel |
 |---|-------|
@@ -20,7 +22,7 @@
 
 ---
 
-## ⚠️ KOORDINATEN = NUR VISUALISIERUNG
+## §M.1.1 KOORDINATEN = NUR VISUALISIERUNG
 
 **Siehe Regelwerk §3.3 – Kino-Logik**
 
@@ -42,7 +44,7 @@
 
 ---
 
-## 📚 SYMBOL-BIBLIOTHEK
+## §M.2 SYMBOL-BIBLIOTHEK
 
 ### Terrain (Grundflächen)
 
@@ -211,7 +213,7 @@ Andere Symbole sind **Sondervarianten** zur Verdeutlichung von Unterschieden.
 
 ---
 
-## 🏗️ LAYER-SYSTEM (Konzept)
+## §M.3 LAYER-SYSTEM (Konzept)
 
 Maps bestehen aus 3 Schichten, die übereinander gerendert werden:
 
@@ -247,14 +249,14 @@ Maps bestehen aus 3 Schichten, die übereinander gerendert werden:
 
 ---
 
-## 📍 MULTI-LOCATION SYSTEM
+## §M.4 MULTI-LOCATION SYSTEM
 
 ### Grundprinzip
 - Jede Location hat eine eindeutige ID
 - Alle Locations bleiben parallel gespeichert
 - Wechsel zwischen Locations = kein Datenverlust
 
-### 🏠 INTERIOR vs 🌲 EXTERIOR Definition
+### §M.4.1 INTERIOR vs EXTERIOR Definition
 
 | Typ | Definition | Randwände? | Beispiele |
 |-----|------------|------------|-----------|
@@ -292,7 +294,7 @@ Maps bestehen aus 3 Schichten, die übereinander gerendert werden:
 
 ---
 
-## 🎨 MAP ERSTELLEN (Workflow)
+## §M.5 MAP ERSTELLEN (Workflow)
 
 ### Schritt 1: Kontext analysieren
 - Was für ein Ort? (Taverne, Wald, Dungeon...)
@@ -312,7 +314,7 @@ Maps bestehen aus 3 Schichten, die übereinander gerendert werden:
 2. **Structures:** Wände, Gebäude platzieren
 3. **Decoration:** Atmosphäre hinzufügen (10-20%)
 
-**⚠️ BAUREGELN FÜR STATIC LAYER:**
+**⚠️ §M.5.1 BAUREGELN FÜR STATIC LAYER:**
 
 > **Regel 1: Zugangspunkte frühzeitig planen**
 > - Alle Zugangspunkte (🚪 Türen, ⏫⏬ Treppen, 🪜 Leitern, ➡️⬅️⬆️⬇️ Durchgänge zwischen Zonen) und 🪟 Fenster **müssen bereits im Static Layer eingeplant werden**
@@ -353,7 +355,7 @@ Maps bestehen aus 3 Schichten, die übereinander gerendert werden:
 
 ---
 
-## 🔄 MAP AKTUALISIEREN (Jede Runde)
+## §M.6 MAP AKTUALISIEREN (Jede Runde)
 
 ### Was sich ändert
 
@@ -378,7 +380,7 @@ Maps bestehen aus 3 Schichten, die übereinander gerendert werden:
 
 ---
 
-## 📋 AUSGABE-FORMAT
+## §M.7 AUSGABE-FORMAT
 
 ### Map im Codeblock
 
@@ -404,7 +406,7 @@ Maps bestehen aus 3 Schichten, die übereinander gerendert werden:
 
 ---
 
-## ✅ CHECKLISTEN
+## §M.8 CHECKLISTEN
 
 ### Neue Map erstellen
 
@@ -448,7 +450,7 @@ Maps bestehen aus 3 Schichten, die übereinander gerendert werden:
 
 ---
 
-## 🎯 QUICK REFERENCE
+## §M.9 QUICK REFERENCE
 
 ### Koordinaten-System (NUR INTERN)
 
@@ -504,7 +506,7 @@ DYNAMIC:     JEDE RUNDE (Bewegung, Effekte)
 
 ---
 
-## 🚨 HÄUFIGE FEHLER
+## §M.10 HÄUFIGE FEHLER
 
 | Fehler | Korrektur |
 |--------|-----------|
