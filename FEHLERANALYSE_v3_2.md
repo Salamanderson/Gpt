@@ -1,62 +1,56 @@
 # FEHLERANALYSE - Dungeons & Decisions v3.2
 
 **Erstellt:** 2026-01-08
+**Aktualisiert:** 2026-01-08
 **Methode:** Spielverlauf-Simulation mit systematischer Regelprüfung
 
 ---
 
 ## KRITISCHE FEHLER (Sofort beheben)
 
-### 1. Fehlende Charakterkarten
+### 1. ALLE Beispiel-Charaktere haben keine Waffe im Schnellzugriff
 
-**Problem:** Im `DUNGEON_MASTER_PROMPT_v3_2.md:87-91` werden drei Beispiel-Charaktere erwähnt, aber nur einer existiert:
-- CORU_Charakterkarte.md - existiert
-- PIP_Charakterkarte.md - FEHLT
-- SILES_Charakterkarte.md - FEHLT
+**Problem:** Alle drei Beispiel-Charaktere haben KEINE Waffe im Schnellzugriff:
 
-**Auswirkung:** Der SL kann Pip und Siles nicht korrekt spielen, da deren Fähigkeiten nirgendwo vollständig dokumentiert sind.
-
-**Lösung:** Erstelle PIP_Charakterkarte.md und SILES_Charakterkarte.md mit vollständigen Fähigkeitsbeschreibungen.
-
----
-
-### 2. Coru hat keine Waffe im Schnellzugriff
-
-**Problem:** `CORU_Charakterkarte.md:12-13`:
-```
-⚡ Schnellzugriff (3 Slots)
-[1] Dietriche | [2] Heiltrank (2 HP) | [3] Rauchbombe
-```
+| Charakter | Schnellzugriff | Waffe? |
+|-----------|----------------|--------|
+| **Coru** | Dietriche, Heiltrank, Rauchbombe | KEINE |
+| **Pip** | Werkzeugset, Rauchbombe, LEER | KEINE |
+| **Siles** | Resonanz-Stimmgabel, Kleiner Heiltrank, Kreide | KEINE |
 
 Gemäß ITEM_SYSTEM.md §I.4: "Waffen müssen sich im ⚡ Schnellzugriff befinden, um im Kampf verwendet zu werden."
 
-**Auswirkung:** Coru kann im Kampf nur seine Fähigkeiten nutzen oder unbewaffnet kämpfen (kein +1 Bonus).
+**Auswirkung:** Alle Charaktere können im Kampf nur ihre Fähigkeiten nutzen oder unbewaffnet kämpfen (kein +1 Waffen-Bonus). Das macht normale Angriffe ohne Fähigkeiten deutlich schwächer.
 
-**Lösung:** Ersetze ein Item (z.B. Dietriche) durch einen Dolch oder füge einen 4. Slot hinzu für die Beispiel-Charakterkarte.
+**Lösung:** Füge mindestens einem Charakter eine Waffe (z.B. Dolch) in den Schnellzugriff hinzu, oder dokumentiere explizit, dass diese Gruppe auf Fähigkeiten-basiertes Kämpfen spezialisiert ist.
 
 ---
 
-### 3. Pip's Fähigkeiten nicht dokumentiert
+### 2. Siles hat einen +2 Stärken-Bonus (Regelverstoß?)
 
-**Problem:** `STATE_TRACKING_JSON.md:140-157` nennt Pip's Fähigkeiten:
-- Provisorische Falle
-- Ablenkungsgerät
-- Notfall-Reparatur
+**Problem:** `siles_charakterkarte.md:6`:
+```
+✔ Mentale Barriere (Widerstand gegen Schrecken: +2 Bonus)
+```
 
-Aber es fehlen:
-- Exakte Schadensangaben
-- Effektbeschreibungen
-- Cooldown-Typen (Runden oder Szene?)
+Aber Regelwerk §1.1 und §2.3 sagen:
+- "Stärken ✔ = 2 (je +1 Bonus)"
+- "Maximaler Gesamtbonus: +2"
 
-**Auswirkung:** Willkürliche Interpretation durch den SL.
+**Frage:** Darf eine einzelne Stärke +2 geben? Das würde bedeuten, dass Siles mit einer passenden Stärke allein schon das Maximum erreicht.
 
-**Lösung:** Erstelle PIP_Charakterkarte.md mit vollständigen Fähigkeitsbeschreibungen im Format von CORU.
+**Mögliche Interpretationen:**
+1. **Fehler:** Sollte "+1 Bonus" sein wie bei anderen Stärken
+2. **Spezialfall:** "Mentale Barriere" ist eine besondere Stärke mit erhöhtem Bonus
+3. **Balancing-Entscheidung:** Ausgleich für "Körperliche Gebrechlichkeit" (-1)
+
+**Lösung:** Klarstellen ob Stärken +2 geben dürfen, oder korrigieren auf +1.
 
 ---
 
 ## HOHE PRIORITÄT (Sollte behoben werden)
 
-### 4. Widerspruch bei Schadensberechnung für Fähigkeiten
+### 3. Widerspruch bei Schadensberechnung für Fähigkeiten
 
 **Problem:** Regelwerk §6.2 sagt:
 > "OHNE Schadensangabe → Würfelwurf: 1-2 = 1 Schaden (Minimum)"
@@ -71,7 +65,7 @@ Aber Schadens-Tabelle §4.2 sagt:
 
 ---
 
-### 5. "Einfache Aktionen" nicht definiert
+### 4. "Einfache Aktionen" nicht definiert
 
 **Problem:** §1.3 ("Doppelt passt"-Regel) sagt:
 > "Auto-Erfolg bei einfachen Aktionen"
@@ -87,7 +81,7 @@ Schwere Aktionen: Schwierigkeit 6
 
 ---
 
-### 6. MP-Regeneration widersprüchlich
+### 5. MP-Regeneration widersprüchlich
 
 **Problem:**
 - §7: "1 MP pro Session (regeneriert nicht durch Rast)"
@@ -100,7 +94,7 @@ Schwere Aktionen: Schwierigkeit 6
 
 ---
 
-### 7. Maximaler Gesamtbonus (+2) ist unklar
+### 6. Maximaler Gesamtbonus (+2) ist unklar
 
 **Problem:** §2.3 sagt "Maximaler Gesamtbonus: +2", aber was zählt dazu?
 - Stärke (+1)
@@ -117,7 +111,7 @@ Bei 4 möglichen +1-Boni wäre +2 Maximum sehr restriktiv.
 
 ## MITTLERE PRIORITÄT (Sollte geklärt werden)
 
-### 8. Feind-Symbol 🔺 vs 🔻 nicht eindeutig
+### 7. Feind-Symbol 🔺 vs 🔻 nicht eindeutig
 
 **Problem:** MAP §M.2:
 - 🔺 = Feind (aktiv)
@@ -133,7 +127,7 @@ Aber ab wann ist ein Feind "geschwächt"?
 
 ---
 
-### 9. Container-Symbol inkonsistent
+### 8. Container-Symbol inkonsistent
 
 **Problem:**
 - MAP_GENERATOR_SKILL.md §M.2: `📁 = Kiste/Box`
@@ -143,7 +137,7 @@ Aber ab wann ist ein Feind "geschwächt"?
 
 ---
 
-### 10. Liquidierungs-Rundung bei kleinen Werten
+### 9. Liquidierungs-Rundung bei kleinen Werten
 
 **Problem:** Eine Fackel (0.5 Gold) ergibt bei 15% = 0.075 Gold. Wird das zu 0 oder 1 aufgerundet?
 
@@ -152,7 +146,7 @@ Aber ab wann ist ein Feind "geschwächt"?
 
 ---
 
-### 11. Verwirrt-Status ohne Verbündete
+### 10. Verwirrt-Status ohne Verbündete
 
 **Problem:** §4.4 sagt bei Verwirrt und KEINEN Verbündeten: "1-2 = 1 Selbstschaden"
 Aber normale Angriffe bei 1-2 machen 0 Schaden.
@@ -162,7 +156,7 @@ Aber normale Angriffe bei 1-2 machen 0 Schaden.
 
 ---
 
-### 12. Feind-Taktiken nicht im Regelwerk
+### 11. Feind-Taktiken nicht im Regelwerk
 
 **Problem:** STATE_TRACKING_JSON definiert Taktiken wie "flee_when_hurt", aber das Regelwerk erklärt nicht, wann diese aktiviert werden.
 
@@ -182,7 +176,7 @@ Aber normale Angriffe bei 1-2 machen 0 Schaden.
 
 ## NIEDRIGE PRIORITÄT (Nice-to-have)
 
-### 13. Heiltrank-Beschreibung verkürzt
+### 12. Heiltrank-Beschreibung verkürzt
 
 **Problem:** CORU_Charakterkarte.md: "Heiltrank (2 HP)" statt "Heiltrank (+2 HP, max 4)"
 
@@ -190,7 +184,7 @@ Aber normale Angriffe bei 1-2 machen 0 Schaden.
 
 ---
 
-### 14. "Doppelt passt"-Regel Balance
+### 13. "Doppelt passt"-Regel Balance
 
 **Problem:** Coru + Dietriche + Lockpicking = Auto-Erfolg bei ALLEN Schlössern macht Rätsel trivial.
 
@@ -203,18 +197,25 @@ Aber normale Angriffe bei 1-2 machen 0 Schaden.
 
 | Priorität | Anzahl | Status |
 |-----------|--------|--------|
-| Kritisch | 3 | Offen |
+| Kritisch | 2 | Offen |
 | Hoch | 4 | Offen |
 | Mittel | 5 | Offen |
 | Niedrig | 2 | Optional |
-| **Gesamt** | **14** | - |
+| **Gesamt** | **13** | - |
 
 ---
 
 ## EMPFOHLENE NÄCHSTE SCHRITTE
 
-1. **Sofort:** Erstelle fehlende Charakterkarten (PIP, SILES)
-2. **Sofort:** Füge Waffe zu CORU's Schnellzugriff hinzu
+1. **Sofort:** Füge mindestens einem Charakter eine Waffe in den Schnellzugriff hinzu
+2. **Sofort:** Kläre ob Siles' "+2 Bonus" für Mentale Barriere korrekt ist
 3. **Bald:** Kläre die Widersprüche in §6.2 vs §4.2
 4. **Bald:** Definiere "einfache Aktionen" für §1.3
 5. **Später:** Kleinere Inkonsistenzen bereinigen
+
+---
+
+## HINWEIS ZUR ANALYSE
+
+Die Charakterkarten `pip_charakterkarte.md` und `siles_charakterkarte.md` existieren (kleingeschrieben).
+Der ursprüngliche Fehler war ein Suchfehler nach großgeschriebenen Dateinamen.
