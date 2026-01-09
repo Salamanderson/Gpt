@@ -92,7 +92,7 @@ Andere Symbole sind **Sondervarianten** zur Verdeutlichung von Unterschieden.
 | 📁 | Kiste/Box | ✅ Volle Deckung |
 | 🗄️ | Schrank | ✅ Volle Deckung |
 | 🪜 | Leiter | ❌ Keine |
-| 🚪 | Geschlossene Tür | - |
+| 🚪 | Tür (innerhalb Map) | - |
 | 🪟 | Fenster | - |
 | 🧱 | Säule/Steinstruktur | ✅ Volle Deckung |
 | ⛩️ | Tor/Portal | - |
@@ -105,16 +105,16 @@ Andere Symbole sind **Sondervarianten** zur Verdeutlichung von Unterschieden.
 | 🪵 | Holz/Baumstamm | ⚠️ Halbe Deckung |
 | ⛺️ | Zelt | ⚠️ Halbe Deckung |
 
-### Interaktive Elemente
+### Interaktive Elemente (Ausgänge zu anderen Maps)
 
 | Symbol | Bedeutung |
 |--------|-----------|
-| ➡️ | Durchgang/Tür Ost |
-| ⬅️ | Durchgang/Tür West |
-| ⬆️ | Durchgang/Tür Nord |
-| ⬇️ | Durchgang/Tür Süd |
-| ⏫ | Treppe aufwärts |
-| ⏬ | Treppe abwärts |
+| ➡️ | Ausgang Ost (andere Map) |
+| ⬅️ | Ausgang West (andere Map) |
+| ⬆️ | Ausgang Nord (andere Map) |
+| ⬇️ | Ausgang Süd (andere Map) |
+| ⏫ | Treppe aufwärts (andere Map) |
+| ⏬ | Treppe abwärts (andere Map) |
 | 🚫 | Blockiert/Versperrt |
 | 🔒 | Verschlossen |
 | 🔓 | Geöffnet |
@@ -385,15 +385,15 @@ Maps bestehen aus 3 Schichten, die übereinander gerendert werden:
 ### Beispiel A: Interior (Schenke)
 
 ```
-⬜⬜⬜⬜⬜⬜🪟⬜⬜⬜⬜⬜
-⬜🪴▪️▪️🔳🪑▪️▪️🔳🪑▪️⬜
+⬜🪟⬜⬜⬜🪟🪟⬜⬜⬜🪟⬜
+⬜🪴▪️▪️🔳🪑▪️▪️🔳🪑🪴⬜
 ⬜▪️▪️▪️🪑▪️▪️▪️🪑▪️▪️⬜
-⬜▪️▪️▪️▪️▪️🟢▪️▪️▪️🕯️⬜
+⬜🕯️▪️▪️▪️▪️▪️▪️▪️▪️🕯️⬜
 ⬜🧱▪️▪️▪️▪️▪️▪️▪️▪️▪️⬜
-⬜▪️▪️🔳🪑▪️▪️🟡▪️▪️▪️⬜
-⬜▪️▪️🪑▪️▪️▪️▪️▪️⚪▪️⬜
-⬜🪵▪️▪️▪️▪️▪️▪️▪️▪️🪴⬜
-⬜⬜⬜⬜🚪⬜⬜⬜⬜⬜⬜⬜
+⬜▪️▪️🔳🪑▪️▪️🟡🟢▪️▪️⬜
+⬜▪️▪️🪑▪️▪️▪️🔳🔳🔳🔳⬜
+⬜🪴▪️▪️▪️🕯️▪️▪️⚪▪️🪵⬜
+⬜⬜⬜⬜⬇️⬜⬜⬜⬜⬜⬜⬜
 ```
 
 **LEGENDE**
@@ -401,19 +401,19 @@ Maps bestehen aus 3 Schichten, die übereinander gerendert werden:
 - Möbel: 🔳 Tische | 🪑 Stühle
 - Dekoration: 🪴 Topfpflanzen | 🕯️ Kerze | 🧱 Säule | 🪵 Holzfass
 - Charaktere: 🟢 Spieler | 🟡 Begleiter | ⚪ Wirt
-- Interaktion: 🚪 Tür | 🪟 Fenster
+- Interaktion: ⬇️ Tür/Ausgang | 🪟 Fenster
 
 ### Beispiel B: Exterior (Waldlichtung)
 
 ```
 🌲🌲🌿🌲🌲🌲🌿🌲🌲🌲
-🌲▪️▪️▪️▪️▪️▪️▪️🌿🌲
-🌿▪️▪️🪨▪️▪️▪️▪️▪️🌲
-🌲▪️▪️▪️▪️🟢▪️▪️▪️🌿
-🌲▪️▪️▪️▪️▪️▪️🔺▪️🌲
-🌿▪️🪵▪️🟡▪️▪️▪️▪️🌲
-🌲▪️▪️▪️▪️▪️▪️🔻▪️🌿
-🌲▪️▪️▪️🍄▪️▪️▪️▪️🌲
+🌲🌿▪️▪️▪️▪️▪️▪️🌿🌲
+🌿▪️▪️▪️▪️▪️▪️🪨▪️🌲
+🌲▪️▪️▪️▪️▪️▪️▪️🪨🌿
+🌲▪️🍄▪️▪️▪️🟢🔺▪️🌲
+🌿🍄🪵▪️🟡▪️▪️▪️🪨🌲
+🌲▪️🍄▪️▪️▪️▪️🔻▪️🌿
+🌲▪️▪️▪️▪️▪️🪨▪️▪️🌲
 🌲🌿▪️▪️▪️▪️▪️▪️🌿🌲
 🌲🌲🌿🌲⬇️🌲🌿🌲🌲🌲
 ```
