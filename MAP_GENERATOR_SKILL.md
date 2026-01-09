@@ -309,6 +309,12 @@ Maps bestehen aus 3 Schichten, die übereinander gerendert werden:
 | Mittel | 15x15 | Taverne/Laden, 3-6 Charaktere |
 | Groß | 20x20 | Dorf/Gutshof, 6-10 Charaktere |
 
+### Schritt 2.5: Symbole aus §M.2 wählen
+**VOR dem Zeichnen:** Liste alle benötigten Symbole aus der Bibliothek!
+- ❌ **NIEMALS** Symbole erfinden
+- ✅ Nur Symbole aus §M.2 verwenden
+- Beispiel: "Ich brauche: ▪️ Boden, ⬜ Wände, 🔳 Tische, 🪑 Stühle, 🌲 Bäume..."
+
 ### Schritt 3: Static Layer erstellen
 1. **Terrain:** Grundfläche füllen (40-60%)
 2. **Structures:** Wände, Gebäude platzieren
@@ -336,6 +342,12 @@ Maps bestehen aus 3 Schichten, die übereinander gerendert werden:
 > - **Voraussetzung:** Transparenz gegenüber dem Spieler ("Ich korrigiere die Karte: Die Tür im Süden fehlte")
 > - **Keine Korrektur:** Nachträgliches Hinzufügen von Elementen aus taktischen Gründen
 > - Nach Korrektur gilt der Static Layer wieder als **unveränderlich**
+
+> **Regel 4: Positionen = Narration**
+> - Elemente MÜSSEN dort platziert werden, wo sie **laut Text/Beschreibung** sind
+> - Vor Platzierung fragen: "Wo ist X laut der Narration?"
+> - Beispiel: "Kutsche fährt gerade ein" = Kutsche am **Eingang**, NICHT am Ausgang
+> - Beispiel: "Wachen stehen vor der Tür" = Wachen **direkt an der Tür**, nicht irgendwo
 
 ### Schritt 4: Semi-Static platzieren
 - Türen an Eingängen
@@ -442,8 +454,8 @@ Maps bestehen aus 3 Schichten, die übereinander gerendert werden:
 ☐ Türen an Eingängen?
 ☐ Container mit Inhalt definiert?
 ☐ Alle Charaktere platziert?
-☐ Positionen narrativ sinnvoll?
-☐ NUR Symbole aus Bibliothek?
+☐ ⚠️ POSITIONEN: Stimmen mit Narration überein? (Regel 4)
+☐ ⚠️ SYMBOLE: Alle aus §M.2? (KEINE erfundenen!)
 ☐ Map im Codeblock?
 ☐ Legende AUSSERHALB Codeblock?
 ```
@@ -452,6 +464,7 @@ Maps bestehen aus 3 Schichten, die übereinander gerendert werden:
 
 ```
 ☐ Bewegungen aus Narration extrahiert?
+☐ ⚠️ Positionen = Narration? (Wo ist X laut Text?)
 ☐ Positionen aktualisiert (Dynamic Layer)?
 ☐ Interaktionen angewendet (Semi-Static)?
 ☐ Static Layer UNVERÄNDERT?
