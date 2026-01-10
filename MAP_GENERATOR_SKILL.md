@@ -7,6 +7,7 @@
 - Zustände: Regelwerk §4.4
 - State-Tracking Schema: STATE_TRACKING_JSON.md
 - DM-Anweisungen: DUNGEON_MASTER_PROMPT_v3_2.md
+- **Zonen-Planung: session_skizze_v3_2.md → §ZONEN-PLANUNG (VOR Map-Erstellung konsultieren!)**
 
 ---
 
@@ -296,7 +297,22 @@ Maps bestehen aus 3 Schichten, die übereinander gerendert werden:
 
 ## §M.5 MAP ERSTELLEN (Workflow)
 
+### Schritt 0: Session-Skizze konsultieren (PFLICHT!)
+
+> **⚠️ VOR dem Erstellen einer Map:**
+> 1. Session-Skizze → Zonen-Planung öffnen
+> 2. Die passende Zone finden
+> 3. Folgende Informationen übernehmen:
+>    - Typ (Interior/Exterior)
+>    - Größe
+>    - Symbole (bereits aus §M.2 gewählt!)
+>    - Verbindungen (Türen, Treppen, Fenster)
+>    - NPC/Feind Start-Positionen
+>
+> **Die Zonen-Planung IST der Bauplan für die Map!**
+
 ### Schritt 1: Kontext analysieren
+- Session-Skizze Zonen-Planung prüfen (dort steht alles!)
 - Was für ein Ort? (Taverne, Wald, Dungeon...)
 - Interior oder Exterior?
 - Welche Atmosphäre? (Belebt, verlassen, gefährlich...)
@@ -443,6 +459,14 @@ Maps bestehen aus 3 Schichten, die übereinander gerendert werden:
 ### Neue Map erstellen
 
 ```
+SESSION-SKIZZE (ZUERST!):
+☐ Session-Skizze → Zonen-Planung konsultiert?
+☐ Passende Zone gefunden?
+☐ Symbole aus Zonen-Planung übernommen?
+☐ Verbindungen aus Zonen-Planung übernommen?
+☐ NPC/Feind Start-Positionen übernommen?
+
+MAP-ERSTELLUNG:
 ☐ Map-Typ bestimmt? (Interior = Dach/Decke, Exterior = freier Himmel)
 ☐ Größe passend gewählt? (Klein 10x10, Mittel 15x15, Groß 20x20)
 ☐ Standard-Boden (▪️) für Grundfläche verwendet?

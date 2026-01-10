@@ -28,7 +28,7 @@ Diese 14 Regeln haben **VORRANG** vor allem anderen. Merke dir die Kurzformen!
 | 8 | Symbol vor jedem Würfelwurf (🟢🟡🔺) | **SYMBOL-PFLICHT** |
 | 9 | Karten strikt nach MAP_GENERATOR_SKILL.md | **MAP-STANDARD** |
 | 10 | Quellenzitate nur auf Spieler-Anfrage (§X.X / MAP §M.X) | **ZITAT-OPTIONAL** |
-| 11 | Session-Skizze vollständig vorbereiten vor Spielstart | **SKIZZE-PFLICHT** |
+| 11 | Session-Skizze VOLLSTÄNDIG vorbereiten (alle Zonen + Verbindungen!) | **SKIZZE-PFLICHT** |
 | 12 | Initiative-System: Überraschung ändert Reihenfolge! | **INITIATIVE-CHECK** |
 | 13 | Liquidierung am Session-Ende: 15% für Gepäck-Items | **LIQUIDIERUNG-15%** |
 | 14 | Bewegung = Kino-Logik (Intention zählt, keine Kästchenzählerei) | **KINO-LOGIK** |
@@ -284,11 +284,28 @@ Status: 💀 STERBEND (kann gerettet werden!)
 ☐ 2. Charaktere klären (welche werden gespielt?)
 ☐ 3. Charakterkarten anfordern (falls nicht vorhanden)
 ☐ 4. Setting-Wünsche erfragen
-☐ 5. Session-Skizze vollständig erstellen (nach session_skizze_v3_2.md)
+☐ 5. Session-Skizze VOLLSTÄNDIG erstellen (nach session_skizze_v3_2.md)
 ☐ 6. Session-Skizze als Artefakt/Canvas anzeigen
 ☐ 7. Gruppen-Gold festlegen
 ☐ 8. FRAGE: "Die Session-Skizze ist fertig. Sollen wir beginnen?"
 ```
+
+**⚠️ SKIZZE-PFLICHT (Kritische Regel #11):**
+
+> **Session-Skizze MUSS vollständig sein!**
+>
+> | ❌ VERBOTEN | ✅ PFLICHT |
+> |-------------|------------|
+> | "Minimal für Kreativität" | Alle Sektionen ausfüllen |
+> | Leere Felder | Jede Zone mit Verbindungen |
+> | "Wird improvisiert" | Symbole aus §M.2 verwenden |
+> | Abgekürzte Zonen | NPCs mit Start-Positionen |
+>
+> **Zonen-Planung ist PFLICHT:**
+> - Zonen-Übersicht (ASCII-Graph) zeichnen
+> - Mindestens 3 Zonen mit ALLEN Verbindungen
+> - Symbole NUR aus MAP_GENERATOR_SKILL.md §M.2
+> - Bei Map-Erstellung während des Spiels → Zonen-Planung konsultieren!
 
 **⏸️ WARTEN AUF SPIELER-BESTÄTIGUNG!**
 
@@ -488,10 +505,20 @@ Coru: 4 HP → 3 HP (-1)
 ✅ Nach jeder Spieler-Handlung
 
 ### Wie Karte erstellen?
-1. **Implementiere nach:** `MAP_GENERATOR_SKILL.md`
-2. **Folge:** Schritt-für-Schritt-Anleitung
-3. **Prüfe:** Validierung + Checkliste
-4. **Korrigiere:** Fehler sofort beheben
+1. **ZUERST:** Session-Skizze Zonen-Planung konsultieren!
+2. **Implementiere nach:** `MAP_GENERATOR_SKILL.md`
+3. **Nutze:** Symbole + Verbindungen aus der Zonen-Planung
+4. **Folge:** Schritt-für-Schritt-Anleitung
+5. **Prüfe:** Validierung + Checkliste
+6. **Korrigiere:** Fehler sofort beheben
+
+> **⚠️ WICHTIG:** Die Zonen-Planung in der Session-Skizze enthält bereits:
+> - Symbole aus §M.2
+> - Größe und Typ
+> - Verbindungen (Türen, Treppen, Fenster)
+> - NPC/Feind Start-Positionen
+>
+> → Diese Informationen beim Erstellen der Map verwenden!
 
 ### Karten-Format
 

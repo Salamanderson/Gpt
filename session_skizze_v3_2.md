@@ -1,8 +1,25 @@
 # 📜 Session-Skizze – D&D v3.2
 
-**Zweck:** Orientierung für DM (kein starres Skript!)  
-**Prinzip:** Flexibel anpassen bei Spieler-Abweichung  
+**Zweck:** Orientierung für DM (kein starres Skript!)
+**Prinzip:** Flexibel anpassen bei Spieler-Abweichung
 **Wichtig:** VOR Erstellung WORLD_SETTING.md lesen!
+
+---
+
+## ⚠️ VOLLSTÄNDIGKEITS-PFLICHT
+
+> **Diese Skizze MUSS vollständig ausgefüllt werden!**
+>
+> | Regel | Erklärung |
+> |-------|-----------|
+> | ❌ **VERBOTEN** | "Minimal halten für Flexibilität/Kreativität" |
+> | ❌ **VERBOTEN** | Leere Felder oder "wird improvisiert" |
+> | ❌ **VERBOTEN** | Abgekürzte Zonen ohne Verbindungen |
+> | ✅ **PFLICHT** | Jede Sektion vollständig ausfüllen |
+> | ✅ **PFLICHT** | Jede Zone mit allen Verbindungen |
+> | ✅ **PFLICHT** | Symbole NUR aus MAP_GENERATOR_SKILL.md §M.2 |
+>
+> **Grund:** Die Skizze IST die Vorbereitung. Sie ermöglicht schnelle Map-Erstellung während des Spiels!
 
 ---
 
@@ -24,7 +41,7 @@
 ________________ vs. ________________
 
 ### Zeitdruck
-☐ Nein  
+☐ Nein
 ☐ Ja → _______________ (z.B. "3 Szenen bis Ritual vollendet")
 
 ---
@@ -42,42 +59,209 @@ ________________ vs. ________________
 
 ## 🗺️ STRUKTUR (3 Akte)
 
-| Akt | Ort | Was passiert? | Hindernis/Entscheidung | Map (Planen) |
-|-----|-----|---------------|------------------------|--------------|
-| **1. Einstieg** | | | | |
-| **2. Eskalation** | | | | |
-| **3. Klimax** | | | | |
-
-### 🗺️ MAP-PLANUNG (Anleitung)
-
-**Für jede Location in der "Map (Planen)"-Spalte notieren:**
-
-| Element | Frage | Beispiel |
-|---------|-------|----------|
-| **Typ** | Interior oder Exterior? | "Interior" |
-| **Größe** | Klein/Mittel/Groß? | "Mittel 15x15" |
-| **Zugangspunkte** | Türen, Treppen, Fenster? | "Tür N, Treppe O, Fenster W" |
-| **Besonderheiten** | Deckung, Gefahren, Items? | "Tische (Deckung), Kamin (Gefahr)" |
-
-**Kurznotation Beispiel:**
-```
-Map: Interior, 15x15
-Zugänge: 🚪N, ⏫O
-Deckung: 🔳🔳 (Tische)
-Gefahr: 🔥 (Kamin)
-NPCs: ⚪ Wirt, 🔺🔺 Schläger
-```
-
-**Siehe MAP_GENERATOR_SKILL.md für:**
-- Symbol-Bibliothek
-- Layer-System (Static/Semi-Static/Dynamic)
-- Bauregeln für Zugangspunkte
+| Akt | Zonen | Was passiert? | Hindernis/Entscheidung |
+|-----|-------|---------------|------------------------|
+| **1. Einstieg** | | | |
+| **2. Eskalation** | | | |
+| **3. Klimax** | | | |
 
 ### Mögliche Enden
 
 - ✅ **Sieg:** _______________
 - ❌ **Niederlage:** _______________
 - ❓ **Pyrrhus/Twist:** _______________
+
+---
+
+## 🗺️ ZONEN-PLANUNG
+
+> **WICHTIG:** Diese Sektion ist die Grundlage für Map-Erstellung während des Spiels!
+> Bei Map-Generierung: Zuerst hier nachschauen, dann nach §M.2 bauen.
+
+### Erlaubte Symbole (aus MAP_GENERATOR_SKILL.md §M.2)
+
+**NUR diese Symbole verwenden! Keine anderen erfinden!**
+
+<details>
+<summary>📋 Symbol-Bank aufklappen</summary>
+
+| Kategorie | Symbole |
+|-----------|---------|
+| **Terrain** | ▪️ Boden, ⬜ Außenwand, ◽ Innenwand, ▫️ Zaun, 🔸 Sand/Stein, 🔶 Schlamm, 📗 Gras, 🔹 Flaches Wasser, 🔷 Tiefes Wasser, 🟧 Straße, 🟩 Sumpf, ⬛ Abgrund, 🕳️ Loch |
+| **Vegetation** | 🌲 Nadelbaum, 🌳 Laubbaum, 🌴 Palme, 🌿 Büsche, 🪴 Topfpflanze, 🌱 Gartenpflanzen, 🍄 Pilze, 🌾 Getreide, 🥀 Tote Pflanzen, 🌵 Kaktus |
+| **Möbel/Strukturen** | 🔳 Tisch/Barrikade, 🪑 Stuhl, 🛏️ Bett, 📁 Kiste, 🗄️ Schrank, 🪜 Leiter, 🧱 Säule, 🗿 Statue, ⚰️ Sarg, 🪦 Grabstein, ⛲ Fontäne, ⭐ Altar, 🪨 Felsen, 🪵 Holz, ⛺️ Zelt |
+| **Zugänge** | 🚪 Tür, 🪟 Fenster, ⛩️ Tor, ➡️⬅️⬆️⬇️ Ausgänge, ⏫⏬ Treppen |
+| **Interaktiv** | 🚫 Blockiert, 🔒 Verschlossen, 🔓 Offen, ⚙️ Mechanismus, ⭕ Markierung |
+| **Gefahren** | 🔥 Feuer, 💥 Explosion, ⚡ Elektrizität, ❄️ Eis, ☠️ Gift, 🕸️ Spinnweben, 💨 Wind, 🌊 Strömung |
+| **Licht** | 🕯️ Kerze, 💡 Laterne, 🔆 Helles Licht |
+| **Charaktere** | 🟢 Spieler, 🟡 Begleiter, 🔵 Verbündeter, ⚪ Neutraler NPC, 🔴 Boss, 🔺 Feind (aktiv), 🔻 Feind (geschwächt), 👤 Humanoid, 💀 Untot, 👻 Geist, 👹 Dämon, 🤖 Konstrukt |
+| **Tiere** | 🐺 Wolf, 🐈 Katze, 🐍 Schlange, 🐖 Schwein, 🐑 Schaf, 🐴 Pferd, 🐉 Drache, 🕷️ Spinne |
+| **Items** | 💰 Gold, 💎 Edelstein, 🗝️ Schlüssel, 📜 Schriftrolle, 📖 Buch, 🗡️ Schwert, 🛡️ Schild, 🏹 Bogen, 🔪 Dolch, 🪓 Axt, ⚗️ Trank, 🎒 Rucksack |
+| **Magisch** | ✨ Magie, 🔮 Kristallkugel, 💫 Effekt, 🌟 Stern, 🔯 Symbol, ❓ Geheimnis, ❗ Achtung |
+
+</details>
+
+---
+
+### Zonen-Übersicht (ASCII-Graph)
+
+**Zeichne hier die Verbindungen zwischen allen Zonen:**
+
+```
+[Zone A] ──Verbindung──► [Zone B] ──Verbindung──► [Zone C]
+    │                        │
+    │                   Verbindung
+    ▼                        ▼
+[Zone D]                 [Zone E]
+```
+
+**Beispiel:**
+```
+[Straße] ──⬆️ Eingang──► [Taverne EG] ──⏫ Treppe──► [Taverne OG]
+                              │                          │
+                         ⏬ Falltür                   🪟 Fenster
+                              ▼                          ▼
+                          [Keller]                   [Straße]
+                              │                      (Flucht)
+                         ⬛ Geheimgang
+                              ▼
+                      [Schmuggler-Tunnel]
+```
+
+---
+
+### Zone 1: [Name]
+
+| Eigenschaft | Wert |
+|-------------|------|
+| **Typ** | ☐ Interior / ☐ Exterior |
+| **Größe** | ☐ Klein 10x10 / ☐ Mittel 15x15 / ☐ Groß 20x20 |
+| **Atmosphäre** | _____ |
+| **Akt** | ☐ 1 / ☐ 2 / ☐ 3 |
+
+**Elemente (Symbole aus §M.2):**
+
+| Kategorie | Symbole + Beschreibung |
+|-----------|------------------------|
+| Terrain | z.B. ▪️ Holzboden, ⬜ Steinwände |
+| Möbel | z.B. 🔳 Tische x4, 🪑 Stühle x8 |
+| Deko | z.B. 🕯️ Kerzen x3, 🪴 Topfpflanzen x2 |
+| Gefahren | z.B. 🔥 Kamin (Nord) |
+
+**Verbindungen:**
+
+| Ziel-Zone | Übergang | Position | Symbol |
+|-----------|----------|----------|--------|
+| [Zone X] | z.B. Haupteingang | Süd-Mitte | ⬇️ |
+| [Zone Y] | z.B. Treppe | Nord-Ost | ⏫ |
+| [Zone Z] | z.B. Fenster (Flucht) | West | 🪟 |
+
+**NPCs/Feinde (Start-Positionen):**
+
+| Wer | Symbol | Position | Verhalten |
+|-----|--------|----------|-----------|
+| z.B. Wirt | ⚪ | Hinter Theke (Nord) | Freundlich |
+| z.B. Schläger | 🔺🔺 | Am Tisch (Mitte) | Feindselig |
+
+**Kampf-Notizen (falls Encounter hier):**
+- Deckung: _____
+- Gefahren: _____
+- Taktik der Feinde: _____
+
+---
+
+### Zone 2: [Name]
+
+| Eigenschaft | Wert |
+|-------------|------|
+| **Typ** | ☐ Interior / ☐ Exterior |
+| **Größe** | ☐ Klein 10x10 / ☐ Mittel 15x15 / ☐ Groß 20x20 |
+| **Atmosphäre** | _____ |
+| **Akt** | ☐ 1 / ☐ 2 / ☐ 3 |
+
+**Elemente (Symbole aus §M.2):**
+
+| Kategorie | Symbole + Beschreibung |
+|-----------|------------------------|
+| Terrain | |
+| Möbel | |
+| Deko | |
+| Gefahren | |
+
+**Verbindungen:**
+
+| Ziel-Zone | Übergang | Position | Symbol |
+|-----------|----------|----------|--------|
+| | | | |
+| | | | |
+
+**NPCs/Feinde (Start-Positionen):**
+
+| Wer | Symbol | Position | Verhalten |
+|-----|--------|----------|-----------|
+| | | | |
+
+**Kampf-Notizen (falls Encounter hier):**
+- Deckung: _____
+- Gefahren: _____
+- Taktik der Feinde: _____
+
+---
+
+### Zone 3: [Name]
+
+| Eigenschaft | Wert |
+|-------------|------|
+| **Typ** | ☐ Interior / ☐ Exterior |
+| **Größe** | ☐ Klein 10x10 / ☐ Mittel 15x15 / ☐ Groß 20x20 |
+| **Atmosphäre** | _____ |
+| **Akt** | ☐ 1 / ☐ 2 / ☐ 3 |
+
+**Elemente (Symbole aus §M.2):**
+
+| Kategorie | Symbole + Beschreibung |
+|-----------|------------------------|
+| Terrain | |
+| Möbel | |
+| Deko | |
+| Gefahren | |
+
+**Verbindungen:**
+
+| Ziel-Zone | Übergang | Position | Symbol |
+|-----------|----------|----------|--------|
+| | | | |
+| | | | |
+
+**NPCs/Feinde (Start-Positionen):**
+
+| Wer | Symbol | Position | Verhalten |
+|-----|--------|----------|-----------|
+| | | | |
+
+**Kampf-Notizen (falls Encounter hier):**
+- Deckung: _____
+- Gefahren: _____
+- Taktik der Feinde: _____
+
+---
+
+### Weitere Zonen (bei Bedarf kopieren)
+
+> **Hinweis:** Füge so viele Zonen hinzu wie nötig. Jede Zone braucht:
+> - Alle Verbindungen zu anderen Zonen
+> - Symbole aus der §M.2 Bank
+> - Start-Positionen für NPCs/Feinde
+
+---
+
+### 📊 Zonen-Zusammenfassung
+
+| Zone | Typ | Größe | Verbindungen zu |
+|------|-----|-------|-----------------|
+| | | | |
+| | | | |
+| | | | |
 
 ---
 
@@ -302,13 +486,32 @@ NPCs: ⚪ Wirt, 🔺🔺 Schläger
 ☐ Wichtige NSC-Motivationen klar?
 ☐ Kampf-Encounter vorbereitet (HP, Taktik)?
 ☐ Initiative-Situationen überlegt?
-☐ Maps vorgeplant? (siehe MAP_GENERATOR_SKILL.md)
-   ☐ Typ (Interior/Exterior) festgelegt?
-   ☐ Größe bestimmt?
-   ☐ Zugangspunkte definiert?
+
+ZONEN-PLANUNG (PFLICHT!):
+☐ Zonen-Übersicht (ASCII-Graph) gezeichnet?
+☐ Mindestens 3 Zonen definiert?
+☐ JEDE Zone hat:
+   ☐ Typ (Interior/Exterior)?
+   ☐ Größe (10x10 / 15x15 / 20x20)?
+   ☐ Elemente mit Symbolen aus §M.2?
+   ☐ ALLE Verbindungen zu anderen Zonen?
+   ☐ NPCs/Feinde mit Start-Positionen?
+☐ Symbole NUR aus MAP_GENERATOR_SKILL.md §M.2?
+☐ Keine erfundenen Symbole verwendet?
+
 ☐ Belohnungen definiert (Items + Gold)?
 ☐ Hook eingängig und klar?
 ☐ Notfall-Optionen überlegt?
+```
+
+### ⚠️ VALIDIERUNG (Vor Spielstart prüfen!)
+
+```
+☐ Keine leeren Felder in Zonen-Planung?
+☐ Jede Zone hat mindestens 1 Verbindung?
+☐ Zonen-Graph ist konsistent (A→B bedeutet auch B→A)?
+☐ Alle Symbole aus §M.2 Bank?
+☐ Session-Skizze dem Spieler als Artefakt gezeigt?
 ```
 
 ---
