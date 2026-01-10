@@ -297,12 +297,14 @@ Maps bestehen aus 3 Schichten, die übereinander gerendert werden:
 
 ## §M.5 MAP ERSTELLEN (Workflow)
 
-### Schritt 0: Session-Skizze konsultieren (PFLICHT!)
+### Schritt 0: Session-Skizze konsultieren (INTERN – nicht für Spieler!)
 
-> **⚠️ VOR dem Erstellen einer Map:**
+> **⚠️ INTERNER PROZESS – Spieler sieht nur die fertige Map!**
+>
+> **VOR dem Erstellen einer Map:**
 > 1. Session-Skizze → Zonen-Planung öffnen
 > 2. Die passende Zone finden
-> 3. Folgende Informationen übernehmen:
+> 3. Folgende Informationen INTERN übernehmen:
 >    - Typ (Interior/Exterior)
 >    - Größe
 >    - Symbole (bereits aus §M.2 gewählt!)
@@ -310,6 +312,12 @@ Maps bestehen aus 3 Schichten, die übereinander gerendert werden:
 >    - NPC/Feind Start-Positionen
 >
 > **Die Zonen-Planung IST der Bauplan für die Map!**
+>
+> | ❌ NICHT SO | ✅ SONDERN SO |
+> |-------------|---------------|
+> | "Laut Zonen-Planung ist dies 15x15..." | *Map direkt zeigen* |
+> | "Die Skizze sagt Treppe im Norden..." | *Treppe in Map einbauen* |
+> | "Ich übernehme die NPCs aus Zone 1..." | *NPCs platzieren ohne Kommentar* |
 
 ### Schritt 1: Kontext analysieren
 - Session-Skizze Zonen-Planung prüfen (dort steht alles!)
@@ -590,3 +598,48 @@ DYNAMIC:     JEDE RUNDE (Bewegung, Effekte)
 - Karten visualisieren die Situation
 - Bewegung ist narrativ, nicht mechanisch
 - Static Layer = heilig, niemals ändern!
+
+---
+
+## §M.11 INTERNE VALIDIERUNG (Nicht für Spieler sichtbar!)
+
+> **Nach JEDER Map-Erstellung diesen Check INTERN durchführen!**
+> **Der Spieler sieht NUR die Map – nicht diesen Prozess!**
+
+### Interner Konsistenz-Check
+
+```
+INTERN prüfen (nicht ausgeben!):
+☐ Stimmt Typ mit Session-Skizze überein?
+☐ Stimmt Größe mit Session-Skizze überein?
+☐ Sind ALLE Verbindungen aus Skizze vorhanden?
+   → Jede Verbindung an korrekter Position?
+   → Korrektes Symbol verwendet?
+☐ Sind ALLE NPCs/Feinde aus Skizze platziert?
+   → An korrekter Position?
+   → Mit korrektem Symbol?
+☐ Sind ALLE Elemente aus Skizze vorhanden?
+   → Möbel, Deko, Gefahren?
+
+Bei Abweichung → Map SOFORT korrigieren!
+```
+
+### Was der Spieler NICHT sieht
+
+| Interner Prozess | Spieler sieht |
+|------------------|---------------|
+| "Skizze prüfen..." | *nichts* |
+| "Zone 1 laden..." | *nichts* |
+| "Verbindungen übernehmen..." | *nichts* |
+| "Validierung OK" | *nichts* |
+| Map fertig | **Die Map + Legende** |
+
+### Bei Inkonsistenz
+
+Wenn Map nicht mit Skizze übereinstimmt:
+1. **NICHT** dem Spieler sagen
+2. **NICHT** "Ich korrigiere..."
+3. **SOFORT** intern korrigieren
+4. **NUR** korrigierte Map zeigen
+
+> **Ziel:** Nahtloses Spielerlebnis ohne Meta-Kommentare!
