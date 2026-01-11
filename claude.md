@@ -25,30 +25,11 @@
 - Partiegold & Liquidation
 
 **Abhängigkeiten**:
-- ⚠️ **Bei Regeländerungen IMMER aktualisieren**: `DUNGEON_MASTER_PROMPT_v3_2.md`
 - ⚠️ **Bei Kampfregeln-Änderungen prüfen**: `CHARAKTERKARTEN_FORMAT_v3_2.md` (Fähigkeiten-Format)
 - ⚠️ **Bei Inventar-Änderungen prüfen**: `ITEM_SYSTEM.md`
 - ⚠️ **Bei neuen Zuständen prüfen**: `STATE_TRACKING_JSON.md`
 
 **Cross-Reference-System**: `§X.Y` (z.B. §2.1, §5.3)
-
----
-
-#### **DUNGEON_MASTER_PROMPT_v3_2.md**
-**Zuständig für**: System-Prompt für Claude als Dungeon Master
-- Format-Vorgaben (FORMAT-KAINE: Text → Würfel → Karte → Status)
-- Dokumenten-Hierarchie (welche Datei bei Konflikten gewinnt)
-- Rollenspielvorgaben (Erzählstil, Verhalten)
-- Emoji-Standards (🟢🟡🔺)
-- Tool-Usage (`rpg-dice-roller`)
-
-**Abhängigkeiten**:
-- ✅ **Muss referenzieren**: Alle §-Regeln aus `Dungeons_and_Decisions_v3_2.txt`
-- ✅ **Muss inkludieren**: Änderungen an `MAP_GENERATOR_SKILL.md` (Map-Format)
-- ✅ **Muss inkludieren**: Änderungen an `STATE_TRACKING_JSON.md` (Status-Format)
-- ⚠️ **Bei neuen Subsystemen**: Hierarchie-Liste erweitern
-
-**Regel**: Diese Datei ist die **"Verfassung"** - bei Konflikten gewinnt sie immer.
 
 ---
 
@@ -62,9 +43,9 @@
 - Beispiel-Maps mit Annotationen
 
 **Abhängigkeiten**:
-- ⚠️ **Bei Symbol-Änderungen**: `DUNGEON_MASTER_PROMPT_v3_2.md` aktualisieren (Emoji-Liste)
 - ⚠️ **Bei neuen Regeln**: §M.X-Referenzen in `Dungeons_and_Decisions_v3_2.txt` hinzufügen
 - ⚠️ **Bei Format-Änderungen**: Alle Beispiel-Maps in dieser Datei aktualisieren
+- ⚠️ **Bei Karten-Kontext**: `session_skizze_v3_2.md` für Story-Kontext nutzen
 
 **Cross-Reference-System**: `§M.X` (z.B. §M.1 für Layer-Regeln)
 
@@ -130,7 +111,6 @@
 
 **Abhängigkeiten**:
 - ⚠️ **Bei neuen Fraktionen**: In `session_skizze_v3_2.md` als mögliche NPCs erwähnen
-- ⚠️ **Bei Lore-Änderungen**: `DUNGEON_MASTER_PROMPT_v3_2.md` (Erzählstil-Hinweise) prüfen
 - ⚠️ **Bei Eidolon-Änderungen**: Beispiel-Charakter `CORU_Charakterkarte.md` (Dämonenpakt) prüfen
 
 ---
@@ -169,16 +149,15 @@
 ### Szenario 1: Neue Kampfregel hinzufügen
 ```
 1. Dungeons_and_Decisions_v3_2.txt → §X.Y-Nummer vergeben
-2. DUNGEON_MASTER_PROMPT_v3_2.md → Regel in Hierarchie erwähnen
-3. CHARAKTERKARTEN_FORMAT_v3_2.md → Falls betroffen (z.B. neue Fähigkeit)
-4. Beispiel-Charaktere → Optional: Beispiel-Fähigkeit hinzufügen
+2. CHARAKTERKARTEN_FORMAT_v3_2.md → Falls betroffen (z.B. neue Fähigkeit)
+3. Beispiel-Charaktere → Optional: Beispiel-Fähigkeit hinzufügen
 ```
 
 ### Szenario 2: Map-System erweitern
 ```
 1. MAP_GENERATOR_SKILL.md → Neue Symbole/Regeln (§M.X)
 2. MAP_GENERATOR_SKILL.md → Beispiel-Maps aktualisieren
-3. DUNGEON_MASTER_PROMPT_v3_2.md → Emoji-Liste erweitern
+3. session_skizze_v3_2.md → Kontext für neue Map-Elemente hinzufügen
 4. Dungeons_and_Decisions_v3_2.txt → §3 (Karten) Cross-Reference hinzufügen
 ```
 
@@ -204,17 +183,15 @@
 ```
 1. WORLD_SETTING.md → Neue Fraktion/Location hinzufügen
 2. session_skizze_v3_2.md → In NPC/Encounter-Beispiele integrieren
-3. DUNGEON_MASTER_PROMPT_v3_2.md → Falls neuer Erzähl-Stil benötigt
 ```
 
 ### Szenario 6: Version-Update (z.B. v3.2 → v3.3)
 ```
 1. Alle v3_2-Dateien umbenennen → v3_3
 2. Dungeons_and_Decisions_v3_3.txt → Changelog am Anfang ergänzen
-3. DUNGEON_MASTER_PROMPT_v3_3.md → Neue Version-Nummer überall
-4. CHARAKTERKARTEN_FORMAT_v3_3.md → Template aktualisieren
-5. session_skizze_v3_3.md → Template aktualisieren
-6. README → Falls vorhanden, Version-Info aktualisieren
+3. CHARAKTERKARTEN_FORMAT_v3_3.md → Template aktualisieren
+4. session_skizze_v3_3.md → Template aktualisieren
+5. README → Falls vorhanden, Version-Info aktualisieren
 ```
 
 ---
@@ -231,11 +208,10 @@
 
 ### IMMER:
 - ✅ Bei Regel-Änderungen: Alle §-Referenzen in anderen Dateien prüfen
-- ✅ Bei Map-Änderungen: Symbol-Validierung durchführen
+- ✅ Bei Map-Änderungen: Symbol-Validierung durchführen + session_skizze für Kontext prüfen
 - ✅ Bei Charakter-Änderungen: Template-Konsistenz prüfen
-- ✅ Bei Subsystem-Änderungen: `DUNGEON_MASTER_PROMPT_v3_2.md` aktualisieren
 - ✅ Beispiele für neue Mechaniken hinzufügen
-- ✅ Dokumenten-Hierarchie respektieren (Prompt > Regelwerk > Subsysteme)
+- ✅ Themen-Hierarchien respektieren (siehe unten)
 
 ---
 
@@ -252,21 +228,45 @@
 
 ---
 
-## 📊 Dokumenten-Hierarchie (bei Konflikten)
+## 📊 Themen-Hierarchie (bei Konflikten)
 
-```
-1. DUNGEON_MASTER_PROMPT_v3_2.md (höchste Priorität)
-   ↓
-2. Dungeons_and_Decisions_v3_2.txt
-   ↓
-3. Subsysteme (MAP, ITEM, STATE)
-   ↓
-4. Templates (CHARAKTERKARTEN_FORMAT)
-   ↓
-5. Referenzen (WORLD_SETTING, Beispiel-Charaktere)
-```
+Bei widersprüchlichen Informationen gilt je nach Thema:
 
-**Regel**: Bei widersprüchlichen Informationen gewinnt immer die höhere Ebene.
+### 🗺️ Karten-Erstellung
+```
+1. MAP_GENERATOR_SKILL.md (Symbole, Layer, Building-Regeln)
+   ↓
+2. session_skizze_v3_2.md (Story-Kontext, Encounter-Layout)
+```
+**Regel**: MAP_GENERATOR_SKILL definiert WIE Karten gebaut werden, session_skizze liefert den Kontext.
+
+### ⚔️ Spielmechaniken (Kampf, Charaktere, Wirtschaft)
+```
+1. Dungeons_and_Decisions_v3_2.txt (§0-§10 Hauptregeln)
+   ↓
+2. Subsysteme (ITEM_SYSTEM.md, STATE_TRACKING_JSON.md)
+   ↓
+3. Templates (CHARAKTERKARTEN_FORMAT_v3_2.md)
+```
+**Regel**: Regelwerk ist autoritativ für alle Mechaniken.
+
+### 👥 Charaktererstellung
+```
+1. Dungeons_and_Decisions_v3_2.txt (§1: 4 HP, 1 MP, Regeln)
+   ↓
+2. CHARAKTERKARTEN_FORMAT_v3_2.md (Format/Layout)
+   ↓
+3. Beispiel-Charaktere (Inspiration)
+```
+**Regel**: Regelwerk definiert Limits, Template definiert Darstellung.
+
+### 🌍 Welt & Story
+```
+1. WORLD_SETTING.md (Fraktionen, Locations, Lore)
+   ↓
+2. session_skizze_v3_2.md (Abenteuer-Kontext)
+```
+**Regel**: WORLD_SETTING ist kanonisch für Artapea-Lore.
 
 ---
 
@@ -274,9 +274,9 @@
 
 ### Checklist:
 - [ ] Alle §-Referenzen aktualisiert?
-- [ ] `DUNGEON_MASTER_PROMPT_v3_2.md` synchron mit Regeländerungen?
+- [ ] Themen-Hierarchie befolgt? (Karten: MAP_GENERATOR_SKILL, Mechaniken: Regelwerk)
 - [ ] Sprachkonsistenz gewahrt (Deutsch, klare Fachbegriffe)?
-- [ ] Bei Map-Änderungen: Symbol-Validierung durchgeführt?
+- [ ] Bei Map-Änderungen: Symbol-Validierung + session_skizze-Kontext?
 - [ ] Bei Charakter-Änderungen: Template-Format befolgt?
 - [ ] Cross-References vollständig (§X → §Y)?
 - [ ] Beispiele für neue Mechaniken hinzugefügt?
