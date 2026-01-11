@@ -1,8 +1,38 @@
 # 📜 Session-Skizze – D&D v3.2
 
-**Zweck:** Orientierung für DM (kein starres Skript!)  
-**Prinzip:** Flexibel anpassen bei Spieler-Abweichung  
+**Zweck:** VERBINDLICHE Spielvorbereitung für DM
+**Prinzip:** ALLE Felder MÜSSEN ausgefüllt werden – keine Abkürzungen!
 **Wichtig:** VOR Erstellung WORLD_SETTING.md lesen!
+
+---
+
+## ⚠️ VERBINDLICHKEITS-REGELN
+
+> **DIESE REGELN SIND NICHT VERHANDELBAR!**
+
+| Regel | Erklärung |
+|-------|-----------|
+| **VOLLSTÄNDIGKEIT** | Jedes Feld dieser Skizze MUSS ausgefüllt werden |
+| **KEINE ABKÜRZUNGEN** | "Wird improvisiert" oder "offen lassen" ist VERBOTEN |
+| **MAP-DATEN PFLICHT** | Jede Location braucht vollständige Map-Daten |
+| **SPIELFÜHRUNG** | Das Spiel folgt dieser Skizze – nicht umgekehrt |
+
+### ❌ VERBOTENE AUSREDEN
+
+Diese Begründungen sind UNGÜLTIG und werden nicht akzeptiert:
+
+- ❌ "Für mehr Spielfreiheit offen gelassen"
+- ❌ "Wird während des Spiels improvisiert"
+- ❌ "Details nicht wichtig für die Geschichte"
+- ❌ "Kann der SL spontan entscheiden"
+- ❌ "Zu viel Planung schränkt Kreativität ein"
+
+### ✅ RICHTIGE VORGEHENSWEISE
+
+- ✅ ALLE Felder mit konkreten Werten füllen
+- ✅ MAP-DATEN für JEDE Location vollständig definieren
+- ✅ Encounters komplett vorbereiten (HP, Taktik, Schwächen)
+- ✅ Bei Spieler-Abweichung: Skizze ANPASSEN, nicht ignorieren
 
 ---
 
@@ -48,30 +78,137 @@ ________________ vs. ________________
 | **2. Eskalation** | | | | |
 | **3. Klimax** | | | | |
 
-### 🗺️ MAP-PLANUNG (Anleitung)
+---
 
-**Für jede Location in der "Map (Planen)"-Spalte notieren:**
+## 🗺️ MAP-DATEN (PFLICHTBEREICH)
 
-| Element | Frage | Beispiel |
-|---------|-------|----------|
-| **Typ** | Interior oder Exterior? | "Interior" |
-| **Größe** | Klein/Mittel/Groß? | "Mittel 15x15" |
-| **Zugangspunkte** | Türen, Treppen, Fenster? | "Tür N, Treppe O, Fenster W" |
-| **Besonderheiten** | Deckung, Gefahren, Items? | "Tische (Deckung), Kamin (Gefahr)" |
+> **JEDE Location braucht einen vollständigen MAP-DATEN Block!**
+> **Diese Daten werden direkt für die Kartengeneration verwendet.**
 
-**Kurznotation Beispiel:**
+### Map-Daten Template (pro Location)
+
 ```
-Map: Interior, 15x15
-Zugänge: 🚪N, ⏫O
-Deckung: 🔳🔳 (Tische)
-Gefahr: 🔥 (Kamin)
-NPCs: ⚪ Wirt, 🔺🔺 Schläger
+═══════════════════════════════════════════════════════
+📍 MAP-DATEN: [Location-Name]
+═══════════════════════════════════════════════════════
+
+┌─ GRUNDDATEN ─────────────────────────────────────────┐
+│ Typ:        ☐ Interior  ☐ Exterior                   │
+│ Größe:      ☐ Klein (10x10)  ☐ Mittel (15x15)  ☐ Groß (20x20) │
+│ Atmosphäre: [z.B. düster, verfallen, lebendig]       │
+└──────────────────────────────────────────────────────┘
+
+┌─ ZUGÄNGE (PFLICHT) ──────────────────────────────────┐
+│ Position N: [🚪/⬆️/⏫/🪟/keine]                       │
+│ Position O: [🚪/➡️/⏫/🪟/keine]                       │
+│ Position S: [🚪/⬇️/⏬/🪟/keine]                       │
+│ Position W: [🚪/⬅️/⏫/🪟/keine]                       │
+└──────────────────────────────────────────────────────┘
+
+┌─ STATISCHE ELEMENTE (TERRAIN) ───────────────────────┐
+│ Boden:      [▪️ Standard / 🟫 Holz / 🔷 Wasser / etc.]│
+│ Wände:      [⬜ Stein / ▫️ Zaun / keine (Exterior)]   │
+│ Vegetation: [🌲🌳🌿🌾 – nur bei Exterior/Garten]      │
+│ Spezial:    [🔷 Teich, 🟩 Sumpf, etc.]               │
+└──────────────────────────────────────────────────────┘
+
+┌─ MÖBLIERUNG & DEKORATION ────────────────────────────┐
+│ Möbel:      [🔳 Tische, 🪑 Stühle, 🛏️ Betten, etc.]  │
+│ Behälter:   [📁 Kisten, 🪵 Fässer, 🗄️ Schränke]      │
+│ Dekoration: [🕯️ Kerzen, 🪴 Pflanzen, 🖼️ Bilder]      │
+│ Spezial:    [🧱 Säulen, ⚙️ Mechanismen, 🔒 Schlösser] │
+└──────────────────────────────────────────────────────┘
+
+┌─ DECKUNG & GEFAHREN ─────────────────────────────────┐
+│ Deckung:    [Position + Symbol, z.B. "Mitte: 🔳🔳"]  │
+│ Gefahren:   [🔥 Feuer, ☠️ Gift, ⚡ Elektro, etc.]     │
+│ Fallen:     [Position + Auslöser + Effekt]           │
+└──────────────────────────────────────────────────────┘
+
+┌─ CHARAKTERE & NPCS ──────────────────────────────────┐
+│ Spieler-Start: [Position, z.B. "Eingang S"]          │
+│ NPCs:          [⚪ Name @ Position]                   │
+│ Feinde:        [♦️/🔺 Name @ Position, HP, Taktik]    │
+│ Boss:          [🔴 Name @ Position, HP, Mechanik]    │
+└──────────────────────────────────────────────────────┘
+
+┌─ INTERAKTIVE OBJEKTE ────────────────────────────────┐
+│ Objekt 1: [Symbol] [Name] @ [Position] → [Effekt]    │
+│ Objekt 2: [Symbol] [Name] @ [Position] → [Effekt]    │
+│ Geheimnis: [Was] @ [Position] → [Wie findbar]        │
+└──────────────────────────────────────────────────────┘
+
+═══════════════════════════════════════════════════════
 ```
+
+### Ausgefülltes Beispiel: Verräucherte Schenke
+
+```
+═══════════════════════════════════════════════════════
+📍 MAP-DATEN: Verräucherte Schenke
+═══════════════════════════════════════════════════════
+
+┌─ GRUNDDATEN ─────────────────────────────────────────┐
+│ Typ:        ☑ Interior  ☐ Exterior                   │
+│ Größe:      ☐ Klein  ☑ Mittel (15x12)  ☐ Groß        │
+│ Atmosphäre: Rauchig, laut, zwielichtig               │
+└──────────────────────────────────────────────────────┘
+
+┌─ ZUGÄNGE (PFLICHT) ──────────────────────────────────┐
+│ Position N: 🪟🪟 (Fenster, nicht passierbar)         │
+│ Position O: keine                                     │
+│ Position S: ⬇️ Haupteingang (zur Straße)             │
+│ Position W: 🚪 Hintertür (zur Gasse) + ⏫ Keller      │
+└──────────────────────────────────────────────────────┘
+
+┌─ STATISCHE ELEMENTE (TERRAIN) ───────────────────────┐
+│ Boden:      ▪️ Dunkles Holz                          │
+│ Wände:      ⬜ Stein mit Holzvertäfelung             │
+│ Vegetation: keine (Interior)                          │
+│ Spezial:    keine                                     │
+└──────────────────────────────────────────────────────┘
+
+┌─ MÖBLIERUNG & DEKORATION ────────────────────────────┐
+│ Möbel:      🔳🔳🔳🔳 4 Tische, 🪑x8 Stühle            │
+│ Behälter:   🪵🪵 2 Bierfässer (hinter Theke)         │
+│ Dekoration: 🕯️x4 Kerzen, 🪴x2 tote Pflanzen          │
+│ Spezial:    🧱 tragende Säule (Mitte), 🔳 Theke (W)  │
+└──────────────────────────────────────────────────────┘
+
+┌─ DECKUNG & GEFAHREN ─────────────────────────────────┐
+│ Deckung:    Tische (umwerfbar), Säule, Theke         │
+│ Gefahren:   🕯️ Kerzen (können Feuer auslösen)        │
+│ Fallen:     keine                                     │
+└──────────────────────────────────────────────────────┘
+
+┌─ CHARAKTERE & NPCS ──────────────────────────────────┐
+│ Spieler-Start: Eingang S                             │
+│ NPCs:          ⚪ Wirt "Grima" @ hinter Theke        │
+│ Feinde:        🔺🔺 2 Schläger @ Tisch NO, je 3 HP   │
+│                Taktik: Greifen nächstes Ziel an      │
+│ Boss:          keine                                  │
+└──────────────────────────────────────────────────────┘
+
+┌─ INTERAKTIVE OBJEKTE ────────────────────────────────┐
+│ 📁 Kiste @ Keller → enthält 15 Gold + Heiltrank      │
+│ 🪵 Bierfass @ Theke → kann als Waffe gerollt werden  │
+│ Geheimnis: Falltür @ unter Teppich NO → Würfel 5+    │
+└──────────────────────────────────────────────────────┘
+
+═══════════════════════════════════════════════════════
+```
+
+### Wie der DM diese Daten nutzt
+
+1. **Bei Kartengeneration:** MAP-DATEN direkt als Vorlage verwenden
+2. **Symbole übernehmen:** Die definierten Symbole 1:1 auf Karte setzen
+3. **Positionen respektieren:** Zugänge und Objekte wie definiert platzieren
+4. **Keine Improvisation:** Nur das zeigen, was in MAP-DATEN steht
 
 **Siehe MAP_GENERATOR_SKILL.md für:**
-- Symbol-Bibliothek
-- Layer-System (Static/Semi-Static/Dynamic)
-- Bauregeln für Zugangspunkte
+- Vollständige Symbol-Bibliothek (MAP §M.2)
+- Layer-System (MAP §M.3)
+- Bauregeln für Interior/Exterior (MAP §M.4.1, §M.5.1)
 
 ### Mögliche Enden
 
@@ -328,18 +465,29 @@ NPCs: ⚪ Wirt, 🔺🔺 Schläger
 
 ---
 
-## 🔄 WÄHREND SESSION: FLEXIBILITÄT!
+## 🔄 WÄHREND SESSION: ANPASSUNG (NICHT IMPROVISATION!)
 
-**Wichtig:**
-- Diese Skizze ist ein **Gerüst**, kein **Skript**!
-- Spielerentscheidungen haben VORRANG
-- Bei Abweichung: improvisieren & Skizze mental anpassen
-- Nicht zurück zum Plan zwingen (kein Railroading!)
+**KLARSTELLUNG:**
+- Diese Skizze ist **VERBINDLICH** – nicht optional!
+- Spielerentscheidungen werden respektiert
+- Bei Abweichung: Skizze **ANPASSEN**, nicht **IGNORIEREN**
+- Kein Railroading, aber auch **kein Wegwerfen der Vorbereitung**
 
-**Bei großer Abweichung:**
-- Pause Session
-- Neue Skizze erstellen
-- Mit frischem Plan weitermachen
+### Was "Anpassen" bedeutet
+
+| Situation | RICHTIG | FALSCH |
+|-----------|---------|--------|
+| Spieler geht woanders hin | Neue MAP-DATEN für neue Location erstellen | "Ich improvisiere mal" |
+| Spieler umgeht Encounter | Encounter verschieben oder anpassen | Encounter einfach streichen |
+| Unerwartete Aktion | Konsequenzen nach Skizzen-Logik | Beliebige Konsequenzen erfinden |
+
+### Bei großer Abweichung
+
+1. **Session pausieren** (transparent kommunizieren)
+2. **Skizze erweitern** (neue MAP-DATEN, neue Encounters)
+3. **Dann weiterspielen** mit vollständiger Vorbereitung
+
+> **NIEMALS:** "Das improvisiere ich jetzt einfach" ohne Vorbereitung!
 
 ---
 

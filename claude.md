@@ -4,7 +4,7 @@
 Dokumentbasiertes Solo-Tabletop-RPG-System auf Deutsch, designed für AI-gestütztes Gameplay (Claude als Dungeon Master).
 
 ## Dokumenthierarchie (bei Regelkonflikten)
-1. **14 Kritische Regeln** (in DUNGEON_MASTER_PROMPT_v3_2.md)
+1. **16 Kritische Regeln** (in DUNGEON_MASTER_PROMPT_v3_2.md)
 2. **Dungeons_and_Decisions_v3_2.txt** - Kernregelwerk
 3. **MAP_GENERATOR_SKILL.md** - Kartenregeln
 4. **ITEM_SYSTEM.md** - Gegenstände & Handel
@@ -12,6 +12,25 @@ Dokumentbasiertes Solo-Tabletop-RPG-System auf Deutsch, designed für AI-gestüt
 6. **WORLD_SETTING.md** - Weltlore
 7. **Charakterkarten** - Spielerdaten
 8. **session_skizze_v3_2.md** - Session-Planung
+
+## WICHTIGSTE REGELN (für alle LLMs!)
+
+### Session-Skizze ist VERBINDLICH
+- **ALLE Felder MÜSSEN ausgefüllt werden** - keine Lücken!
+- **KEINE Improvisation** - alles VOR dem Spiel vorbereiten
+- **Das Spiel folgt der Skizze** - nicht umgekehrt
+
+### Verbotene Ausreden
+Diese Begründungen sind UNGÜLTIG:
+- ❌ "Für mehr Spielfreiheit offen gelassen"
+- ❌ "Wird während des Spiels improvisiert"
+- ❌ "Details nicht wichtig für die Geschichte"
+- ❌ "Die Map improvisiere ich"
+
+### MAP-DATEN Pflicht
+- **Jede Location braucht MAP-DATEN** in der Session-Skizze
+- **Karten werden aus MAP-DATEN generiert** - nicht improvisiert
+- **Bei neuer Location:** Erst MAP-DATEN definieren, dann Karte erstellen
 
 ## Zitationssystem
 - **§X.X** - Regelwerk-Zitate (z.B. §2.1 für Würfelsystem)
@@ -119,10 +138,15 @@ Feature-Branches: `claude/*`
 
 ### Neue Session planen
 1. `session_skizze_v3_2.md` als Template
-2. Encounters mit HP, Taktiken, Schwächen definieren
-3. Loot und Gold-Balance planen
+2. **ALLE Felder ausfüllen** - keine Lücken!
+3. **MAP-DATEN für JEDE Location** definieren (Pflichtbereich!)
+4. Encounters mit HP, Taktiken, Schwächen definieren
+5. Loot und Gold-Balance planen
+6. **Keine Improvisation erlaubt** - alles VOR dem Spiel vorbereiten
 
 ### Kartenprobleme debuggen
-1. Symbole gegen `MAP_GENERATOR_SKILL.md` prüfen
-2. Layer-Priorität beachten (Dynamisch > Semi-Statisch > Statisch)
-3. Interior/Exterior-Regeln prüfen
+1. **MAP-DATEN in Session-Skizze prüfen** - sind sie vollständig?
+2. Symbole gegen `MAP_GENERATOR_SKILL.md` prüfen
+3. Layer-Priorität beachten (Dynamisch > Semi-Statisch > Statisch)
+4. Interior/Exterior-Regeln prüfen
+5. Karte muss MAP-DATEN 1:1 umsetzen
