@@ -6,6 +6,36 @@
 
 ---
 
+## ⛔ STOP! LIES DAS ZUERST!
+
+> **DU DARFST DAS SPIEL NICHT STARTEN, BIS DIESE SKIZZE VOLLSTÄNDIG IST!**
+
+### Was "vollständig" bedeutet:
+
+Diese Session-Skizze hat **10 PFLICHTBEREICHE**. Jeder Bereich MUSS ausgefüllt sein:
+
+| # | Bereich | Pflichtfelder |
+|---|---------|---------------|
+| 1 | 🎯 KERN | Titel, Hook, Konflikt, Zeitdruck |
+| 2 | 💰 PARTY-STATUS | Gold, HP aller Charaktere |
+| 3 | 🗺️ STRUKTUR | Alle 3 Akte mit Ort, Handlung, Hindernis |
+| 4 | 🗺️ MAP-DATEN | Für JEDE Location im vollen Template-Format |
+| 5 | ⚔️ ENCOUNTERS | Alle Feinde mit HP, Taktik, Schwäche, Loot |
+| 6 | 🎭 SOZIALE BEGEGNUNGEN | NPCs mit Motivation, Überzeugungswege |
+| 7 | 🔍 GEHEIMNISSE | Was findbar ist und wie |
+| 8 | 💎 LOOT & WIRTSCHAFT | Garantierte + optionale Beute mit Gold-Werten |
+| 9 | 🏁 MÖGLICHE ENDEN | Sieg, Niederlage, Flucht |
+| 10 | 🆘 NOTFALL-PLÄNE | Plan B, wenn Spieler steckenbleibt |
+
+### ❌ UNGÜLTIGE SKIZZE wenn:
+
+- Ein Bereich komplett fehlt
+- MAP-DATEN nicht im vollständigen Template-Format
+- Feinde ohne HP, Taktik ODER Schwäche
+- "Wird improvisiert" oder ähnliche Aussagen
+
+---
+
 ## ⚠️ VERBINDLICHKEITS-REGELN
 
 > **DIESE REGELN SIND NICHT VERHANDELBAR!**
@@ -491,5 +521,87 @@ ________________ vs. ________________
 
 ---
 
+## ✅ VALIDIERUNGS-CHECKLISTE (PFLICHT!)
+
+> **DU MUSST DIESE CHECKLISTE AM ENDE DEINER SESSION-SKIZZE AUSFÜLLEN!**
+> **Wenn ein Punkt ❌ ist, ist die Skizze UNGÜLTIG und muss ergänzt werden.**
+
+```
+╔══════════════════════════════════════════════════════════════════╗
+║            SESSION-SKIZZE VALIDIERUNG                            ║
+╠══════════════════════════════════════════════════════════════════╣
+║                                                                  ║
+║  PFLICHTBEREICHE:                                                ║
+║  ☐ 1. KERN ausgefüllt (Titel, Hook, Konflikt, Zeitdruck)        ║
+║  ☐ 2. PARTY-STATUS ausgefüllt (Gold, HP aller Charaktere)       ║
+║  ☐ 3. STRUKTUR ausgefüllt (alle 3 Akte komplett)                ║
+║  ☐ 4. MAP-DATEN für JEDE Location (im vollständigen Format!)    ║
+║  ☐ 5. ENCOUNTERS komplett (HP + Taktik + Schwäche + Loot)       ║
+║  ☐ 6. SOZIALE BEGEGNUNGEN definiert (NPC + Motivation)          ║
+║  ☐ 7. GEHEIMNISSE dokumentiert (Was + Wo + Wie findbar)         ║
+║  ☐ 8. LOOT & WIRTSCHAFT (garantiert + optional + Gold-Werte)    ║
+║  ☐ 9. MÖGLICHE ENDEN (Sieg + Niederlage + Flucht)               ║
+║  ☐ 10. NOTFALL-PLÄNE (Plan B wenn Spieler steckt)               ║
+║                                                                  ║
+║  MAP-DATEN VALIDIERUNG (pro Location):                          ║
+║  ☐ Typ (Interior/Exterior) angegeben                            ║
+║  ☐ Größe (10x10/15x15/20x20) angegeben                          ║
+║  ☐ Zugänge (N/O/S/W) definiert                                  ║
+║  ☐ Statische Elemente (Boden, Wände) definiert                  ║
+║  ☐ Möblierung & Dekoration aufgelistet                          ║
+║  ☐ Deckung & Gefahren markiert                                  ║
+║  ☐ Charaktere & NPCs mit Positionen                             ║
+║  ☐ Interaktive Objekte mit Effekten                             ║
+║                                                                  ║
+║  VERBOTENE INHALTE CHECK:                                        ║
+║  ☐ Keine "wird improvisiert" Aussagen                           ║
+║  ☐ Keine "offen für Spielfreiheit" Aussagen                     ║
+║  ☐ Keine leeren Felder oder "___"                               ║
+║  ☐ Keine "später entscheiden" Aussagen                          ║
+║                                                                  ║
+╠══════════════════════════════════════════════════════════════════╣
+║  ERGEBNIS: ☐ GÜLTIG (alle ✓)  ☐ UNGÜLTIG (mind. 1 ✗)           ║
+╚══════════════════════════════════════════════════════════════════╝
+```
+
+### Nach Ausfüllen dieser Checkliste:
+
+**Wenn GÜLTIG:** Du darfst das Spiel starten.
+
+**Wenn UNGÜLTIG:**
+1. Identifiziere fehlende Bereiche
+2. Ergänze alle fehlenden Informationen
+3. Validiere erneut
+4. Erst dann Spiel starten
+
+---
+
+## 📋 BEISPIEL: Korrekt ausgefüllte Validierung
+
+```
+╔══════════════════════════════════════════════════════════════════╗
+║            SESSION-SKIZZE VALIDIERUNG                            ║
+╠══════════════════════════════════════════════════════════════════╣
+║                                                                  ║
+║  PFLICHTBEREICHE:                                                ║
+║  ✓ 1. KERN ausgefüllt (Titel, Hook, Konflikt, Zeitdruck)        ║
+║  ✓ 2. PARTY-STATUS ausgefüllt (Gold, HP aller Charaktere)       ║
+║  ✓ 3. STRUKTUR ausgefüllt (alle 3 Akte komplett)                ║
+║  ✓ 4. MAP-DATEN für JEDE Location (im vollständigen Format!)    ║
+║  ✓ 5. ENCOUNTERS komplett (HP + Taktik + Schwäche + Loot)       ║
+║  ✓ 6. SOZIALE BEGEGNUNGEN definiert (NPC + Motivation)          ║
+║  ✓ 7. GEHEIMNISSE dokumentiert (Was + Wo + Wie findbar)         ║
+║  ✓ 8. LOOT & WIRTSCHAFT (garantiert + optional + Gold-Werte)    ║
+║  ✓ 9. MÖGLICHE ENDEN (Sieg + Niederlage + Flucht)               ║
+║  ✓ 10. NOTFALL-PLÄNE (Plan B wenn Spieler steckt)               ║
+║                                                                  ║
+║  [... weitere Checks alle ✓ ...]                                 ║
+║                                                                  ║
+╠══════════════════════════════════════════════════════════════════╣
+║  ERGEBNIS: ✓ GÜLTIG (alle ✓)  ☐ UNGÜLTIG (mind. 1 ✗)           ║
+╚══════════════════════════════════════════════════════════════════╝
+```
+
+---
 
 **Viel Erfolg! 🎲⚔️**
